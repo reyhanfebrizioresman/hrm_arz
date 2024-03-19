@@ -1,118 +1,32 @@
-<x-app-layout>
+@extends('layouts.template')
+@section('title','Dasboard')
+@section('sub-judul','Employee')
+@section('content')
+
 <div class="container">
-    <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary bg-primary mt-3 mb-5" data-toggle="modal" data-target="#exampleModal">
-    Add Employee
-  </button>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add Employee</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+    <div class="d-flex justify-content-end">
+        <a href="{{route('employee.create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Add Employee</a>
+    </div>
+  <div class="container mt-2">
+    <div class="row">
+        @foreach($employees as $employee)
+        <div class="col-md-3 mt-4">
+            <div class="card">
+                <img src="{{ asset('storage/pictures/' . $employee->picture) }}" class="card-img-top" alt="Employee Picture">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $employee->name }}</h5>
+                    <p class="card-text">Status: {{ $employee->employment_status}}</p>
+                    <p class="card-text">Joining Date: {{ $employee->joining_date }}</p>
+                    <div class="d-flex justify-content-end">
+                        <a href="{{route('employee.show' ,$employee->id)}}" class="btn btn-primary">Detail</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          <form action={{route('employee.store')}} method="POST" enctype="multipart/form-data">
-            @method('post')
-            @csrf
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" class="form-control" id="name" name="name">
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email">
-            </div>
-            <div class="form-group">
-                <label for="phone_number">Phone Number:</label>
-                <input type="tel" class="form-control" id="phone_number" name="phone_number">
-            </div>
-            <div class="form-group">
-                <label for="identity_no">Identity Number:</label>
-                <input type="number" class="form-control" id="identity_no" name="identity_no">
-            </div>
-            <div class="form-group">
-                <label for="gender">Gender:</label>
-                <select class="form-control" id="gender" name="gender">
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="city">City:</label>
-                <input type="text" class="form-control" id="city" name="city">
-            </div>
-            <div class="form-group">
-                <label for="date_of_birth">Date of Birth:</label>
-                <input type="date" class="form-control" id="date_of_birth" name="date_of_birth">
-            </div>
-            <div class="form-group">
-                <label for="address">Address:</label>
-                <textarea class="form-control" id="address" name="address"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="merried_status">Marital Status:</label>
-                <select class="form-control" id="marital_status" name="marital_status">
-                    <option value="single">Single</option>
-                    <option value="married">Married</option>
-                    <option value="divorced">Divorced</option>
-                    <option value="widowed">Widowed</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="employment_status">Employment Status:</label>
-                <select class="form-control" id="employment_status" name="employment_status">
-                    <option value="full-time">Full Time</option>
-                    <option value="part-time">Part Time</option>
-                    <option value="contract">Contract</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="picture">Picture:</label>
-                <input type="file" class="form-control-file" id="picture" name="picture">
-            </div>
-            <div class="form-group">
-                <label for="joining_date">Joining Date:</label>
-                <input type="date" class="form-control" id="joining_date" name="joining_date">
-            </div>
-            <div class="form-group">
-                <label for="exit_date">Exit Date:</label>
-                <input type="date" class="form-control" id="exit_date" name="exit_date">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        </div>
-      </div>
+        @endforeach
     </div>
   </div>
-    
-  <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone Number</th>
-                    <th>Identity No</th>
-                    <th>Gender</th>
-                    <th>City</th>
-                    <th>Date of Birth</th>
-                    <th>Address</th>
-                    <th>Marital Status</th>
-                    <th>Employment Status</th>
-                    <th>Picture</th>
-                    <th>Joining Date</th>
-                    <th>Exit Date</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($employees as $employee)
+                {{-- @foreach($employees as $employee)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $employee->name }}</td>
@@ -200,13 +114,9 @@
         </select>
     </div>
     <div class="form-group">
-    <label for="picture">Picture:</label><br>
-    @if ($employee->picture)
-        <img src="{{ asset('storage/pictures/' . $employee->picture) }}" alt="Employee Picture" style="max-width: 200px;">
-    @else
-        <p>No picture available</p>
-    @endif
-</div>
+        <label for="picture">Picture:</label>
+        <input type="file" class="form-control-file" id="picture" name="picture">
+    </div>
     <div class="form-group">
         <label for="joining_date">Joining Date:</label>
         <input type="date" class="form-control" id="joining_date" name="joining_date" value="{{ $employee->joining_date }}">
@@ -235,7 +145,7 @@
                 </tr>
                 @endforeach
             </tbody>
-        </table>
+        </table> --}}
   </div>
     </div>
-</x-app-layout>
+@endsection

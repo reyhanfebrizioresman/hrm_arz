@@ -60,7 +60,9 @@ class CareerHistoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $careerHistory = CareerHistory::findOrFail($id);
+        $careerHistory = $employee->careerHistories;
+        return view('carieerHistory.show',compact('careerHistory'));
     }
 
     /**
@@ -91,6 +93,7 @@ class CareerHistoryController extends Controller
             'date' => $request->date,
         ]);
         return redirect('carieerHistory');
+
     }
 
     /**

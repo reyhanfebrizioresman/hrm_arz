@@ -1,4 +1,7 @@
-<x-app-layout>
+@extends('layouts.template')
+@section('title','Dasboard')
+@section('sub-judul','Positions')
+@section('content')
     <div class="container">
         <!-- Button trigger modal -->
     <button type="button" class="btn bg-primary btn-primary mt-3 mb-5" data-toggle="modal" data-target="#exampleModal">
@@ -82,6 +85,7 @@
                             <button type="submit" class="btn btn-danger bg-danger btn-sm" onclick="return confirm('Are you sure you want to delete this employee?')">
                                 <i class="fas fa-trash"></i>
                             </button>
+                        </form>
                         </td>
                     </tr>
                     @endforeach
@@ -89,4 +93,4 @@
             </table>
       </div>
         </div>
-    </x-app-layout>
+@endsection

@@ -30,6 +30,6 @@ class EmployeeModel extends Model
 
     public function careerHistories()
     {
-        return $this->hasMany(CareerHistory::class);
+        return $this->hasMany(CareerHistory::class, 'employee_id');
     }
 }

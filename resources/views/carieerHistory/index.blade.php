@@ -1,4 +1,7 @@
-<x-app-layout>
+@extends('layouts.template')
+@section('title','Dasboard')
+@section('sub-judul','Home')
+@section('content')
     <div class="container">
         <!-- Button trigger modal -->
     <button type="button" class="btn bg-primary btn-primary mt-3 mb-5" data-toggle="modal" data-target="#exampleModal">
@@ -153,3 +156,4 @@
       </div>
         </div>
     </x-app-layout>
+@endsection

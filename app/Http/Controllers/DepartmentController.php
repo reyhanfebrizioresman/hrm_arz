@@ -71,7 +71,6 @@ class DepartmentController extends Controller
     public function destroy(string $id)
     {
         $departments = Department::findOrFail($id);
-        // $departments->tasks()->delete();
         $departments->delete();
         return redirect('departments');
 
