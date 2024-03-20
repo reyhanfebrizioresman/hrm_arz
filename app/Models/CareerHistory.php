@@ -15,7 +15,7 @@ class CareerHistory extends Model
     protected $table = 'career_history';
     protected $fillable = ['position_id','department_id','employee_id','date'];
 
-    public function employee()
+    public function employees()
     {
         return $this->belongsTo(EmployeeModel::class);
     }

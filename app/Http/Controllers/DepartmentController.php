@@ -21,7 +21,8 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        //
+        $departments = Department::all();
+        return view('departments.createOrupdate',compact('departments'));
     }
 
     /**
@@ -46,7 +47,8 @@ class DepartmentController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $department = Department::findOrFail($id);
+        return view('departments.createOrupdate',compact('department'));
     }
 
     /**
@@ -58,7 +60,7 @@ class DepartmentController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
-    
+
         $department->update([
             'name' => $request->name,
         ]);

@@ -26,6 +26,9 @@
         <li class="">
           <a href="{{url('/departments')}}" class="nav-link "><i class="fas fa-home"></i><span>Department</span></a>
         </li>
+        <li class="">
+          <a href="{{url('/carieerHistory/create')}}" class="nav-link "><i class="fas fa-home"></i><span>Create Career</span></a>
+        </li>
 
      
        

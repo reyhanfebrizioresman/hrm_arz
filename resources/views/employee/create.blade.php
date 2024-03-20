@@ -2,6 +2,15 @@
 @section('title','Dasboard')
 @section('sub-judul','Employee')
 @section('content')
+<style>
+    #image-preview {
+        width: 200px;
+        height: 200px;
+        border: 1px solid #ddd;
+        margin-top: 10px;
+        display: none;
+    }
+</style>
 <div class="card">
       <div class="card-header">
         <h4>Create Employee</h4>
@@ -68,7 +77,8 @@
                     </div>
                     <div class="form-group">
                         <label for="picture">Picture:</label>
-                        <input type="file" class="form-control-file" id="picture" name="picture">
+                        <input type="file" id="image" name="picture" onchange="previewImage(event)">
+                        <div id="image-preview"></div>
                     </div>
                     <div class="form-group">
                         <label for="joining_date">Joining Date:</label>
@@ -86,5 +96,17 @@
       </div>
     </form>
   </div>
+
+  <script>
+    function previewImage(event) {
+        const reader = new FileReader();
+        const imagePreview = document.getElementById('image-preview');
+        reader.onload = function() {
+            imagePreview.style.display = 'block';
+            imagePreview.innerHTML = `<img src="${reader.result}" alt="Image Preview" style="max-width: 100%; max-height: 100%;">`;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
 
 @endsection

@@ -1,12 +1,10 @@
-@extends('layouts.template')
-@section('title','Dasboard')
-@section('sub-judul','Home')
-@section('content')
+<x-app-layout>
+
     <div class="container">
         <!-- Button trigger modal -->
-    <button type="button" class="btn bg-primary btn-primary mt-3 mb-5" data-toggle="modal" data-target="#exampleModal">
-        Add carieerHistory
-      </button>
+        <div class=" mb-4 d-flex justify-content-end">
+            <a href="{{ route('carieerHistory.create') }}" class="btn btn-primary">Add Department</a>
+        </div>
 
       <!-- Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -79,7 +77,7 @@
                     @foreach($careerHistories as $careerHistory)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $careerHistory->employee->name }}</td>
+                        <td>{{ $careerHistory->employees->name }}</td>
                         <td>{{ $careerHistory->position->job_position }}</td>
                         <td>{{ $careerHistory->department->name }}</td>
                         <td>{{ date('d-m-Y', strtotime($careerHistory->date)) }}</td>
@@ -156,4 +154,3 @@
       </div>
         </div>
     </x-app-layout>
-@endsection

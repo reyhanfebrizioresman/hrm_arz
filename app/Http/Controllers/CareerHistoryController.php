@@ -18,7 +18,7 @@ class CareerHistoryController extends Controller
         $employees = EmployeeModel::all();
         $positions = Position::all();
         $departments = Department::all();
-        $careerHistories = CareerHistory::with('employee', 'position', 'department')->get();
+        $careerHistories = CareerHistory::with('employees', 'position', 'department')->get();
         return view('carieerHistory.index', compact('careerHistories','employees', 'positions', 'departments'));
     }
 
@@ -27,7 +27,11 @@ class CareerHistoryController extends Controller
      */
     public function create()
     {
-
+        $employees = EmployeeModel::all();
+        $positions = Position::all();
+        $departments = Department::all();
+        $careerHistories = CareerHistory::with('employees', 'position', 'department')->get();
+        return view('carieerHistory.create', compact('careerHistories','employees', 'positions', 'departments'));
     }
 
     /**
@@ -51,7 +55,7 @@ class CareerHistoryController extends Controller
         ]);
 
         // Redirect ke halaman yang sesuai setelah berhasil menyimpan
-        return redirect('carieerHistory');
+        return redirect('carieerHistory/create');
 
     }
 
@@ -70,7 +74,8 @@ class CareerHistoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $careerHistory = CareerHistory::findOrFail($id);
+        return view('carieerHistory.createOrupdate',compact('careerHistory'));
     }
 
     /**
