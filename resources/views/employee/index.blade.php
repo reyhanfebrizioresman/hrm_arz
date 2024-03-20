@@ -10,18 +10,28 @@
   <div class="container mt-2">
     <div class="row">
         @foreach($employees as $employee)
-        <div class="col-md-3 mt-4">
-            <div class="card">
-                <img src="{{ asset('storage/pictures/' . $employee->picture) }}" class="card-img-top" alt="Employee Picture">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $employee->name }}</h5>
-                    <p class="card-text">Status: {{ $employee->employment_status}}</p>
-                    <p class="card-text">Joining Date: {{ $employee->joining_date }}</p>
-                    <div class="d-flex justify-content-end">
+        <div class="col-md-6 mt-4">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row no-gutters">
+                  <div class="col-md-4">
+                    <img src="{{ asset('/storage/pictures/'. $employee->picture) }}" class="card-img" alt="..." style="max-width: 100%; max-height: 100%; margin: auto;">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ $employee->name }}</h5>
+                      <p class="card-text">
+                        <strong>Jenis Kelamin:</strong> {{ $employee->gender }}<br>
+                        <strong>Tempat Tanggal Lahir:</strong> {{ $employee->city }} {{ date('d-m-Y', strtotime($employee->date_of_birth)) }} <br>
+                        <strong>Alamat:</strong> {{ $employee->address }}<br>
+                        <strong>Status Pekerjaan:</strong> {{ $employee->employment_status }}
+                      </p>
+                      <div class="d-flex justify-content-end">
                         <a href="{{route('employee.show' ,$employee->id)}}" class="btn btn-primary">Detail</a>
                     </div>
+                    </div>
+                  </div>
                 </div>
-            </div>
+              </div>
         </div>
         @endforeach
     </div>

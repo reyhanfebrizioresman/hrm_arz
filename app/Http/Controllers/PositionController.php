@@ -21,7 +21,7 @@ class PositionController extends Controller
      */
     public function create()
     {
-        //
+        return view('positions.createOrupdate');
     }
 
     /**
@@ -46,7 +46,8 @@ class PositionController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $position = Position::findOrFail($id);
+        return view('positions.createOrupdate',compact('position'));
     }
 
     /**
@@ -58,7 +59,7 @@ class PositionController extends Controller
         $request->validate([
             'job_position' => 'required|string|max:255',
         ]);
-    
+
         $positions->update([
             'job_position' => $request->job_position,
         ]);
