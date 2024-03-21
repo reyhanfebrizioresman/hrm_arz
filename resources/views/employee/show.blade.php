@@ -58,56 +58,37 @@
                            <div class="col-md-6">
                                    <!-- Kolom pertama -->
                                    <div class="form-group">
-                                       <label for="name">Name:</label>
+                                       <label for="name">Nama:</label>
                                        <input type="text" class="form-control" id="name" name="name" value="{{ $employee->name }}" disabled>
-                                   </div>
-
-                                   <div class="form-group">
                                        <label for="email">Email:</label>
                                        <input type="email" class="form-control" id="email" name="email" value="{{ $employee->email }}" disabled>
-                                   </div>
-
-                                   <div class="form-group">
-                                       <label for="phone_number">Phone Number:</label>
+                                       <label for="phone_number">No Hp:</label>
                                        <input type="tel" class="form-control" id="phone_number" name="phone_number" value="{{ $employee->phone_number }}" disabled>
-                                   </div>
-
-                                   <div class="form-group">
-                                       <label for="identity_no">Identity Number:</label>
+                                       <label for="phone_number">No darurat:</label>
+                                       <input type="tel" class="form-control" id="phone_number" name="emergency_number" value="{{ $employee->emergency_number }}" disabled>
+                                       <label for="identity_no">No Identitas</label>
                                        <input type="number" class="form-control" id="identity_no" name="identity_no" value="{{ $employee->identity_no }}" disabled>
-                                   </div>
-
-                                   <div class="form-group">
-                                       <label for="name">Gender:</label>
-                                       <input type="text" class="form-control" id="name" name="name" value="{{ $employee->gender }}" disabled>
-                                   </div>
-                                   <div class="form-group">
-                                       <label for="name">Tanggal Ulang Tahun:</label>
+                                       <label for="name">Jenis Kelamin:</label>
+                                       <input type="text" class="form-control" id="name" name="gender" value="{{ $employee->gender }}" disabled>
+                                        <label for="name">Agama</label>
+                                       <input type="text" class="form-control" id="name" name="religion" value=" {{ $employee->religion }}" disabled>
+                                       <label for="address">Address:</label>
+                                        <textarea class="form-control" id="address" name="address" disabled>{{ $employee->address }}</textarea>
+                                       <label for="name">Tanggal lahir</label>
                                        <input type="text" class="form-control" id="name" name="name" value=" {{ date('d-F-Y', strtotime($employee->joining_date)) }}" disabled>
-                                   </div>
+                                    </div>
                            </div>
                            <div class="col-md-6">
 
                                <div class="form-group">
-                                   <label for="address">Address:</label>
-                                   <textarea class="form-control" id="address" name="address" disabled>{{ $employee->address }}</textarea>
-                               </div>
-                               <!-- Kolom kedua -->
-                               <div class="form-group">
+                                   <label for="name">Status:</label>
+                                   <input type="text" class="form-control" id="name" name="name" value="{{ $employee->status }}" disabled>
                                    <label for="name">Status Pernikahan:</label>
                                    <input type="text" class="form-control" id="name" name="name" value="{{ $employee->marital_status }}" disabled>
-                               </div>
-
-                               <div class="form-group">
                                    <label for="name">Status Pekerja:</label>
                                    <input type="text" class="form-control" id="name" name="name" value="{{ $employee->employment_status }}" disabled>
-                               </div>
-                               <div class="form-group">
                                    <label for="name">Joining Date:</label>
                                    <input type="text" class="form-control" id="name" name="name" value=" {{ date('d-F-Y', strtotime($employee->joining_date)) }}" disabled>
-                               </div>
-
-                               <div class="form-group">
                                    <label for="name">Exit Date:</label>
                                    <input type="text" class="form-control" id="name" name="name" value=" {{ date('d-F-Y', strtotime($employee->exit_date)) }}" disabled>
                                </div>

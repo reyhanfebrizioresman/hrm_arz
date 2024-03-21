@@ -36,7 +36,12 @@
                         <label for="picture">Picture:</label>
                         <input type="file" id="image" name="picture" onchange="previewImage(event)">
                         <div id="image-preview">
-                            <img src="{{ asset('storage/pictures/' . $employee->picture) }}" alt="Employee Picture" style="max-width: 200px; max-height: 200px;">  
+                            <!-- Display selected file name or placeholder -->
+                            @if ($employee->picture)
+                                <p>Selected Picture: {{ $employee->picture }}</p>
+                            @else
+                                <p>No picture selected</p>
+                            @endif
                         </div>
                     </div>
                     
@@ -137,16 +142,16 @@
 </div>
 
 
-  <script>
+<script>
     function previewImage(event) {
-        const reader = new FileReader();
-        const imagePreview = document.getElementById('image-preview');
-        reader.onload = function() {
-            imagePreview.style.display = 'block';
-            imagePreview.innerHTML = `<img src="${reader.result}" alt="Image Preview" style="max-width: 100%; max-height: 100%;">`;
-        };
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById('image-preview');
+            output.innerHTML = '<img src="' + reader.result + '" style="max-width: 200px; max-height: 200px;" />';
+        }
         reader.readAsDataURL(event.target.files[0]);
     }
 </script>
+
 
 @endsection

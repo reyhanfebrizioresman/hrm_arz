@@ -53,9 +53,9 @@ class EmployeeController extends Controller
             'joining_date' => 'required|date',
             'exit_date' => 'nullable|date', 
         ]);
-        if ($validate->fails()) {
-            return back()->with('errors', $validate->messages()->all()[0])->withInput();
-        }
+        // if ($validate->fails()) {
+        //     return back()->with('errors', $validate->messages()->all()[0])->withInput();
+        // }
         if ($request->hasFile('picture')) {
             $picture = $request->file('picture');
             // $fileName = time()."_".$picture->getClientOriginalName();
@@ -84,7 +84,7 @@ class EmployeeController extends Controller
             'exit_date' => $request->exit_date,
         ]);
         
-            return redirect()->route('employee..index')->with('success', 'Employee created successfully');
+            return redirect()->route('employee.index')->with('success', 'Employee created successfully');
     }
 
     /**
@@ -121,18 +121,22 @@ class EmployeeController extends Controller
     $employee = EmployeeModel::findOrFail($id);
     // Validasi request
     $request->validate([
-        'name' => 'required',
-        'email' => 'required|email',
-        'phone_number' => 'required',
-        'identity_no' => 'required',
-        'gender' => 'required',
-        'city' => 'required',
-        'date_of_birth' => 'required|date',
-        'address' => 'required',
-        'marital_status' => 'required',
-        'employment_status' => 'required',
-        'joining_date' => 'required|date',
-        'exit_date' => 'required|date',
+        'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:employee', // Unique email check
+            'phone_number' => 'required|string',
+            'identity_no' => 'required|string|unique:employee', // Unique ID check
+            'emergency_number' => 'required|string|unique:employee', // Unique ID check
+            'gender' => 'required|string',
+            'religion' => 'required|string',
+            'city' => 'required|string',
+            'date_of_birth' => 'required|date',
+            'address' => 'required|string',
+            'status' => 'required',
+            'marital_status' => 'required|string',
+            'employment_status' => 'required|string',
+            'picture' => 'image|mimes:jpeg,png,jpg', 
+            'joining_date' => 'required|date',
+            'exit_date' => 'nullable|date', 
     ]);
     // Atur nilai default untuk nama file gambar
     $fileName = $employee->picture;
@@ -155,11 +159,14 @@ class EmployeeController extends Controller
         'email' => $request->email,
         'picture' => $fileName,
         'phone_number' => $request->phone_number,
+        'emergency_number' => $request->emergency_number,
         'identity_no' => $request->identity_no,
         'gender' => $request->gender,
+        'religion' => $request->religion,
         'city' => $request->city,
         'date_of_birth' => $request->date_of_birth,
         'address' => $request->address,
+        'status' => $request->status,
         'marital_status' => $request->marital_status,
         'employment_status' => $request->employment_status,
         'joining_date' => $request->joining_date,
