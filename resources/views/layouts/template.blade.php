@@ -10,6 +10,7 @@
 <!-- /END GA --></head>
 
 <body>
+@include('sweetalert::alert')
 @include('layouts.navbar')
     
 

@@ -15,7 +15,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = EmployeeModel::all();
+        $employees = EmployeeModel::latest()->paginate(4);
         return view('employee.index',compact('employees'));
     }
 
@@ -35,21 +35,27 @@ class EmployeeController extends Controller
     {
         // ddd(request()->file('picture'));
         // Define validation rules for each field
-        $request->validate([
+        $validate = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:employee', // Unique email check
             'phone_number' => 'required|string',
             'identity_no' => 'required|string|unique:employee', // Unique ID check
+            'emergency_number' => 'required|string|unique:employee', // Unique ID check
             'gender' => 'required|string',
+            'religion' => 'required|string',
             'city' => 'required|string',
             'date_of_birth' => 'required|date',
             'address' => 'required|string',
+            'status' => 'required',
             'marital_status' => 'required|string',
             'employment_status' => 'required|string',
             'picture' => 'image|mimes:jpeg,png,jpg', 
             'joining_date' => 'required|date',
             'exit_date' => 'nullable|date', 
         ]);
+        if ($validate->fails()) {
+            return back()->with('errors', $validate->messages()->all()[0])->withInput();
+        }
         if ($request->hasFile('picture')) {
             $picture = $request->file('picture');
             // $fileName = time()."_".$picture->getClientOriginalName();
@@ -64,29 +70,21 @@ class EmployeeController extends Controller
             'email' => $request->email,
             'picture' => $fileName,
             'phone_number' => $request->phone_number,
+            'emergency_number' => $request->emergency_number,
             'identity_no' => $request->identity_no,
             'gender' => $request->gender,
+            'religion' => $request->religion,
             'city' => $request->city,
             'date_of_birth' => $request->date_of_birth,
             'address' => $request->address,
+            'status' => $request->status,
             'marital_status' => $request->marital_status,
             'employment_status' => $request->employment_status,
             'joining_date' => $request->joining_date,
             'exit_date' => $request->exit_date,
         ]);
-        // ddd(request()->file('picture'));
-
-        //  // Handle picture upload (optional)
-        //  if ($request->hasFile('picture')) {
-        //     $picture = $request->file('picture');
-        //     $fileName = Str::random(20) . '.' . $picture->getClientOriginalExtension();
-        //     $path = $picture->storeAs('public/pictures', $fileName);
-        // } else {
-        //     // Jika tidak ada gambar yang diunggah, berikan nilai default
-        //     $fileName = 'default.jpg';
-        // }
-
-        return redirect('employee');
+        
+            return redirect()->route('employee..index')->with('success', 'Employee created successfully');
     }
 
     /**
@@ -110,7 +108,8 @@ class EmployeeController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $employee = EmployeeModel::findOrFail($id);
+        return view('employee.edit',compact('employee'));
     }
 
     /**
@@ -180,7 +179,6 @@ class EmployeeController extends Controller
         if ($employee->picture) {
             Storage::delete('public/pictures/' . $employee->picture);
         }
-        // $departments->tasks()->delete();
         $employee->delete();
         return redirect('employee');
 

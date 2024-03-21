@@ -18,7 +18,7 @@ class CareerHistoryController extends Controller
         $employees = EmployeeModel::all();
         $positions = Position::all();
         $departments = Department::all();
-        $careerHistories = CareerHistory::with('employees', 'position', 'department')->get();
+        $careerHistories = CareerHistory::with('employee', 'position', 'department')->get();
         return view('carieerHistory.index', compact('careerHistories','employees', 'positions', 'departments'));
     }
 

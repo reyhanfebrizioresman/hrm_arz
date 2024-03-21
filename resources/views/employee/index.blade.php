@@ -11,31 +11,33 @@
     <div class="row">
         @foreach($employees as $employee)
         <div class="col-md-6 mt-4">
-            <div class="card mb-3" style="max-width: 540px;">
-                <div class="row no-gutters">
-                  <div class="col-md-4">
-                    <img src="{{ asset('/storage/pictures/'. $employee->picture) }}" class="card-img" alt="..." style="max-width: 100%; max-height: 100%; margin: auto;">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <h5 class="card-title">{{ $employee->name }}</h5>
-                      <p class="card-text">
-                        <strong>Jenis Kelamin:</strong> {{ $employee->gender }}<br>
-                        <strong>Tempat Tanggal Lahir:</strong> {{ $employee->city }} {{ date('d-m-Y', strtotime($employee->date_of_birth)) }} <br>
-                        <strong>Alamat:</strong> {{ $employee->address }}<br>
-                        <strong>Status Pekerjaan:</strong> {{ $employee->employment_status }}
-                      </p>
-                      <div class="d-flex justify-content-end">
-                        <a href="{{route('employee.show' ,$employee->id)}}" class="btn btn-primary">Detail</a>
+            <a href="{{ route('employee.show', $employee->id) }}" style="text-decoration: none; color: inherit;">
+                <div class="card mb-3 shadow-lg" style="max-width: 540px; max-height: 200px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="{{ asset('/storage/pictures/'. $employee->picture) }}" class="card-img h-100 w-100" style="max-height: 200px;" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $employee->name }}</h5>
+                                <p class="card-text">
+                                    {{ $employee->status }} <br>
+                                    {{ $employee->employment_status }} <br>
+                                    {{ date('d-F-Y', strtotime($employee->joining_date)) }}<br>
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    </div>
-                  </div>
                 </div>
-              </div>
+            </a>            
         </div>
         @endforeach
     </div>
+    <div class="pagination mt-3" style="display: flex; justify-content:center;">
+        {{ $employees->onEachSide(1)->render('pagination::bootstrap-4') }}
+    </div>
   </div>
+
                 {{-- @foreach($employees as $employee)
                 <tr>
                     <td>{{ $loop->iteration }}</td>

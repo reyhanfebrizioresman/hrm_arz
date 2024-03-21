@@ -16,11 +16,14 @@ return new class extends Migration
             $table->string('name', 255);
             $table->string('email', 255);
             $table->string('phone_number', 20);
+            $table->string('emergency_number', 20);
+            $table->enum('religion', ['islam', 'christianity', 'hinduism', 'buddhism','other']);
             $table->string('identity_no', 20)->unique();
             $table->enum('gender', ['male', 'female']);
             $table->string('city', 50);
             $table->date('date_of_birth');
             $table->text('address');
+            $table->enum('status', ['active', 'inactive']);
             $table->enum('marital_status', ['single', 'married', 'divorced', 'widowed']);
             $table->enum('employment_status', ['full-time', 'part-time', 'contract']);
             $table->string('picture')->nullable();
