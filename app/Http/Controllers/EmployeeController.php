@@ -7,15 +7,34 @@ use App\Models\EmployeeModel;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class EmployeeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $employees = EmployeeModel::latest()->paginate(4);
+    public function index(Request $request)
+    {   
+        $query = EmployeeModel::query();
+
+    if ($request->has('search')) {
+        $search = $request->search;
+        $query->where('name', 'like', "%$search%")
+              ->orWhere('email', 'like', "%$search%")
+              ->orWhere('phone_number', 'like', "%$search%")
+              ->orWhere('identity_no', 'like', "%$search%")
+              ->orWhere('gender', 'like', "%$search%")
+              ->orWhere('city', 'like', "%$search%")
+              ->orWhere('date_of_birth', 'like', "%$search%")
+              ->orWhere('address', 'like', "%$search%")
+              ->orWhere('marital_status', 'like', "%$search%")
+              ->orWhere('status', 'like', "%$search%")
+              ->orWhere('employment_status', 'like', "%$search%")
+              ->orWhere('joining_date', 'like', "%$search%")
+              ->orWhere('exit_date', 'like', "%$search%");
+    }
+        $employees = $query->paginate(10);
         return view('employee.index',compact('employees'));
     }
 
@@ -97,6 +116,24 @@ class EmployeeController extends Controller
         return view('employee.show',compact('employee'));
     }
 
+    public function toggleStatus($id)
+    {
+        // Temukan karyawan berdasarkan ID
+        $employee = EmployeeModel::findOrFail($id);
+
+        // Periksa status checkbox
+        if ($employee->status == 'active') {
+            $employee->status = 'inactive';
+        } else {
+            $employee->status = 'active';
+        }
+        // Simpan perubahan status
+        $employee->save();
+
+        // Kirim respons JSON dengan status berhasil
+        return redirect()->back()->with('success', 'Status karyawan berhasil diperbarui.');
+    }
+
     public function showCareer(Employee $employee)
     {
         $careerHistories = $employee->careerHistories;
@@ -120,24 +157,24 @@ class EmployeeController extends Controller
     // Cari employee yang akan diperbarui
     $employee = EmployeeModel::findOrFail($id);
     // Validasi request
-    $request->validate([
-        'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:employee', // Unique email check
-            'phone_number' => 'required|string',
-            'identity_no' => 'required|string|unique:employee', // Unique ID check
-            'emergency_number' => 'required|string|unique:employee', // Unique ID check
-            'gender' => 'required|string',
-            'religion' => 'required|string',
-            'city' => 'required|string',
-            'date_of_birth' => 'required|date',
-            'address' => 'required|string',
-            'status' => 'required',
-            'marital_status' => 'required|string',
-            'employment_status' => 'required|string',
-            'picture' => 'image|mimes:jpeg,png,jpg', 
-            'joining_date' => 'required|date',
-            'exit_date' => 'nullable|date', 
-    ]);
+    // $request->validate([
+    //     'name' => 'required|string|max:255',
+    //         'email' => 'required|email|unique:employee', // Unique email check
+    //         'phone_number' => 'required|string',
+    //         'identity_no' => 'required|string|unique:employee', // Unique ID check
+    //         'emergency_number' => 'required|string|unique:employee', // Unique ID check
+    //         'gender' => 'required|string',
+    //         'religion' => 'required|string',
+    //         'city' => 'required|string',
+    //         'date_of_birth' => 'required|date',
+    //         'address' => 'required|string',
+    //         'status' => 'required',
+    //         'marital_status' => 'required|string',
+    //         'employment_status' => 'required|string',
+    //         'picture' => 'image|mimes:jpeg,png,jpg', 
+    //         'joining_date' => 'required|date',
+    //         'exit_date' => 'required|date', 
+    // ]);
     // Atur nilai default untuk nama file gambar
     $fileName = $employee->picture;
 

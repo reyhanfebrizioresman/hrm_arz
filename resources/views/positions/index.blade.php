@@ -6,12 +6,11 @@
         <div class=" mb-4 d-flex justify-content-end">
             <a href="{{ route('positions.create') }}" class="btn btn-primary">Add Positions</a>
         </div>
-      <div class="table-responsive">
-            <table class="table table-bordered">
+            <table id="tabel_product" class="table datatable">
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Job Position</th>
+                        <th>Posisi Pekerjaan</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -33,6 +32,14 @@
                     @endforeach
                 </tbody>
             </table>
-      </div>
         </div>
+       
+
+        @section('addon')
+        <script>
+            $(document).ready( function () {
+            $('#tabel_product').DataTable();
+        } );
+        </script>
+        @endsection
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Position;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PositionController extends Controller
 {
@@ -30,6 +31,7 @@ class PositionController extends Controller
     public function store(Request $request)
     {
         Position::create($request->all());
+        // Alert::success('Congrats', 'You\'ve Successfully Registered'); 
         return redirect('positions');
     }
 

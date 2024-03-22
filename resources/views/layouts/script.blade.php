@@ -1,6 +1,8 @@
  <!-- General JS Scripts -->
  <script src="https://kit.fontawesome.com/4237c04efc.js" crossorigin="anonymous"></script>
+ <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <script src="{{url('stila/assets/modules/jquery.min.js')}}"></script>
+
 
  <script src="{{url('stila/assets/modules/popper.js')}}"></script>
  <script src="{{url('stila/assets/modules/tooltip.js')}}"></script>
@@ -16,7 +18,7 @@
  <script src="{{url('stila/assets/modules/summernote/summernote-bs4.js')}}"></script>
  <script src="{{url('stila/assets/modules/chocolat/dist/js/jquery.chocolat.min.js')}}"></script>
  <script src="{{url('stila/assets/modules/select2/dist/js/select2.full.min.js')}}"></script>
- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+ <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/2.0.2/js/dataTables.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
  <script src="{{url('stila/lightbox2/js/lightbox.min.js')}}"></script>
 

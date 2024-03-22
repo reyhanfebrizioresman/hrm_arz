@@ -4,10 +4,14 @@
 @section('content')
 
 <div class="container">
-    <div class="d-flex justify-content-end">
-        <a href="{{route('employee.create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Add Employee</a>
+    <div class="d-flex justify-content-between">
+        <form action="{{ route('employee.index') }}" method="GET" class="flex-grow-1 mr-2" id="searchForm">
+            <div class="input-group">
+                <input type="text" class="form-control form-control-sm" placeholder="Search" name="search" id="searchInput" value="{{ request('search') }}">
+            </div>
+        </form>
+        <a href="{{ route('employee.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add Employee</a>
     </div>
-  <div class="container mt-2">
     <div class="row">
         @foreach($employees as $employee)
         <div class="col-md-6 mt-4">
@@ -19,11 +23,15 @@
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title">{{ $employee->name }}</h5>
+                                <h5 class="card-title">{{ ucfirst($employee->name) }}</h5>
                                 <p class="card-text">
-                                    {{ $employee->status }} <br>
-                                    {{ $employee->employment_status }} <br>
-                                    {{ date('d-F-Y', strtotime($employee->joining_date)) }}<br>
+                                    @if($employee->status == 'active')
+                                        <span class="badge badge-success">{{ ucfirst($employee->status) }}</span>
+                                    @else
+                                        <span class="badge badge-danger">{{ ucfirst($employee->status) }}</span>
+                                    @endif <br>
+                                    {{ ucfirst($employee->employment_status) }} <br>
+                                    <span>Bekerja Sejak : </span>{{ date('d-F-Y', strtotime($employee->joining_date)) }}<br>
                                 </p>
                             </div>
                         </div>
@@ -160,4 +168,12 @@
         </table> --}}
   </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#searchInput').on('input', function() {
+                $('#searchForm').submit();
+            });
+        });
+    </script>
+
 @endsection

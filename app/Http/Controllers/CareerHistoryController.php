@@ -55,7 +55,7 @@ class CareerHistoryController extends Controller
         ]);
 
         // Redirect ke halaman yang sesuai setelah berhasil menyimpan
-        return redirect('carieerHistory/create');
+        return redirect('carieerHistory');
 
     }
 
@@ -106,6 +106,8 @@ class CareerHistoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $careerHistory = CareerHistory::findOrFail($id);
+        $careerHistory->delete();
+        return redirect()->back()->with('success', 'Career history successfully deleted.');
     }
 }

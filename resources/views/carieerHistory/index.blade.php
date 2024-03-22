@@ -65,7 +65,7 @@
       </div>
 
       <div class="table-responsive">
-            <table class="table table-bordered">
+            <table class="data table" id="tabel_product">
                 <thead>
                     <tr>
                         <th>No.</th>
@@ -155,4 +155,11 @@
             </table>
       </div>
         </div>
+        @section('addon')
+        <script>
+            $(document).ready( function () {
+            $('#tabel_product').DataTable();
+        } );
+        </script>
+        @endsection
         @endsection

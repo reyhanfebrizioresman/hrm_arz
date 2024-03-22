@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/departments', DepartmentController::class);
     Route::resource('/positions', PositionController::class);
     Route::resource('/carieerHistory', CareerHistoryController::class);
+    Route::patch('/employee/{id}/toggleStatus', [EmployeeController::class, 'toggleStatus'])->name('employee.toggleStatus');
     Route::get('employee/{employee}/career-history', [App\Http\Controllers\EmployeeController::class, 'showCareer'])->name('employee.careerHistory');
 });
 

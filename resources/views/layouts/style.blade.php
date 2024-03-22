@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="{{url('stila/assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css')}}">
   <link rel="stylesheet" href="{{url('stila/assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css')}}">
   <link rel="stylesheet" href="{{url('stila/assets/modules/select2/dist/css/select2.min.css')}}">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/2.0.2/css/dataTables.dataTables.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <link rel="stylesheet" href="{{url('stila/lightbox2/css/lightbox.min.css')}}">
   <!-- Template CSS -->

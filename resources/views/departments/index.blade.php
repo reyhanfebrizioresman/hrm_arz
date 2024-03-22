@@ -7,8 +7,7 @@
         <div class=" mb-4 d-flex justify-content-end">
             <a href="{{ route('departments.create') }}" class="btn btn-primary">Add Department</a>
         </div>
-      <div class="table-responsive">
-            <table class="table table-bordered">
+            <table id="tabel_product" class="table datatable">
                 <thead>
                     <tr>
                         <th>No.</th>
@@ -38,5 +37,13 @@
                 </tbody>
             </table>
       </div>
-        </div>
+
+
+        @section('addon')
+        <script>
+            $(document).ready( function () {
+            $('#tabel_product').DataTable();
+        } );
+        </script>
+        @endsection
     @endsection

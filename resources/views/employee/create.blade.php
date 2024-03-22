@@ -43,7 +43,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="name">Name:</label>
+                                    <label for="name">Nama:</label>
                                     <input type="text" class="form-control" id="name" name="name">
                                 </div>
                             </div>
@@ -55,71 +55,71 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="picture">Picture:</label>
+                            <label for="picture">Gambar:</label>
                             <input type="file" id="image" name="picture" onchange="previewImage(event)">
                             <div id="image-preview"></div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="phone_number">Phone Number:</label>
+                                    <label for="phone_number">No Hp:</label>
                                     <input type="tel" class="form-control" id="phone_number" name="phone_number">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="emergency_number">Emergency Number:</label>
+                                    <label for="emergency_number">No Darurat:</label>
                                     <input type="number" class="form-control" id="emergency_number" name="emergency_number">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="identity_no">Identity Number:</label>
+                            <label for="identity_no">No Identitas:</label>
                             <input type="number" class="form-control" id="identity_no" name="identity_no">
                         </div>
                         <div class="form-group">
-                            <label for="religion">Religion:</label>
+                            <label for="religion">Agama:</label>
                             <select class="form-control" id="religion" name="religion" required>
                                 <option value="">Select Religion</option>
                                 <option value="islam">Islam</option>
-                                <option value="christianity">Christianity</option>
-                                <option value="hinduism">Hinduism</option>
-                                <option value="buddhism">Buddhism</option>
-                                <option value="other">Other</option>
+                                <option value="christianity">Kristen</option>
+                                <option value="hinduism">Hindu</option>
+                                <option value="buddhism">Budha</option>
+                                <option value="other">Lainnya</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="gender">Gender:</label>
+                            <label for="gender">Jenis Kelamin:</label>
                             <select class="form-control" id="gender" name="gender">
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
+                                <option value="male">Laki - Laki</option>
+                                <option value="female">Perempuan</option>
                             </select>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="city">City:</label>
+                                    <label for="city">Kota:</label>
                                     <input type="text" class="form-control" id="city" name="city">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="date_of_birth">Date of Birth:</label>
+                                    <label for="date_of_birth">Tanggal Lahir</label>
                                     <input type="date" class="form-control" id="date_of_birth" name="date_of_birth">
                                 </div>
                             </div>
                         </div>
                 <div class="form-group">
-                            <label for="address">Address:</label>
+                            <label for="address">Alamat:</label>
                             <textarea class="form-control" id="address" name="address"></textarea>
                         </div>
                 <div class="form-group">
-                            <label for="marital_status">Marital Status:</label>
+                            <label for="marital_status">Status Pernikahan:</label>
                             <select class="form-control" id="marital_status" name="marital_status">
-                                <option value="single">Single</option>
-                                <option value="married">Married</option>
-                                <option value="divorced">Divorced</option>
-                                <option value="widowed">Widowed</option>
+                                <option value="single">Belum Menikah</option>
+                                <option value="married">Menikah</option>
+                                <option value="divorced">Cerai</option>
+                                <option value="widowed">Janda/Duda</option>
                             </select>
                         </div>
                     </div>
@@ -129,12 +129,12 @@
                         <div class="form-group">
                             <label for="status">Status:</label>
                             <select class="form-control" id="status" name="status" required>
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
+                                <option value="active">Aktif</option>
+                                <option value="inactive">Non Aktif</option>
                             </select>
                         </div>
                 <div class="form-group">
-                            <label for="employment_status">Employment Status:</label>
+                            <label for="employment_status">Status Karyawan:</label>
                             <select class="form-control" id="employment_status" name="employment_status">
                                 <option value="full-time">Full Time</option>
                                 <option value="part-time">Part Time</option>
@@ -142,11 +142,11 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="joining_date">Joining Date:</label>
+                            <label for="joining_date">Tanggal masuk:</label>
                             <input type="date" class="form-control" id="joining_date" name="joining_date">
                         </div>
                         <div class="form-group">
-                            <label for="exit_date">Exit Date:</label>
+                            <label for="exit_date">Tanggal Keluar:</label>
                             <input type="date" class="form-control" id="exit_date" name="exit_date">
                         </div>
                     </div>
