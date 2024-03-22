@@ -1,6 +1,6 @@
 @extends('layouts.template')
-@section('title','Dasboard')
-@section('sub-judul','Employee')
+@section('title','Dashboard')
+@section('sub-judul','Karyawan')
 @section('content')
 
 
@@ -23,16 +23,15 @@
             <a class="dropdown-item" href="{{ route('employee.edit', $employee->id) }}">Edit</a>
             <div class="dropdown-divider"></div>
             <div class="dropdown-item">
-                <label class="switch">
-                    <input type="checkbox" onchange="toggleEmployeeStatus({{ $employee->id }})" {{ $employee->status == 'active' ? 'checked' : '' }}>
-                    <span class="slider round"></span>
-                </label>
-                <span id="status-text-{{ $employee->id }}">{{ $employee->status == 'active' ? 'Aktif' : 'Non Aktif' }}</span>
+            <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="customSwitch" {{ $employee->status === 'active' ? 'checked' : '' }}>
+                    <label class="custom-control-label" for="customSwitch">Status</label>
+                </div>                            
             </div>
             <form id="toggle-form-{{ $employee->id }}" action="{{ route('employee.toggleStatus', $employee->id) }}" method="POST" style="display: none;">
                 @csrf
                 @method('PATCH')
-            </form>
+            </form>
         </div>
     </div>
     <!-- Isi tab -->
@@ -151,9 +150,8 @@
 </div>
 
 <script>
-    function toggleEmployeeStatus(employeeId) {
-        var formId = 'toggle-form-' + employeeId;
-        document.getElementById(formId).submit();
-    }
+    document.getElementById('customSwitch').addEventListener('change', function() {
+        document.getElementById('toggle-form-{{ $employee->id }}').submit();
+    });
 </script>
   @endsection

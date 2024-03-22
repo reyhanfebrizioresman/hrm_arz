@@ -1,6 +1,6 @@
 @extends('layouts.template')
-@section('title','Dasboard')
-@section('sub-judul','Employee')
+@section('title','Dashboard')
+@section('sub-judul','Karyawan')
 @section('content')
 <style>
     #image-preview {
@@ -30,7 +30,7 @@
     @endif --}}
     <div class="card">
         <div class="card-header">
-            <h4>Create Employee</h4>
+            <h4>Tambah Karyawan</h4>
         </div>
         <form action="{{ route('employee.store') }}" method="POST" enctype="multipart/form-data">
             @method('post')
@@ -159,7 +159,7 @@
                 </div>
             </div>
             <div class="card-footer text-right">
-                <button class="btn btn-primary">Save</button>
+                <button class="btn btn-primary">Simpan</button>
             </div>
         </form>
     </div>

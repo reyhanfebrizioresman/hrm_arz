@@ -1,6 +1,6 @@
 @extends('layouts.template')
-@section('title','Dasboard')
-@section('sub-judul','Employee')
+@section('title','Dashboard')
+@section('sub-judul','Karyawan')
 @section('content')
 <style>
     #image-preview {
@@ -14,7 +14,7 @@
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <h4>Update Employee</h4>
+            <h4>Perbarui Karyawan</h4>
         </div>
         <form action="{{ route('employee.update', $employee->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -33,7 +33,7 @@
                         <input type="email" class="form-control" id="email" name="email" value="{{ $employee->email }}">
                     </div>
                     <div class="form-group">
-                        <label for="image">Gambar:</label>
+                        <label for="image">Foto:</label>
                         <input type="file" class="form-control" name="picture" accept="image/*"
                             onchange="loadFile(event)">
                         <div class="image-box">
@@ -56,7 +56,7 @@
                     <div class="form-group">
                         <label for="religion">Agama:</label>
                         <select class="form-control" id="religion" name="religion" required>
-                            <option value="">Select Religion</option>
+                            <option value="">Pilih Agama</option>
                             <option value="islam" {{ $employee->religion == 'islam' ? 'selected' : '' }}>Islam</option>
                             <option value="christianity" {{ $employee->religion == 'christianity' ? 'selected' : '' }}>Kristen</option>
                             <option value="hinduism" {{ $employee->religion == 'hinduism' ? 'selected' : '' }}>Hindu</option>
@@ -126,7 +126,7 @@
                         <input type="date" class="form-control" id="exit_date" name="exit_date" value="{{ $employee->exit_date }}">
                     </div>
                     <div class="card-footer text-right">
-                        <button class="btn btn-primary">Update</button>
+                        <button class="btn btn-primary">Simpan Perubahan</button>
                     </div>
                 </div>
                 </div>

@@ -1,18 +1,18 @@
 @extends('layouts.template')
-@section('title','Dasboard')
-@section('sub-judul','Department')
+@section('title','Dashboard')
+@section('sub-judul','Departemen')
 @section('content')
     <div class="container">
         <!-- Button trigger modal -->
         <div class=" mb-4 d-flex justify-content-end">
-            <a href="{{ route('departments.create') }}" class="btn btn-primary">Add Department</a>
+            <a href="{{ route('departments.create') }}" class="btn btn-primary">Tambah Departemen</a>
         </div>
             <table id="tabel_product" class="table datatable">
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Name</th>
-                        <th>Action</th>
+                        <th>Nama</th>
+                        <th>Ubah</th>
                     </tr>
                 </thead>
                 <tbody>

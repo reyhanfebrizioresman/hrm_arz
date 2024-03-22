@@ -1,6 +1,6 @@
 @extends('layouts.template')
-@section('title','Dasboard')
-@section('sub-judul','Histori Karir')
+@section('title','Dashboard')
+@section('sub-judul','Riwayat Karir')
 @section('content')
 
     <div class="container">
@@ -14,7 +14,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add Employee</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Tambah Karyawan</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -24,7 +24,7 @@
     @csrf
 
     <div class="form-group">
-        <label for="employee_id">Employee:</label>
+        <label for="employee_id">Karyawan:</label>
         <select class="form-control" name="employee_id" id="employee_id">
             @foreach($employees as $employee)
                 <option value="{{ $employee->id }}">{{ $employee->name }}</option>
@@ -33,7 +33,7 @@
     </div>
 
     <div class="form-group">
-        <label for="position_id">Position:</label>
+        <label for="position_id">Posisi:</label>
         <select class="form-control" name="position_id" id="position_id">
             @foreach($positions as $position)
                 <option value="{{ $position->id }}">{{ $position->job_position }}</option>
@@ -42,7 +42,7 @@
     </div>
 
     <div class="form-group">
-        <label for="department_id">Department:</label>
+        <label for="department_id">Departemen:</label>
         <select class="form-control" name="department_id" id="department_id">
             @foreach($departments as $department)
                 <option value="{{ $department->id }}">{{ $department->name }}</option>
@@ -51,11 +51,11 @@
     </div>
 
     <div class="form-group">
-        <label for="date">Date:</label>
+        <label for="date">Tanggal:</label>
         <input type="date" class="form-control" name="date" id="date">
     </div>
 
-    <button type="submit" class="btn btn-primary mt-1">Submit</button>
+    <button type="submit" class="btn btn-primary mt-1">Kirim</button>
 </form>
 
 
@@ -69,11 +69,11 @@
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Employee</th>
-                        <th>Position</th>
-                        <th>Department</th>
-                        <th>Date</th>
-                        <th>Action</th>
+                        <th>Karyawan</th>
+                        <th>Posisi</th>
+                        <th>Departemen</th>
+                        <th>Tanggal</th>
+                        <th>Ubah</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,7 +94,7 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="editCareerHistoryModalLabel">Edit Career History</h5>
+                                            <h5 class="modal-title" id="editCareerHistoryModalLabel">Ubah Riwayat Karir</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -104,7 +104,7 @@
                                             @method('PUT')
                                             <div class="modal-body">
                                                 <div class="form-group">
-                                                    <label for="employee_id">Employee:</label>
+                                                    <label for="employee_id">Karir:</label>
                                                     <select class="form-control" name="employee_id" id="employee_id">
                                                         @foreach($employees as $employee)
                                                             <option value="{{ $employee->id }}" {{ $careerHistory->employee_id == $employee->id ? 'selected' : '' }}>{{ $employee->name }}</option>
@@ -112,7 +112,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="position_id">Position:</label>
+                                                    <label for="position_id">Posisi:</label>
                                                     <select class="form-control" name="position_id" id="position_id">
                                                         @foreach($positions as $position)
                                                             <option value="{{ $position->id }}" {{ $careerHistory->position_id == $position->id ? 'selected' : '' }}>{{ $position->job_position }}</option>
@@ -120,7 +120,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="department_id">Department:</label>
+                                                    <label for="department_id">Departemen:</label>
                                                     <select class="form-control" name="department_id" id="department_id">
                                                         @foreach($departments as $department)
                                                             <option value="{{ $department->id }}" {{ $careerHistory->department_id == $department->id ? 'selected' : '' }}>{{ $department->name }}</option>
@@ -128,13 +128,13 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="date">Date:</label>
+                                                    <label for="date">Tanggal:</label>
                                                     <input type="date" class="form-control" name="date" id="date" value="{{ $careerHistory->date }}">
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary bg-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary bg-primary">Save changes</button>
+                                                <button type="button" class="btn btn-secondary bg-secondary" data-dismiss="modal">Tutup</button>
+                                                <button type="submit" class="btn btn-primary bg-primary">Simpan Perubahan</button>
                                             </div>
                                         </form>
                                     </div>
