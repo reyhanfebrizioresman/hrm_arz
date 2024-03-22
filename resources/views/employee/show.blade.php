@@ -89,6 +89,8 @@
                                     <p>{{ $employee->address }}</p>
                                     <label for="date_of_birth">Tanggal lahir:</label>
                                     <p>{{ date('d-F-Y', strtotime($employee->date_of_birth)) }}</p>
+                                    <label for="date_of_birth">Tempat lahir:</label>
+                                    <p>{{ date('d-F-Y', strtotime($employee->place_of_birth)) }}</p>
                                 </div>
                                 <div class="col-3">
                                     <label for="status">Status:</label>

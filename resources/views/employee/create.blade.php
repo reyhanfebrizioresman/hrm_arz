@@ -104,6 +104,12 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label for="city">Tempat lahir:</label>
+                                    <input type="text" class="form-control" id="place_of_birth" name="place_of_birth">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
                                     <label for="date_of_birth">Tanggal Lahir</label>
                                     <input type="date" class="form-control" id="date_of_birth" name="date_of_birth">
                                 </div>

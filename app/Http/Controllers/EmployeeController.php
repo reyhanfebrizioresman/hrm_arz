@@ -65,6 +65,7 @@ class EmployeeController extends Controller
             'religion' => 'required|string',
             'city' => 'required|string',
             'date_of_birth' => 'required|date',
+            'place_of_birth' => 'required|string',
             'address' => 'required|string',
             'status' => 'required',
             'marital_status' => 'required|string',
@@ -96,6 +97,7 @@ class EmployeeController extends Controller
             'religion' => $request->religion,
             'city' => $request->city,
             'date_of_birth' => $request->date_of_birth,
+            'place_of_birth' => $request->place_of_birth,
             'address' => $request->address,
             'status' => $request->status,
             'marital_status' => $request->marital_status,
@@ -128,10 +130,9 @@ class EmployeeController extends Controller
         } else {
             $employee->status = 'active';
         }
-        Alert::success('Selamat', 'Status Karyawan Berhasil Di ubah'); 
         // Simpan perubahan status
         $employee->save();
-
+        Alert::success('Selamat', 'Status Karyawan Berhasil Di ubah'); 
         // Kirim respons JSON dengan status berhasil
         return redirect()->back()->with('success', 'Status karyawan berhasil diperbarui.');
     }
@@ -204,6 +205,7 @@ class EmployeeController extends Controller
         'religion' => $request->religion,
         'city' => $request->city,
         'date_of_birth' => $request->date_of_birth,
+        'place_of_birth' => $request->date_of_birth,
         'address' => $request->address,
         'status' => $request->status,
         'marital_status' => $request->marital_status,

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('gender', ['male', 'female']);
             $table->string('city', 50);
             $table->date('date_of_birth');
+            $table->string('place_of_birth', 50);
             $table->text('address');
             $table->enum('status', ['active', 'inactive']);
             $table->enum('marital_status', ['single', 'married', 'divorced', 'widowed']);
