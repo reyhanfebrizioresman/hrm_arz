@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Department;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class DepartmentController extends Controller
 {
@@ -13,6 +15,9 @@ class DepartmentController extends Controller
     public function index()
     {
         $departments = Department::all();
+        $title = 'Delete User!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
         return view('departments.index',compact('departments'));
     }
 
@@ -31,6 +36,7 @@ class DepartmentController extends Controller
     public function store(Request $request)
     {
         Department::create($request->all());
+        Alert::success('Selamat', 'Data Telah Berhasil di input'); 
         return redirect('departments');
     }
 
@@ -64,6 +70,7 @@ class DepartmentController extends Controller
         $department->update([
             'name' => $request->name,
         ]);
+        Alert::success('Selamat', 'Data Telah Berhasil di Update'); 
         return redirect('departments');
     }
 

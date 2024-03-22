@@ -17,15 +17,8 @@
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users"></i> <span>Karyawan</span></a>
           <ul class="dropdown-menu">
           <li><a class="nav-link" href="/employee">Data Karyawan</a></li>
-          <li><a class="nav-link" href="/employee/create">Buat Karyawan</a></li>
-          <li class="dropdown">
-            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-history"></i><span>Karir Histori</span></a>
-            <ul class="dropdown-menu">
-            <li class="">
-              <a href="{{url('/carieerHistory')}}" class="nav-link "></i><span>Data Karir</span></a>
-              <a href="{{url('/carieerHistory/create')}}" class="nav-link "></i><span>Tambah Karir</span></a>
-            </li>
-            </ul>
+          <li class="">
+            <a href="{{url('/carieerHistory')}}" class="nav-link "></i><span>Data Karir</span></a>
           </li>
           </ul>
           

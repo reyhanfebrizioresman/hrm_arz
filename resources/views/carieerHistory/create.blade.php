@@ -1,6 +1,6 @@
 @extends('layouts.template')
 @section('title','Dasboard')
-@section('sub-judul','Department')
+@section('sub-judul','Karir Histori')
 @section('content')
     <form action="{{ route('carieerHistory.store') }}" method="POST">
     @csrf

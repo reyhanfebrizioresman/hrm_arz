@@ -24,13 +24,13 @@
 
 
                         <!-- Tombol Delete -->
-                        <form action="{{ route('departments.destroy', $department->id) }}" method="POST" style="display: inline-block;">
+                        <a href="{{ route('departments.destroy', $department->id) }}" class="btn btn-danger btn-sm" data-confirm-delete="true">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                        <form id="delete-form-{{ $department->id }}" action="{{ route('departments.destroy', $department->id) }}" method="POST" style="display: none;">
                             @csrf
-                            @method('delete')
-                            <button type="submit" class="btn btn-danger bg-danger btn-sm" onclick="return confirm('Are you sure you want to delete this employee?')">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </form>
+                            @method('DELETE')
+                        </form> 
                         </td>
                     </tr>
                     @endforeach

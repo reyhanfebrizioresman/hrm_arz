@@ -76,9 +76,9 @@
                                     <div class="form-group">
                                         <label for="gender">Jenis Kelamin:</label>
                                         <p>{{ $employee->gender }}</p>
-                                        <label for="identity_no">No Identitas</label>
+                                        <label for="identity_no">No Identitas:</label>
                                         <p>{{ $employee->identity_no }}</p>
-                                        <label for="religion">Agama</label>
+                                        <label for="religion">Agama:</label>
                                         <p>{{ $employee->religion }}</p>
                                         <label for="address">Domisili:</label>
                                         <p>{{ $employee->city }}</p>
@@ -87,7 +87,7 @@
                                 <div class="col-3">
                                     <label for="address">Alamat:</label>
                                     <p>{{ $employee->address }}</p>
-                                    <label for="date_of_birth">Tanggal lahir</label>
+                                    <label for="date_of_birth">Tanggal lahir:</label>
                                     <p>{{ date('d-F-Y', strtotime($employee->date_of_birth)) }}</p>
                                 </div>
                                 <div class="col-3">
@@ -99,9 +99,9 @@
                                     @endif</p>
                                     <label for="employment_status">Status Pekerja:</label>
                                     <p>{{ $employee->employment_status }}</p>
-                                    <label for="joining_date">Tanggal Bergabung </label>
+                                    <label for="joining_date">Tanggal Bergabung: </label>
                                     <p>{{ date('d-F-Y', strtotime($employee->joining_date)) }}</p>
-                                    <label for="exit_date">Tanggal Keluar</label>
+                                    <label for="exit_date">Tanggal Keluar:</label>
                                     <p>{{ $employee->exit_date ? date('d-F-Y', strtotime($employee->exit_date)) : '-' }}</p>
                                 </div>
                             </div>

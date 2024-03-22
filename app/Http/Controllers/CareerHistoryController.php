@@ -7,6 +7,8 @@ use App\Models\CareerHistory;
 use App\Models\EmployeeModel;
 use App\Models\Position;
 use App\Models\Department;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class CareerHistoryController extends Controller
 {
@@ -15,10 +17,14 @@ class CareerHistoryController extends Controller
      */
     public function index()
     {
+        
         $employees = EmployeeModel::all();
         $positions = Position::all();
         $departments = Department::all();
         $careerHistories = CareerHistory::with('employee', 'position', 'department')->get();
+        $title = 'Delete User!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
         return view('carieerHistory.index', compact('careerHistories','employees', 'positions', 'departments'));
     }
 
@@ -53,8 +59,7 @@ class CareerHistoryController extends Controller
             'department_id' => $request->department_id,
             'date' => $request->date,
         ]);
-
-        // Redirect ke halaman yang sesuai setelah berhasil menyimpan
+        Alert::success('Selamat', 'Data Telah Berhasil di input'); 
         return redirect('carieerHistory');
 
     }
@@ -97,6 +102,7 @@ class CareerHistoryController extends Controller
             'department_id' => $request->department_id,
             'date' => $request->date,
         ]);
+        Alert::success('Selamat', 'Data Telah Berhasil di Update'); 
         return redirect('carieerHistory');
 
     }

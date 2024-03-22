@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class EmployeeController extends Controller
 {
@@ -102,7 +103,7 @@ class EmployeeController extends Controller
             'joining_date' => $request->joining_date,
             'exit_date' => $request->exit_date,
         ]);
-        
+            Alert::success('Selamat', 'Data Telah Berhasil di input'); 
             return redirect()->route('employee.index')->with('success', 'Employee created successfully');
     }
 
@@ -127,6 +128,7 @@ class EmployeeController extends Controller
         } else {
             $employee->status = 'active';
         }
+        Alert::success('Selamat', 'Status Karyawan Berhasil Di ubah'); 
         // Simpan perubahan status
         $employee->save();
 
@@ -209,7 +211,7 @@ class EmployeeController extends Controller
         'joining_date' => $request->joining_date,
         'exit_date' => $request->exit_date,
     ]);
-
+    Alert::success('Selamat', 'Data Telah Berhasil di Update'); 
     return redirect()->route('employee.index')->with('success', 'Employee updated successfully');
 }
 

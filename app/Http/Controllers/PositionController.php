@@ -14,6 +14,9 @@ class PositionController extends Controller
     public function index()
     {
         $positions = Position::all();
+        $title = 'Delete User!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
         return view('positions.index',compact('positions'));
     }
 
@@ -31,12 +34,12 @@ class PositionController extends Controller
     public function store(Request $request)
     {
         Position::create($request->all());
-        // Alert::success('Congrats', 'You\'ve Successfully Registered'); 
+        Alert::success('Selamat', 'Data Telah Berhasil di input'); 
         return redirect('positions');
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource
      */
     public function show(string $id)
     {
@@ -65,6 +68,7 @@ class PositionController extends Controller
         $positions->update([
             'job_position' => $request->job_position,
         ]);
+        Alert::success('Selamat', 'Data Telah Berhasil di input'); 
         return redirect('positions');
     }
 
@@ -76,6 +80,7 @@ class PositionController extends Controller
         $positions = Position::findOrFail($id);
         // $departments->tasks()->delete();
         $positions->delete();
+        Alert::success('Selamat', 'Data Telah Berhasil di Hapus'); 
         return redirect('positions');
     }
 }

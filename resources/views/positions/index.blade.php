@@ -20,13 +20,20 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $position->job_position }}</td>
                         <td><a href="{{ route('positions.edit',$position->id) }}" class="btn btn-primary  btn-sm"><i class="fas fa-edit"></i></a>
-                        <form action="{{ route('positions.destroy', $position->id) }}" method="POST" style="display: inline-block;">
+                            <a href="{{ route('positions.destroy', $position->id) }}" class="btn btn-danger btn-sm" data-confirm-delete="true">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                            <form id="delete-form-{{ $position->id }}" action="{{ route('positions.destroy', $position->id) }}" method="POST" style="display: none;">
+                                @csrf
+                                @method('DELETE')
+                            </form>                            
+                        {{-- <form action="{{ route('positions.destroy', $position->id) }}" method="POST" style="display: inline-block;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger bg-danger btn-sm" onclick="return confirm('Are you sure you want to delete this employee?')">
+                            <button type="submit" class="btn btn-danger bg-danger btn-sm" >
                                 <i class="fas fa-trash"></i>
                             </button>
-                        </form>
+                        </form> --}}
                         </td>
                     </tr>
                     @endforeach

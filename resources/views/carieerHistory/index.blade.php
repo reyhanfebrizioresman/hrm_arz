@@ -141,13 +141,13 @@
                                 </div>
                             </div>
                             
-                        <!-- Tombol Delete -->
-                        <form action="{{ route('carieerHistory.destroy', $careerHistory->id) }}" method="POST" style="display: inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger bg-danger btn-sm" onclick="return confirm('Are you sure you want to delete this employee?')">
+                            <a href="{{ route('carieerHistory.destroy', $careerHistory->id) }}" class="btn btn-danger btn-sm" data-confirm-delete="true">
                                 <i class="fas fa-trash"></i>
-                            </button>
+                            </a>
+                            <form id="delete-form-{{ $careerHistory->id }}" action="{{ route('carieerHistory.destroy', $careerHistory->id) }}" method="POST" style="display: none;">
+                                @csrf
+                                @method('DELETE')
+                            </form> 
                         </td>
                     </tr>
                     @endforeach
