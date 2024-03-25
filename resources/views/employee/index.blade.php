@@ -7,8 +7,14 @@
     <div class="d-flex justify-content-between">
         <form action="{{ route('employee.index') }}" method="GET" class="flex-grow-1 mr-2" id="searchForm">
             <div class="input-group">
-                <input type="text" class="form-control form-control-sm" placeholder="Search" name="search" id="searchInput" value="{{ request('search') }}">
+                <input type="text" class="form-control form-control" placeholder="Search" name="search" id="searchInput" value="{{ request('search') }}">
+                <div class="input-group-append">
+                    <span class="input-group-text input" id="searchIcon">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </div>
             </div>
+            
         </form>
         <a href="{{ route('employee.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add Employee</a>
     </div>
@@ -31,7 +37,7 @@
                                         <span class="badge badge-danger">{{ ucfirst($employee->status) }}</span>
                                     @endif <br>
                                     {{ ucfirst($employee->employment_status) }} <br>
-                                    <span>Bekerja Sejak : </span>{{ date('d-F-Y', strtotime($employee->joining_date)) }}<br>
+                                    <span>Bekerja Sejak: </span>{{ \Carbon\Carbon::parse($employee->joining_date)->diffForHumans() }}<br>
                                 </p>
                             </div>
                         </div>

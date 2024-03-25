@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Department;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Validator;
 
 
 class DepartmentController extends Controller
@@ -15,7 +16,7 @@ class DepartmentController extends Controller
     public function index()
     {
         $departments = Department::all();
-        $title = 'Delete User!';
+        $title = 'Delete Department!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
         return view('departments.index',compact('departments'));
@@ -35,8 +36,17 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+        ]);
+        
+        if ($validator->fails()) {
+            Alert::error('Error', 'Validation Gagal. Input Tidak boleh kosong.');
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        
         Department::create($request->all());
-        Alert::success('Selamat', 'Data Telah Berhasil di input'); 
+        Alert::success('Success', 'Data Berhasil Di Input.');
         return redirect('departments');
     }
 

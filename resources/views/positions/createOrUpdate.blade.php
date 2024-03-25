@@ -18,7 +18,7 @@
         </button>
     </div>
     @endif --}}
-<form action="{{ isset($position) ? route('positions.update', $position->id) : route('positions.store') }}" method="POST">
+<form id="myForm" action="{{ isset($position) ? route('positions.update', $position->id) : route('positions.store') }}" method="POST">
     @csrf
     @if(isset($position))
         @method('PUT')
@@ -30,6 +30,5 @@
     </div>
     <button type="submit" class="btn btn-primary">{{ isset($position) ? 'Update' : 'Create' }}</button>
 </form>
-
 
 @endsection

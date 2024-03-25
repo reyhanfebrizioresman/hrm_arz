@@ -3,7 +3,11 @@
 @section('sub-judul','Employee')
 @section('content')
 
-
+<style>
+    .bold-label {
+        font-weight: bold;
+    }
+</style>
 
 <div class="container rounded bg-white">
     <!-- Tab navigasi -->
@@ -23,16 +27,16 @@
             <a class="dropdown-item" href="{{ route('employee.edit', $employee->id) }}">Edit</a>
             <div class="dropdown-divider"></div>
             <div class="dropdown-item">
-                <label class="switch">
-                    <input type="checkbox" onchange="toggleEmployeeStatus({{ $employee->id }})" {{ $employee->status == 'active' ? 'checked' : '' }}>
-                    <span class="slider round"></span>
-                </label>
-                <span id="status-text-{{ $employee->id }}">{{ $employee->status == 'active' ? 'Aktif' : 'Non Aktif' }}</span>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="customSwitch" {{ $employee->status === 'active' ? 'checked' : '' }}>
+                    <label class="custom-control-label" for="customSwitch">Status</label>
+                </div>                            
             </div>
             <form id="toggle-form-{{ $employee->id }}" action="{{ route('employee.toggleStatus', $employee->id) }}" method="POST" style="display: none;">
                 @csrf
                 @method('PATCH')
             </form>
+            
         </div>
     </div>
     <!-- Isi tab -->
@@ -45,7 +49,7 @@
                     <div class="card shadow-md">
                         <div class="card-body text-center">
                             <!-- Gambar bundar -->
-                            <img src="{{ asset('/storage/pictures/'. $employee->picture) }}" class="card-img rounded-circle mx-auto d-block mb-3" alt="Profile Picture" style="width: 200px; height: 200px;">
+                            <img src="{{ asset('/storage/pictures/'. $employee->picture) }}" class="card-img rounded-circle mx-auto d-block mb-3" alt="Profile Picture" style="width: 150px; height: 150px;">
                             <!-- Nama -->
                             <h5 class="card-title">{{ $employee->name }}</h5>
                             <!-- Email -->
@@ -59,56 +63,49 @@
                         <div class="card-body">
                             <!-- Form Employee -->
                             <div class="row">
-                                <div class="col-3">
-                                    <!-- Kolom pertama -->
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="name">Nama:</label>
+                                        <label for="name" class="bold-label">Nama:</label>
                                         <p>{{ $employee->name }}</p>
-                                        <label for="email">Email:</label>
+                                        <label for="email" class="bold-label">Email:</label>
                                         <p>{{ $employee->email }}</p>
-                                        <label for="phone_number">No Hp:</label>
+                                        <label for="phone_number" class="bold-label">No Hp:</label>
                                         <p>{{ $employee->phone_number }}</p>
-                                        <label for="phone_number">No darurat:</label>
+                                        <label for="phone_number" class="bold-label">No darurat:</label>
                                         <p>{{ $employee->emergency_number }}</p>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="form-group">
-                                        <label for="gender">Jenis Kelamin:</label>
+                                        <label for="gender"> class="bold-label"Jenis Kelamin:</label>
                                         <p>{{ $employee->gender }}</p>
-                                        <label for="identity_no">No Identitas:</label>
+                                        <label for="identity_no" class="bold-label">No Identitas:</label>
                                         <p>{{ $employee->identity_no }}</p>
-                                        <label for="religion">Agama:</label>
+                                        <label for="religion" class="bold-label">Agama:</label>
                                         <p>{{ $employee->religion }}</p>
-                                        <label for="address">Domisili:</label>
+                                        <label for="address" class="bold-label">Domisili:</label>
                                         <p>{{ $employee->city }}</p>
+                                        <label for="address" class="bold-label">Alamat:</label>
+                                        <p>{{ $employee->address }}</p>
                                     </div>
                                 </div>
-                                <div class="col-3">
-                                    <label for="address">Alamat:</label>
-                                    <p>{{ $employee->address }}</p>
-                                    <label for="date_of_birth">Tanggal lahir:</label>
-                                    <p>{{ date('d-F-Y', strtotime($employee->date_of_birth)) }}</p>
-                                    <label for="date_of_birth">Tempat lahir:</label>
-                                    <p>{{ date('d-F-Y', strtotime($employee->place_of_birth)) }}</p>
-                                </div>
-                                <div class="col-3">
-                                    <label for="status">Status:</label>
-                                    <p>@if($employee->status == 'active')
-                                        <span class="badge badge-success">{{ ucfirst($employee->status) }}</span>
-                                    @else
-                                        <span class="badge badge-danger">{{ ucfirst($employee->status) }}</span>
-                                    @endif</p>
-                                    <label for="employment_status">Status Pekerja:</label>
-                                    <p>{{ $employee->employment_status }}</p>
-                                    <label for="joining_date">Tanggal Bergabung: </label>
-                                    <p>{{ date('d-F-Y', strtotime($employee->joining_date)) }}</p>
-                                    <label for="exit_date">Tanggal Keluar:</label>
-                                    <p>{{ $employee->exit_date ? date('d-F-Y', strtotime($employee->exit_date)) : '-' }}</p>
+                                <div class="col-md-6">
+                                        <label for="date_of_birth" class="bold-label">Tanggal lahir:</label>
+                                        <p>{{ date('d-F-Y', strtotime($employee->date_of_birth)) }}</p>
+                                        <label for="date_of_birth" class="bold-label">Tempat lahir:</label>
+                                        <p>{{ $employee->place_of_birth }}</p>
+                                        <label for="status" class="bold-label">Status:</label>
+                                        <p>@if($employee->status == 'active')
+                                            <span class="badge badge-success">{{ ucfirst($employee->status) }}</span>
+                                        @else
+                                            <span class="badge badge-danger">{{ ucfirst($employee->status) }}</span>
+                                        @endif</p>
+                                        <label for="employment_status" class="bold-label">Status Pekerja:</label>
+                                        <p>{{ $employee->employment_status }}</p>
+                                        <label for="joining_date" class="bold-label">Tanggal Bergabung: </label>
+                                        <p>{{ date('d-F-Y', strtotime($employee->joining_date)) }}</p>
+                                        <label for="exit_date" class="bold-label">Tanggal Keluar:</label>
+                                        <p>{{ $employee->exit_date ? date('d-F-Y', strtotime($employee->exit_date)) : '-' }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -151,9 +148,8 @@
 </div>
 
 <script>
-    function toggleEmployeeStatus(employeeId) {
-        var formId = 'toggle-form-' + employeeId;
-        document.getElementById(formId).submit();
-    }
+    document.getElementById('customSwitch').addEventListener('change', function() {
+        document.getElementById('toggle-form-{{ $employee->id }}').submit();
+    });
 </script>
   @endsection

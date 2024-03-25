@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Position;
 use RealRashid\SweetAlert\Facades\Alert;
-
+use Illuminate\Support\Facades\Validator;
 class PositionController extends Controller
 {
     /**
@@ -14,7 +14,7 @@ class PositionController extends Controller
     public function index()
     {
         $positions = Position::all();
-        $title = 'Delete User!';
+        $title = 'Delete Position!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
         return view('positions.index',compact('positions'));
@@ -33,8 +33,17 @@ class PositionController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'job_position' => 'required|string|max:255',
+        ]);
+        
+        if ($validator->fails()) {
+            Alert::error('Error', 'Validation failed. Please check your input.');
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        
         Position::create($request->all());
-        Alert::success('Selamat', 'Data Telah Berhasil di input'); 
+        Alert::success('Success', 'Data has been successfully inserted.');
         return redirect('positions');
     }
 

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\EmployeeModel;
+use App\Models\CareerHistory;
+use App\Models\Position;
+use App\Models\Department;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -17,6 +20,7 @@ class EmployeeController extends Controller
      */
     public function index(Request $request)
     {   
+        
         $query = EmployeeModel::query();
 
     if ($request->has('search')) {
@@ -35,7 +39,8 @@ class EmployeeController extends Controller
               ->orWhere('joining_date', 'like', "%$search%")
               ->orWhere('exit_date', 'like', "%$search%");
     }
-        $employees = $query->paginate(10);
+    //withQuertyString agar query tetap ada di page selanjut nya
+        $employees = $query->paginate(10)->withQueryString();
         return view('employee.index',compact('employees'));
     }
 
@@ -45,7 +50,10 @@ class EmployeeController extends Controller
     public function create()
     {
         $employees = EmployeeModel::all();
-        return view('employee.create',compact('employees'));
+        $positions = Position::all();
+        $departments = Department::all();
+        $careerHistories = CareerHistory::with('employee', 'position', 'department')->get();
+        return view('employee.create',compact('careerHistories','employees', 'positions', 'departments'));
     }
 
     /**
@@ -53,8 +61,6 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        // ddd(request()->file('picture'));
-        // Define validation rules for each field
         $validate = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:employee', // Unique email check
@@ -74,9 +80,10 @@ class EmployeeController extends Controller
             'joining_date' => 'required|date',
             'exit_date' => 'nullable|date', 
         ]);
-        // if ($validate->fails()) {
-        //     return back()->with('errors', $validate->messages()->all()[0])->withInput();
-        // }
+        if($validate->fails()){
+            Alert::error('Error', 'Validation Gagal. Input Tidak boleh kosong.');
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
         if ($request->hasFile('picture')) {
             $picture = $request->file('picture');
             // $fileName = time()."_".$picture->getClientOriginalName();
@@ -105,6 +112,12 @@ class EmployeeController extends Controller
             'joining_date' => $request->joining_date,
             'exit_date' => $request->exit_date,
         ]);
+        CareerHistory::create([
+                'employee_id' => $employee->id,
+                'position_id' => $request->position_id,
+                'department_id' => $request->department_id,
+                'date' => $request->date,
+            ]);
             Alert::success('Selamat', 'Data Telah Berhasil di input'); 
             return redirect()->route('employee.index')->with('success', 'Employee created successfully');
     }
@@ -213,6 +226,8 @@ class EmployeeController extends Controller
         'joining_date' => $request->joining_date,
         'exit_date' => $request->exit_date,
     ]);
+
+    // 
     Alert::success('Selamat', 'Data Telah Berhasil di Update'); 
     return redirect()->route('employee.index')->with('success', 'Employee updated successfully');
 }

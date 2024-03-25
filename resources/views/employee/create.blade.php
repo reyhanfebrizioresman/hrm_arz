@@ -98,8 +98,8 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="city">Kota:</label>
-                                    <input type="text" class="form-control" id="city" name="city">
+                                    <label for="date_of_birth">Tanggal Lahir</label>
+                                    <input type="date" class="form-control" id="date_of_birth" name="date_of_birth">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -110,15 +110,18 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="date_of_birth">Tanggal Lahir</label>
-                                    <input type="date" class="form-control" id="date_of_birth" name="date_of_birth">
+                                    <label for="city">Domisili:</label>
+                                    <input type="text" class="form-control" id="city" name="city">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="address">Alamat:</label>
+                                    <textarea class="form-control" id="address" name="address"></textarea>
                                 </div>
                             </div>
                         </div>
-                <div class="form-group">
-                            <label for="address">Alamat:</label>
-                            <textarea class="form-control" id="address" name="address"></textarea>
-                        </div>
+                
                 <div class="form-group">
                             <label for="marital_status">Status Pernikahan:</label>
                             <select class="form-control" id="marital_status" name="marital_status">
@@ -154,6 +157,31 @@
                         <div class="form-group">
                             <label for="exit_date">Tanggal Keluar:</label>
                             <input type="date" class="form-control" id="exit_date" name="exit_date">
+                        </div>
+                        <h5>Karir Histori</h5>
+                       
+                    
+                        <div class="form-group">
+                            <label for="position_id">Position:</label>
+                            <select class="form-control" name="position_id" id="position_id">
+                                @foreach($positions as $position)
+                                    <option value="{{ $position->id }}">{{ $position->job_position }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label for="department_id">Department:</label>
+                            <select class="form-control" name="department_id" id="department_id">
+                                @foreach($departments as $department)
+                                    <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label for="date">Date:</label>
+                            <input type="date" class="form-control" name="date" id="date">
                         </div>
                     </div>
                 </div>
