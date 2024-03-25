@@ -12,7 +12,7 @@
         <ul class="navbar-nav navbar-right">
           <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a>
             <div class="dropdown-menu dropdown-list dropdown-menu-right">
-              <div class="dropdown-header">Messages
+              <div class="dropdown-header">Pesan
                 <div class="float-right">
                   <a href="#">Mark All As Read</a>
                 </div>
@@ -78,7 +78,7 @@
           </li>
           <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a>
             <div class="dropdown-menu dropdown-list dropdown-menu-right">
-              <div class="dropdown-header">Notifications
+              <div class="dropdown-header">Notifikasi
                 <div class="float-right">
                   <a href="#">Mark All As Read</a>
                 </div>
@@ -140,20 +140,20 @@
           <div class="d-sm-none d-lg-inline-block">{{ Auth::user()->name }}</div></a>
             <div class="dropdown-menu dropdown-menu-right">
               <a href="features-profile.html" class="dropdown-item has-icon">
-                <i class="far fa-user"></i> Profile
+                <i class="far fa-user"></i> Profil
               </a>
               <a href="features-activities.html" class="dropdown-item has-icon">
-                <i class="fas fa-bolt"></i> Activities
+                <i class="fas fa-bolt"></i> Kegiatan
               </a>
               <a href="features-settings.html" class="dropdown-item has-icon">
-                <i class="fas fa-cog"></i> Settings
+                <i class="fas fa-cog"></i> Pengaturan
               </a>
               <form method="POST" action="{{ route('logout') }}">
                 @csrf
               <a href="route('logout')"
               onclick="event.preventDefault();
                           this.closest('form').submit();" class="dropdown-item has-icon">
-                <i class="fas fa-sign-out-alt"></i> {{ __('Log Out') }}
+                <i class="fas fa-sign-out-alt"></i> {{ __('Keluar') }}
               </a>
               </form>
             </div>

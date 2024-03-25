@@ -1,6 +1,6 @@
 @extends('layouts.template')
-@section('title','Dasboard')
-@section('sub-judul','Employee')
+@section('title','Dashboard')
+@section('sub-judul','Karyawan')
 @section('content')
 
 <style>
@@ -27,7 +27,11 @@
             <a class="dropdown-item" href="{{ route('employee.edit', $employee->id) }}">Edit</a>
             <div class="dropdown-divider"></div>
             <div class="dropdown-item">
+<<<<<<< HEAD
                 <div class="custom-control custom-switch">
+=======
+            <div class="custom-control custom-switch">
+>>>>>>> 46d230574e391b2d00acb01c9b9be6880c027228
                     <input type="checkbox" class="custom-control-input" id="customSwitch" {{ $employee->status === 'active' ? 'checked' : '' }}>
                     <label class="custom-control-label" for="customSwitch">Status</label>
                 </div>                            
@@ -35,8 +39,12 @@
             <form id="toggle-form-{{ $employee->id }}" action="{{ route('employee.toggleStatus', $employee->id) }}" method="POST" style="display: none;">
                 @csrf
                 @method('PATCH')
+<<<<<<< HEAD
             </form>
             
+=======
+            </form>
+>>>>>>> 46d230574e391b2d00acb01c9b9be6880c027228
         </div>
     </div>
     <!-- Isi tab -->
@@ -150,6 +158,10 @@
 <script>
     document.getElementById('customSwitch').addEventListener('change', function() {
         document.getElementById('toggle-form-{{ $employee->id }}').submit();
+<<<<<<< HEAD
     });
+=======
+    });
+>>>>>>> 46d230574e391b2d00acb01c9b9be6880c027228
 </script>
   @endsection

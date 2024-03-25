@@ -1,17 +1,17 @@
 @extends('layouts.template')
-@section('title','Dasboard')
-@section('sub-judul','Positions')
+@section('title','Dashboard')
+@section('sub-judul','Posisi')
 @section('content')
     <div class="container">
         <div class=" mb-4 d-flex justify-content-end">
-            <a href="{{ route('positions.create') }}" class="btn btn-primary">Add Positions</a>
+            <a href="{{ route('positions.create') }}" class="btn btn-primary">Tambah Posisi</a>
         </div>
             <table id="tabel_product" class="table datatable">
                 <thead>
                     <tr>
                         <th>No.</th>
                         <th>Posisi Pekerjaan</th>
-                        <th>Action</th>
+                        <th>Ubah</th>
                     </tr>
                 </thead>
                 <tbody>

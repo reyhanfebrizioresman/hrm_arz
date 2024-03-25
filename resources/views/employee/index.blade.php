@@ -1,6 +1,6 @@
 @extends('layouts.template')
-@section('title','Dasboard')
-@section('sub-judul','Employee')
+@section('title','Dashboard')
+@section('sub-judul','Karyawan')
 @section('content')
 
 <div class="container">
@@ -16,7 +16,7 @@
             </div>
             
         </form>
-        <a href="{{ route('employee.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add Employee</a>
+        <a href="{{ route('employee.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Karyawan</a>
     </div>
     <div class="row">
         @foreach($employees as $employee)
@@ -78,7 +78,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editEmployeeModalLabel">Edit Employee</h5>
+                <h5 class="modal-title" id="editEmployeeModalLabel">Ubah Karyawan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -88,7 +88,7 @@
     @method('PUT')
 
     <div class="form-group">
-        <label for="name">Name:</label>
+        <label for="name">Nama:</label>
         <input type="text" class="form-control" id="name" name="name" value="{{ $employee->name }}">
     </div>
     <div class="form-group">
@@ -96,15 +96,15 @@
         <input type="email" class="form-control" id="email" name="email" value="{{ $employee->email }}">
     </div>
     <div class="form-group">
-        <label for="phone_number">Phone Number:</label>
+        <label for="phone_number">No HP:</label>
         <input type="tel" class="form-control" id="phone_number" name="phone_number" value="{{ $employee->phone_number }}">
     </div>
     <div class="form-group">
-        <label for="identity_no">Identity Number:</label>
+        <label for="identity_no">No Identitas:</label>
         <input type="number" class="form-control" id="identity_no" name="identity_no" value="{{ $employee->identity_no }}">
     </div>
     <div class="form-group">
-        <label for="gender">Gender:</label>
+        <label for="gender">Jenis Kelamin:</label>
         <select class="form-control" id="gender" name="gender">
             <option value="male" {{ $employee->gender == 'male' ? 'selected' : '' }}>Male</option>
             <option value="female" {{ $employee->gender == 'female' ? 'selected' : '' }}>Female</option>
@@ -152,7 +152,7 @@
         <input type="date" class="form-control" id="exit_date" name="exit_date" value="{{ $employee->exit_date }}">
     </div>
 
-    <button type="submit" class="btn btn-primary">Update</button>
+    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
 </form>
 
         </div>
@@ -164,7 +164,7 @@
                     <form action="{{ route('employee.destroy', $employee->id) }}" method="POST" style="display: inline-block;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm bg-danger mt-1" onclick="return confirm('Are you sure you want to delete this employee?')">
+                        <button type="submit" class="btn btn-danger btn-sm bg-danger mt-1" onclick="return confirm('Apakah kamu ingin menghapus karyawan ini?')">
                             <i class="fas fa-trash"></i>
                         </button>
                     </td>
