@@ -14,8 +14,8 @@ class PositionController extends Controller
     public function index()
     {
         $positions = Position::all();
-        $title = 'Delete Position!';
-        $text = "Are you sure you want to delete?";
+        $title = 'Hapus posisi!';
+        $text = "Apa kamu yakin ingin menghapus posisi?";
         confirmDelete($title, $text);
         return view('positions.index',compact('positions'));
     }
@@ -38,12 +38,12 @@ class PositionController extends Controller
         ]);
         
         if ($validator->fails()) {
-            Alert::error('Error', 'Validation failed. Please check your input.');
+            Alert::error('Validasi Gagal', 'Input Tidak boleh kosong.');
             return redirect()->back()->withErrors($validator)->withInput();
         }
         
         Position::create($request->all());
-        Alert::success('Success', 'Data has been successfully inserted.');
+        Alert::success('Selamat', 'Data berhasil di buat.');
         return redirect('positions');
     }
 

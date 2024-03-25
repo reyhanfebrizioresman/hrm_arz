@@ -61,7 +61,7 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = $request->validate([
+        $validator = Validator::make($request->all(),[
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:employee', // Unique email check
             'phone_number' => 'required|string',
@@ -80,7 +80,7 @@ class EmployeeController extends Controller
             'joining_date' => 'required|date',
             'exit_date' => 'nullable|date', 
         ]);
-        if($validate->fails()){
+        if($validator->fails()){
             Alert::error('Error', 'Validation Gagal. Input Tidak boleh kosong.');
             return redirect()->back()->withErrors($validator)->withInput();
         }
