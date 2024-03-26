@@ -27,9 +27,7 @@
             <a class="dropdown-item" href="{{ route('employee.edit', $employee->id) }}">Edit</a>
             <div class="dropdown-divider"></div>
             <div class="dropdown-item">
-<<<<<<< HEAD
                 <div class="custom-control custom-switch">
-=======
             <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input" id="customSwitch" {{ $employee->status === 'active' ? 'checked' : '' }}>
                     <label class="custom-control-label" for="customSwitch">Status</label>
@@ -39,12 +37,9 @@
             <form id="toggle-form-{{ $employee->id }}" action="{{ route('employee.toggleStatus', $employee->id) }}" method="POST" style="display: none;">
                 @csrf
                 @method('PATCH')
-<<<<<<< HEAD
             </form>
             
-=======
             </form>
->>>>>>> 46d230574e391b2d00acb01c9b9be6880c027228
         </div>
     </div>
     <!-- Isi tab -->
