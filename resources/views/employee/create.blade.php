@@ -80,7 +80,7 @@
                         <div class="form-group">
                             <label for="religion">Agama:</label>
                             <select class="form-control" id="religion" name="religion" required>
-                                <option value="">Select Religion</option>
+                                <option value="">Pilih Agama</option>
                                 <option value="islam">Islam</option>
                                 <option value="christianity">Kristen</option>
                                 <option value="hinduism">Hindu</option>
@@ -158,11 +158,11 @@
                             <label for="exit_date">Tanggal Keluar:</label>
                             <input type="date" class="form-control" id="exit_date" name="exit_date">
                         </div>
-                        <h5>Karir Histori</h5>
+                        <h5>Riwayat Karir</h5>
                        
                     
                         <div class="form-group">
-                            <label for="position_id">Position:</label>
+                            <label for="position_id">Posisi:</label>
                             <select class="form-control" name="position_id" id="position_id">
                                 @foreach($positions as $position)
                                     <option value="{{ $position->id }}">{{ $position->job_position }}</option>
@@ -171,7 +171,7 @@
                         </div>
                     
                         <div class="form-group">
-                            <label for="department_id">Department:</label>
+                            <label for="department_id">Departemen:</label>
                             <select class="form-control" name="department_id" id="department_id">
                                 @foreach($departments as $department)
                                     <option value="{{ $department->id }}">{{ $department->name }}</option>
@@ -180,7 +180,7 @@
                         </div>
                     
                         <div class="form-group">
-                            <label for="date">Date:</label>
+                            <label for="date">Tanggal:</label>
                             <input type="date" class="form-control" name="date" id="date">
                         </div>
                     </div>

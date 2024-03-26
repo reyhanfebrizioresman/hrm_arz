@@ -13,10 +13,10 @@
     <!-- Tab navigasi -->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
+            <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profil</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="career-tab" data-toggle="tab" href="#career" role="tab" aria-controls="career" aria-selected="false">Career History</a>
+            <a class="nav-link" id="career-tab" data-toggle="tab" href="#career" role="tab" aria-controls="career" aria-selected="false">Riwayat Karir</a>
         </li>
     </ul>
     <!-- Dropdown -->
@@ -27,7 +27,9 @@
             <a class="dropdown-item" href="{{ route('employee.edit', $employee->id) }}">Edit</a>
             <div class="dropdown-divider"></div>
             <div class="dropdown-item">
+<<<<<<< HEAD
                 <div class="custom-control custom-switch">
+=======
             <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input" id="customSwitch" {{ $employee->status === 'active' ? 'checked' : '' }}>
                     <label class="custom-control-label" for="customSwitch">Status</label>
@@ -37,7 +39,12 @@
             <form id="toggle-form-{{ $employee->id }}" action="{{ route('employee.toggleStatus', $employee->id) }}" method="POST" style="display: none;">
                 @csrf
                 @method('PATCH')
+<<<<<<< HEAD
             </form>
+            
+=======
+            </form>
+>>>>>>> 46d230574e391b2d00acb01c9b9be6880c027228
         </div>
     </div>
     <!-- Isi tab -->
@@ -118,14 +125,14 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-footer">
-                                    <h5>Career History</h5>
+                                    <h5>Riwayat Karir</h5>
                                     <!-- Tabel Career History -->
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>Date</th>
-                                                <th>Position</th>
-                                                <th>Department</th>
+                                                <th>Tanggal</th>
+                                                <th>Posisi</th>
+                                                <th>Departemen</th>
                                             </tr>
                                         </thead>
                                         <tbody>

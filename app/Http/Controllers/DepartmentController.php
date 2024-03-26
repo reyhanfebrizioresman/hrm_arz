@@ -16,8 +16,8 @@ class DepartmentController extends Controller
     public function index()
     {
         $departments = Department::all();
-        $title = 'Delete Department!';
-        $text = "Are you sure you want to delete?";
+        $title = 'Hapus Departemen!';
+        $text = "Apa kamu yakin ingin menghapus departemen?";
         confirmDelete($title, $text);
         return view('departments.index',compact('departments'));
     }
@@ -41,12 +41,12 @@ class DepartmentController extends Controller
         ]);
         
         if ($validator->fails()) {
-            Alert::error('Error', 'Validation Gagal. Input Tidak boleh kosong.');
+            Alert::error('Validasi Gagal', 'Input Tidak boleh kosong.');
             return redirect()->back()->withErrors($validator)->withInput();
         }
         
         Department::create($request->all());
-        Alert::success('Success', 'Data Berhasil Di Input.');
+        Alert::success('Sukses', 'Data Berhasil Di Input.');
         return redirect('departments');
     }
 
