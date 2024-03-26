@@ -5,6 +5,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\CareerHistoryController;
+use App\Http\Controllers\AttendanceController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,8 +26,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('/positions', PositionController::class);
     Route::resource('/carieerHistory', CareerHistoryController::class);
     Route::patch('/employee/{id}/toggleStatus', [EmployeeController::class, 'toggleStatus'])->name('employee.toggleStatus');
-    Route::get('employee/{employee}/career-history', [App\Http\Controllers\EmployeeController::class, 'showCareer'])->name('employee.careerHistory');
-    Route::get('/employee/search', 'EmployeeController@search')->name('employee.search');
+    Route::resource('/attendance', AttendanceController::class);
+
 
 });
 

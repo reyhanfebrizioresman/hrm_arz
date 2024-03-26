@@ -42,5 +42,26 @@
     }
   };
  </script>
+
+<script>
+  // Mendapatkan URL saat ini
+  var currentUrl = window.location.href;
+
+  // Mendapatkan semua elemen <a> di dalam sidebar-menu
+  var sidebarLinks = document.querySelectorAll('.sidebar-menu a');
+
+  // Loop melalui setiap link dan tambahkan kelas 'active' jika href-nya cocok dengan URL saat ini
+  sidebarLinks.forEach(function(link) {
+      if (link.href === currentUrl) {
+          link.classList.add('active');
+          
+          // Jika ada dropdown menu, tambahkan kelas 'active' juga pada parentnya
+          var dropdownParent = link.closest('.dropdown');
+          if (dropdownParent) {
+              dropdownParent.classList.add('active');
+          }
+      }
+  });
+</script>
 </body>
 </html>

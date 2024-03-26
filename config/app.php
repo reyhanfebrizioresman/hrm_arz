@@ -89,6 +89,13 @@ return [
 
     // 'faker_locale' => env('APP_FAKER_LOCALE', 'en_US'),
 
+    // 'providers' => [
+    //     Maatwebsite\Excel\ExcelServiceProvider::class,
+    // ],
+
+    // 'aliases' => [
+    //     'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+    // ],
 
 
 

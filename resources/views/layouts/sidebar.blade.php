@@ -9,7 +9,7 @@
       <ul class="sidebar-menu">
         <li class="menu-header">Dashboard</li>
         <li class="active">
-        <a href="{{url('/')}}" class="nav-link "><i class="fas fa-fire"></i><span>Dashboard</span></a>
+        <a href="{{url('/dashboard')}}" class="nav-link "><i class="fas fa-fire"></i><span>Dashboard</span></a>
          
         </li>
         <li class="menu-header">Pengaturan</li>
@@ -28,6 +28,9 @@
         </li>
         <li class="">
           <a href="{{url('/departments')}}" class="nav-link "><i class="fas fa-building"></i><span>Departmen</span></a>
+        </li>
+        <li class="">
+          <a href="{{url('/attendance')}}" class="nav-link "><i class="fas fa-id-badge"></i><span>Attendance</span></a>
         </li>
         
 

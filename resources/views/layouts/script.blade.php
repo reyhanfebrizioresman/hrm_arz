@@ -1,4 +1,4 @@
- <!-- General JS Scripts -->
+  <!-- General JS Scripts -->
  <script src="https://kit.fontawesome.com/4237c04efc.js" crossorigin="anonymous"></script>
  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <script src="{{url('stila/assets/modules/jquery.min.js')}}"></script>

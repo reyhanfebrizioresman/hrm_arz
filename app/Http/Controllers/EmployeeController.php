@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 
+
 class EmployeeController extends Controller
 {
     /**
@@ -20,7 +21,8 @@ class EmployeeController extends Controller
      */
     public function index(Request $request)
     {   
-        
+        $positions = Position::all();
+        $departments = Department::all();
         $query = EmployeeModel::query();
 
     if ($request->has('search')) {
@@ -40,8 +42,9 @@ class EmployeeController extends Controller
               ->orWhere('exit_date', 'like', "%$search%");
     }
     //withQuertyString agar query tetap ada di page selanjut nya
-        $employees = $query->paginate(10)->withQueryString();
-        return view('employee.index',compact('employees'));
+        $employees = $query->paginate(1)->withQueryString();
+        $careerHistories = CareerHistory::with('employee', 'position', 'department')->get();
+        return view('employee.index',compact('employees','positions','departments','careerHistories'));
     }
 
     /**
@@ -61,7 +64,7 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = $request->validate([
+        $validator = Validator::make($request->all(),[
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:employee', // Unique email check
             'phone_number' => 'required|string',
@@ -80,7 +83,7 @@ class EmployeeController extends Controller
             'joining_date' => 'required|date',
             'exit_date' => 'nullable|date', 
         ]);
-        if($validate->fails()){
+        if($validator->fails()){
             Alert::error('Error', 'Validation Gagal. Input Tidak boleh kosong.');
             return redirect()->back()->withErrors($validator)->withInput();
         }

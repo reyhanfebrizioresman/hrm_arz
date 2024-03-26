@@ -27,24 +27,17 @@
             <a class="dropdown-item" href="{{ route('employee.edit', $employee->id) }}">Edit</a>
             <div class="dropdown-divider"></div>
             <div class="dropdown-item">
-<<<<<<< HEAD
                 <div class="custom-control custom-switch">
-=======
             <div class="custom-control custom-switch">
->>>>>>> 46d230574e391b2d00acb01c9b9be6880c027228
                     <input type="checkbox" class="custom-control-input" id="customSwitch" {{ $employee->status === 'active' ? 'checked' : '' }}>
                     <label class="custom-control-label" for="customSwitch">Status</label>
                 </div>                            
             </div>
+            </div>
             <form id="toggle-form-{{ $employee->id }}" action="{{ route('employee.toggleStatus', $employee->id) }}" method="POST" style="display: none;">
                 @csrf
                 @method('PATCH')
-<<<<<<< HEAD
             </form>
-            
-=======
-            </form>
->>>>>>> 46d230574e391b2d00acb01c9b9be6880c027228
         </div>
     </div>
     <!-- Isi tab -->
@@ -73,15 +66,15 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="name" class="bold-label">Nama:</label>
+                                        <label for="name" class="bold-label"><strong>Nama:</strong></label>
                                         <p>{{ $employee->name }}</p>
-                                        <label for="email" class="bold-label">Email:</label>
+                                        <label for="email" class="bold-label"><b>Email:</b></label>
                                         <p>{{ $employee->email }}</p>
                                         <label for="phone_number" class="bold-label">No Hp:</label>
                                         <p>{{ $employee->phone_number }}</p>
                                         <label for="phone_number" class="bold-label">No darurat:</label>
                                         <p>{{ $employee->emergency_number }}</p>
-                                        <label for="gender"> class="bold-label"Jenis Kelamin:</label>
+                                        <label for="gender" class="bold-label">Jenis Kelamin:</label>
                                         <p>{{ $employee->gender }}</p>
                                         <label for="identity_no" class="bold-label">No Identitas:</label>
                                         <p>{{ $employee->identity_no }}</p>
@@ -100,7 +93,7 @@
                                         <p>{{ $employee->place_of_birth }}</p>
                                         <label for="status" class="bold-label">Status:</label>
                                         <p>@if($employee->status == 'active')
-                                            <span class="badge badge-success">{{ ucfirst($employee->status) }}</span>
+                                            <span style="color: black" class="badge badge-success font-weight-bold">{{ ucfirst($employee->status) }}</span>
                                         @else
                                             <span class="badge badge-danger">{{ ucfirst($employee->status) }}</span>
                                         @endif</p>
@@ -158,10 +151,5 @@
 <script>
     document.getElementById('customSwitch').addEventListener('change', function() {
         document.getElementById('toggle-form-{{ $employee->id }}').submit();
-<<<<<<< HEAD
-    });
-=======
-    });
->>>>>>> 46d230574e391b2d00acb01c9b9be6880c027228
 </script>
-  @endsection
+@endsection
