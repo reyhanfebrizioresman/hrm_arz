@@ -21,8 +21,10 @@ class EmployeeController extends Controller
      */
     public function index(Request $request)
     {   
-        $positions = Position::all();
-        $departments = Department::all();
+        // $positions = Position::all();
+        // $departments = Department::all();
+        
+
         $query = EmployeeModel::query();
 
     if ($request->has('search')) {
@@ -43,8 +45,8 @@ class EmployeeController extends Controller
     }
     //withQuertyString agar query tetap ada di page selanjut nya
         $employees = $query->paginate(1)->withQueryString();
-        $careerHistories = CareerHistory::with('employee', 'position', 'department')->get();
-        return view('employee.index',compact('employees','positions','departments','careerHistories'));
+        // $employees->load('department', 'position');
+        return view('employee.index',compact('employees'));
     }
 
     /**

@@ -36,13 +36,13 @@
                                     @else
                                         <span class="badge badge-danger">{{ ucfirst($employee->status) }}</span>
                                     @endif <br>
-                                    @if($employee->department)
-                                    <span>Departemen: </span>{{ $employee->department->name }}<br>
-                                    @endif
+                                    {{-- @if($employees->careerHistories)
+                                    <span>Departemen: </span>{{ $careerHistories->department->name }}<br>
+                                    @endif --}}
 
-                                    @if($employee->position)
+                                    {{-- @if($employee->position)
                                     <span>Posisi: </span>{{ $employee->position->job_position }}<br>
-                                    @endif
+                                    @endif --}}
                                     {{ ucfirst($employee->employment_status) }} <br>
                                     <span>Bekerja Sejak: </span>{{ \Carbon\Carbon::parse($employee->joining_date)->diffForHumans() }}<br>
                                 </p>

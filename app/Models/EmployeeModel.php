@@ -36,4 +36,8 @@ class EmployeeModel extends Model
     {
         return $this->hasMany(CareerHistory::class, 'employee_id');
     }
+    public function attendances()
+    {
+        return $this->hasMany(attendance::class, 'employee_id');
+    }
 }

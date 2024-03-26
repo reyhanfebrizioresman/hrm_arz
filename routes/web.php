@@ -6,6 +6,8 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\CareerHistoryController;
 use App\Http\Controllers\AttendanceController;
+use App\Exports\AttendanceExport;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,8 +29,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('/carieerHistory', CareerHistoryController::class);
     Route::patch('/employee/{id}/toggleStatus', [EmployeeController::class, 'toggleStatus'])->name('employee.toggleStatus');
     Route::resource('/attendance', AttendanceController::class);
-
-
+    // Route::get('/export/attendance', function () {
+    //     return Excel::download(new AttendanceExport, 'attendance.xlsx');
+    // });
+    Route::post('/attendance/export', [AttendanceController::class, 'export'])->name('attendance.export');
+    Route::post('/attendance/import', [AttendanceController::class, 'import'])->name('attendance.import');
 });
 
 require __DIR__.'/auth.php';
