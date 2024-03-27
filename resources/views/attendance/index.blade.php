@@ -30,18 +30,24 @@
                     <th>Tipe absen</th>
                     <th>cek in</th>
                     <th>cek out</th>
-                    <th>Tanggal</th>
+                    <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
             @foreach($attendances as $item)
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{$loop->iteration}}</td>
+                <td>{{$item->employee_name}}</td>
+                <td>{{date('Y-m-d', strtotime($item->date))}}</td>
+                <td>{{\Carbon\Carbon::parse($item->clock_in)->format('h:i:s A')}}</td>
+                <td>{{\Carbon\Carbon::parse($item->clock_out)->format('h:i:s A')}}</td>
+                <td><a href="{{ route('attendance.destroy', $item->id) }}" class="btn btn-danger btn-sm" data-confirm-delete="true">
+                    <i class="fas fa-trash"></i>
+                </a>
+                <form id="delete-form-{{ $item->id }}" action="{{ route('attendance.destroy', $item->id) }}" method="POST" style="display: none;">
+                    @csrf
+                    @method('DELETE')
+                </form> </td>
             </tr>
             @endforeach
         </tbody>

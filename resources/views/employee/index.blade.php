@@ -25,7 +25,7 @@
                 <div class="card mb-3 shadow-lg" style="max-width: 540px; max-height: 200px;">
                     <div class="row no-gutters">
                         <div class="col-md-4">
-                            <img src="{{ asset('/storage/pictures/'. $employee->picture) }}" class="card-img h-100 w-100" style="max-height: 200px;" alt="...">
+                            <img src="{{ asset('/storage/pictures/'. $employee->picture) }}" class="card-img h-100 w-100" style="object-fit:cover; max-height: 200px;" alt="...">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
@@ -36,16 +36,13 @@
                                     @else
                                         <span class="badge badge-danger">{{ ucfirst($employee->status) }}</span>
                                     @endif <br>
-                                    {{-- @if($employees->careerHistories)
-                                    <span>Departemen: </span>{{ $careerHistories->department->name }}<br>
-                                    @endif --}}
-
-                                    {{-- @if($employee->position)
-                                    <span>Posisi: </span>{{ $employee->position->job_position }}<br>
-                                    @endif --}}
                                     {{ ucfirst($employee->employment_status) }} <br>
-                                    <span>Bekerja Sejak: </span>{{ \Carbon\Carbon::parse($employee->joining_date)->diffForHumans() }}<br>
-                                </p>
+                                    <span>Bekerja Sejak: </span>{{ \Carbon\Carbon::parse($employee->joining_date)->format('d F Y') }}<br>
+                                        @foreach ($employee->careerHistories as $careerHistory)
+                                            Department: {{ $careerHistory->department->name }}<br>
+                                            Position: {{ $careerHistory->position->job_position }}<br>
+                                        @endforeach
+                                        <!-- Other employee details here -->
                             </div>
                         </div>
                     </div>

@@ -5,10 +5,11 @@ namespace App\Exports;
 use App\Models\Attendance;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Illuminate\Support\Collection;
 
-class AttendanceExport implements FromCollection, WithHeadings
+class AttendanceExport implements FromCollection, WithHeadings, WithTitle
 {
     use Exportable;
 
@@ -25,19 +26,32 @@ class AttendanceExport implements FromCollection, WithHeadings
 
     public function collection()
     {
-        return $this->employees->flatMap(function ($employee) {
-            return $employee->attendances()->whereBetween('date', [$this->startDate, $this->endDate])->get()->map(function ($attendance) use ($employee) {
-                return [
-                    'Employee ID' => $employee->id,
-                    'Employee Name' => $employee->name,
-                    'Status' => '',
-                    'Overtime' => '',
-                    'Clock In' => '',
-                    'Clock Out' => '',
-                    'Date' => '',
+        $data = [];
+        
+        foreach ($this->employees as $employee) {
+            // $attendances = $employee->attendances()
+            //     ->whereBetween('date', [$this->startDate, $this->endDate])
+            //     ->get();
+            $employeeId = (int) $employee->id;
+            $attendances_dates = [$this->startDate, $this->endDate]; 
+
+            foreach ($attendances_dates as $attendances_date) {
+                $data[] = [
+                    'employee_id' => $employeeId,
+                    'employee_name' => $employee->name,
+                    'date' => $attendances_date,
+                    'check_in' => '',
+                    'check_out' => '',
                 ];
-            });
-        });
+            }
+        }
+
+        return collect($data);
+    }
+
+    public function title(): string
+    {
+        return 'Absensi';
     }
 
     public function headings(): array
@@ -45,11 +59,9 @@ class AttendanceExport implements FromCollection, WithHeadings
         return [
             'Employee ID',
             'Employee Name',
-            'Status',
-            'Overtime',
+            'Date',
             'Clock In',
             'Clock Out',
-            'Date',
         ];
     }
 }

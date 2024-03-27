@@ -136,6 +136,19 @@
                     <div class="col-md-6">
                         <h5>Data Karyawan</h5>
                         <div class="form-group">
+                            <label for="status">PTKP:</label>
+                            <select class="form-control" id="ptkp" name="ptkp">
+                                <option value="TK0" {{ (old('status', $employee->status ?? '') == 'TK0') ? 'selected' : '' }}>Lajang - 0 tanggungan</option>
+                                <option value="TK1" {{ (old('status', $employee->status ?? '') == 'TK1') ? 'selected' : '' }}>Lajang - 1 tanggungan</option>
+                                <option value="TK2" {{ (old('status', $employee->status ?? '') == 'TK2') ? 'selected' : '' }}>Lajang - 2 tanggungan</option>
+                                <option value="TK3" {{ (old('status', $employee->status ?? '') == 'TK3') ? 'selected' : '' }}>Lajang - 3 tanggungan</option>
+                                <option value="K0" {{ (old('status', $employee->status ?? '') == 'K0') ? 'selected' : '' }}>Menikah - 0 tanggungan</option>
+                                <option value="K1" {{ (old('status', $employee->status ?? '') == 'K1') ? 'selected' : '' }}>Menikah - 1 tanggungan</option>
+                                <option value="K2" {{ (old('status', $employee->status ?? '') == 'K2') ? 'selected' : '' }}>Menikah - 2 tanggungan</option>
+                                <option value="K3" {{ (old('status', $employee->status ?? '') == 'K3') ? 'selected' : '' }}>Menikah - 3 tanggungan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="status">Status:</label>
                             <select class="form-control" id="status" name="status" required>
                                 <option value="active">Aktif</option>

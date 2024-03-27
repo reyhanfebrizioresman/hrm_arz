@@ -21,12 +21,7 @@ class EmployeeController extends Controller
      */
     public function index(Request $request)
     {   
-        // $positions = Position::all();
-        // $departments = Department::all();
-        
-
         $query = EmployeeModel::query();
-
     if ($request->has('search')) {
         $search = $request->search;
         $query->where('name', 'like', "%$search%")
@@ -44,8 +39,8 @@ class EmployeeController extends Controller
               ->orWhere('exit_date', 'like', "%$search%");
     }
     //withQuertyString agar query tetap ada di page selanjut nya
-        $employees = $query->paginate(1)->withQueryString();
-        // $employees->load('department', 'position');
+        $employees = $query->paginate(10)->withQueryString();
+        $employees->load('careerHistories.department', 'careerHistories.position');
         return view('employee.index',compact('employees'));
     }
 
@@ -84,6 +79,7 @@ class EmployeeController extends Controller
             'picture' => 'image|mimes:jpeg,png,jpg', 
             'joining_date' => 'required|date',
             'exit_date' => 'nullable|date', 
+            'ptkp' => 'required',
         ]);
         if($validator->fails()){
             Alert::error('Error', 'Validation Gagal. Input Tidak boleh kosong.');
@@ -116,6 +112,7 @@ class EmployeeController extends Controller
             'employment_status' => $request->employment_status,
             'joining_date' => $request->joining_date,
             'exit_date' => $request->exit_date,
+            'ptkp' => $request->ptkp,
         ]);
         CareerHistory::create([
                 'employee_id' => $employee->id,
@@ -177,6 +174,7 @@ class EmployeeController extends Controller
 {
     // Cari employee yang akan diperbarui
     $employee = EmployeeModel::findOrFail($id);
+    
     // Validasi request
     // $request->validate([
     //     'name' => 'required|string|max:255',
@@ -230,6 +228,7 @@ class EmployeeController extends Controller
         'employment_status' => $request->employment_status,
         'joining_date' => $request->joining_date,
         'exit_date' => $request->exit_date,
+        'ptkp' => $request->ptkp,
     ]);
 
     // 

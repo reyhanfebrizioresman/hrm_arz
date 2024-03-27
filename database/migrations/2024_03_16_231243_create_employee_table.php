@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('picture')->nullable();
             $table->date('joining_date');
             $table->date('exit_date');
+            $table->enum('ptkp', ['TK0', 'TK1', 'TK2', 'TK3', 'K0', 'K1', 'K2', 'K3'])->default('TK0');
             $table->timestamps();
         });
     }

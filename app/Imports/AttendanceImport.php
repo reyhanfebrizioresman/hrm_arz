@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\Attendance;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class AttendanceImport implements ToModel
 {
@@ -14,13 +15,16 @@ class AttendanceImport implements ToModel
     */
     public function model(array $row)
     {
+        $formattedDate = date('Y-m-d', strtotime($row[2]));
+        $clockIn = date('H:i:s', strtotime($row[3]));
+        $clockOut = date('H:i:s', strtotime($row[4]));
+
         return new Attendance([
-            'employee_id' => $row['employee_id'],
-            'status' => $row['status'],
-            'overtime' => $row['overtime'],
-            'clock_in' => $row['clock_in'],
-            'clock_out' => $row['clock_out'],
-            'date' => $row['date'],
+            'employee_id' => intval($row[0]),
+            'employee_name' => $row[1],
+            'date' =>  $formattedDate,
+            'clock_in' => $clockIn,
+            'clock_out' => $clockOut,
         ]);
     }
 }

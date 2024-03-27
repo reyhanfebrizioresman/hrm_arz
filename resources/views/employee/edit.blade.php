@@ -84,6 +84,12 @@
                                 <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" value="{{ $employee->date_of_birth }}">
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="date_of_birth">Tempat Lahir:</label>
+                                <input type="text" class="form-control" id="place_of_birth" name="place_of_birth" value="{{ $employee->place_of_birth }}">
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="address">Alamat:</label>
@@ -102,6 +108,20 @@
                 <!-- Kolom 2: Form Perusahaan -->
                 <div class="col-md-6">
                     <h5>Data Karyawan</h5>
+                    <div class="form-group">
+                        <label for="status">PTKP:</label>
+                        <select class="form-control" id="ptkp" name="ptkp">
+                            <option value="TK0" {{ (old('status', $employee->ptkp ?? '') == 'TK0') ? 'selected' : '' }}>Lajang - 0 tanggungan</option>
+                            <option value="TK1" {{ (old('status', $employee->ptkp ?? '') == 'TK1') ? 'selected' : '' }}>Lajang - 1 tanggungan</option>
+                            <option value="TK2" {{ (old('status', $employee->ptkp ?? '') == 'TK2') ? 'selected' : '' }}>Lajang - 2 tanggungan</option>
+                            <option value="TK3" {{ (old('status', $employee->ptkp ?? '') == 'TK3') ? 'selected' : '' }}>Lajang - 3 tanggungan</option>
+                            <option value="K0" {{ (old('status', $employee->ptkp ?? '') == 'K0') ? 'selected' : '' }}>Menikah - 0 tanggungan</option>
+                            <option value="K1" {{ (old('status', $employee->ptkp ?? '') == 'K1') ? 'selected' : '' }}>Menikah - 1 tanggungan</option>
+                            <option value="K2" {{ (old('status', $employee->ptkp ?? '') == 'K2') ? 'selected' : '' }}>Menikah - 2 tanggungan</option>
+                            <option value="K3" {{ (old('status', $employee->ptkp ?? '') == 'K3') ? 'selected' : '' }}>Menikah - 3 tanggungan</option>
+                        </select>
+                    </div>
+                    
                     <div class="form-group">
                         <label for="status">Status:</label>
                         <select class="form-control" id="status" name="status" required>

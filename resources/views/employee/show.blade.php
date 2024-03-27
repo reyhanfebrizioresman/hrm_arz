@@ -52,7 +52,7 @@
                     <div class="card shadow-md">
                         <div class="card-body text-center">
                             <!-- Gambar bundar -->
-                            <img src="{{ asset('/storage/pictures/'. $employee->picture) }}" class="card-img rounded-circle mx-auto d-block mb-3" alt="Profile Picture" style="width: 150px; height: 150px;">
+                            <img src="{{ asset('/storage/pictures/'. $employee->picture) }}" class="card-img rounded-circle mx-auto d-block mb-3" alt="Profile Picture" style="object-fit:cover; width: 150px; height: 150px;">
                             <!-- Nama -->
                             <h5 class="card-title">{{ $employee->name }}</h5>
                             <!-- Email -->
@@ -60,55 +60,164 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-9">
-                    <div class="card">
-                        <h5 class="ml-4 mt-3">Informasi:</h5>
-                        <div class="card-body">
-                            <!-- Form Employee -->
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="name" class="bold-label"><strong>Nama:</strong></label>
-                                        <p>{{ $employee->name }}</p>
-                                        <label for="email" class="bold-label"><b>Email:</b></label>
-                                        <p>{{ $employee->email }}</p>
-                                        <label for="phone_number" class="bold-label">No Hp:</label>
-                                        <p>{{ $employee->phone_number }}</p>
-                                        <label for="phone_number" class="bold-label">No darurat:</label>
-                                        <p>{{ $employee->emergency_number }}</p>
-                                        <label for="gender" class="bold-label">Jenis Kelamin:</label>
-                                        <p>{{ $employee->gender }}</p>
-                                        <label for="identity_no" class="bold-label">No Identitas:</label>
-                                        <p>{{ $employee->identity_no }}</p>
-                                        <label for="religion" class="bold-label">Agama:</label>
-                                        <p>{{ $employee->religion }}</p>
-                                        <label for="address" class="bold-label">Domisili:</label>
-                                        <p>{{ $employee->city }}</p>
-                                        <label for="address" class="bold-label">Alamat:</label>
-                                        <p>{{ $employee->address }}</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                        <label for="date_of_birth" class="bold-label">Tanggal lahir:</label>
-                                        <p>{{ date('d-F-Y', strtotime($employee->date_of_birth)) }}</p>
-                                        <label for="date_of_birth" class="bold-label">Tempat lahir:</label>
-                                        <p>{{ $employee->place_of_birth }}</p>
-                                        <label for="status" class="bold-label">Status:</label>
-                                        <p>@if($employee->status == 'active')
+                <div class="col-lg-8">
+                    <div class="card mb-4">
+                        <div class="card-header"><h5>Informasi</h5></div>
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 font-weight-bold">Full Name</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ $employee->name }}</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 font-weight-bold">Email</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ $employee->email }}</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 font-weight-bold">Phone Number</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ $employee->phone_number }}</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 font-weight-bold">No darurat</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ $employee->phone_number }}</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0 font-weight-bold">No Identitas</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">{{ $employee->identity_no }}</p>
+                            </div>
+                          </div>
+                          <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0 font-weight-bold">Domisili</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ $employee->city }}</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0 font-weight-bold">Alamat</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">{{ $employee->address }}</p>
+                            </div>
+                          </div>
+                        <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0 font-weight-bold">Tanggal Lahir</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">{{ date('d F Y', strtotime($employee->date_of_birth)) }}</p>
+                            </div>
+                          </div>
+                        <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0 font-weight-bold">Tempat Lahir</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">{{$employee->place_of_birth}}</p>
+                            </div>
+                          </div>
+                        <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0 font-weight-bold">Jenis Kelamin</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">{{ $employee->gender }}</p>
+                            </div>
+                          </div>
+                        <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0 font-weight-bold">Status Pernikahan</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">{{ $employee->marital_status }}</p>
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0 font-weight-bold">PTKP</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">
+                                {{$employee->ptkp}}
+                              </p>
+                            </div>
+                          </div>
+                        <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0 font-weight-bold">Status</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">
+                                @if($employee->status == 'active')
                                             <span style="color: black" class="badge badge-success font-weight-bold">{{ ucfirst($employee->status) }}</span>
                                         @else
                                             <span class="badge badge-danger">{{ ucfirst($employee->status) }}</span>
-                                        @endif</p>
-                                        <label for="employment_status" class="bold-label">Status Pekerja:</label>
-                                        <p>{{ $employee->employment_status }}</p>
-                                        <label for="joining_date" class="bold-label">Tanggal Bergabung: </label>
-                                        <p>{{ date('d-F-Y', strtotime($employee->joining_date)) }}</p>
-                                        <label for="exit_date" class="bold-label">Tanggal Keluar:</label>
-                                        <p>{{ $employee->exit_date ? date('d-F-Y', strtotime($employee->exit_date)) : '-' }}</p>
-                                    </div>
-                                </div>
+                                        @endif
+                              </p>
                             </div>
-                        </div>
+                          </div>
+                        <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0 font-weight-bold">Status Pekerja</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">{{ $employee->employment_status }}</p>
+                            </div>
+                          </div>
+                        <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0 font-weight-bold">Tanggal Bergabung</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">{{ date('d F Y', strtotime($employee->joining_date)) }}</p>
+                            </div>
+                          </div>
+                        <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0 font-weight-bold">Tanggal Keluar</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">{{ date('d F Y', strtotime($employee->exit_date)) }}</p>
+                            </div>
+                          </div>
+                        <hr>
+                      </div>
+                    </div>
                 </div>
             </div>
         </div>

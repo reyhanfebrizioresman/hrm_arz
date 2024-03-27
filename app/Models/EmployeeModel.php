@@ -30,6 +30,7 @@ class EmployeeModel extends Model
         'picture',
         'joining_date',
         'exit_date',
+        'ptkp',
     ];
 
     public function careerHistories()
