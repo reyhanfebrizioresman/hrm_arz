@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
     // Route::get('/export/attendance', function () {
     //     return Excel::download(new AttendanceExport, 'attendance.xlsx');
     // });
+    Route::get('/attendance/filter', [AttendanceController::class, 'filterByDate'])->name('attendance.filter');
     Route::post('/attendance/export', [AttendanceController::class, 'export'])->name('attendance.export');
     Route::post('/attendance/import', [AttendanceController::class, 'import'])->name('attendance.import');
 });

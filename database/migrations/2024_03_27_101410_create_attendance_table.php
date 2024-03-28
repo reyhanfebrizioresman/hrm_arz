@@ -20,7 +20,7 @@ return new class extends Migration
             $table->time('clock_in');
             $table->time('clock_out');
             $table->date('date');
-            // $table->foreign('employee_id')->references('id')->on('employee')->onDelete('cascade');
+            $table->foreign('employee_id')->references('id')->on('employee')->onDelete('cascade');
             $table->timestamps();
         });
     }

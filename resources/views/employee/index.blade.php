@@ -31,19 +31,27 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ ucfirst($employee->name) }}</h5>
                                 <p class="card-text">
-                                    @if($employee->status == 'active')
-                                        <span class="badge badge-success">{{ ucfirst($employee->status) }}</span>
-                                    @else
-                                        <span class="badge badge-danger">{{ ucfirst($employee->status) }}</span>
-                                    @endif <br>
-                                    {{ ucfirst($employee->employment_status) }} <br>
-                                    <span>Bekerja Sejak: </span>{{ \Carbon\Carbon::parse($employee->joining_date)->format('d F Y') }}<br>
-                                        @foreach ($employee->careerHistories as $careerHistory)
-                                            Department: {{ $careerHistory->department->name }}<br>
-                                            Position: {{ $careerHistory->position->job_position }}<br>
-                                        @endforeach
-                                        <!-- Other employee details here -->
+                                    <div style="position: relative;">
+                                        <div style="position: absolute; top: 0; right: 0;">
+                                            @if ($employee->status == 'active')
+                                            <span class="badge bg-success rounded-circle  font-weight-bold">{{$employee->status == 'active' ? 'aktif' : ''}}</span>
+                                          @else
+                                            <span class="badge bg-danger rounded-circle  font-weight-bold">{{$employee->status == 'inactive' ? 'non': ''}}</span>
+                                          @endif
+                                        </div>
+                                    </div>
+                                    <i class="fas fa-info-circle"></i> {{ ucfirst($employee->employment_status) }} <br>
+                                    @if($employee->careerHistories->isNotEmpty())
+                                        @php
+                                            $latestCareerHistory = $employee->careerHistories->last();
+                                        @endphp
+                                        <span><i class="fas fa-building"></i> </span>{{ $latestCareerHistory->department->name }}<br>
+                                        <span><i class="fas fa-user-alt"></i> </span>{{ $latestCareerHistory->position->job_position }}<br>
+                                    @endif
+                                    <i class="fas fa-business-time"></i> {{ \Carbon\Carbon::parse($employee->joining_date)->diff(\Carbon\Carbon::now())->format('%y tahun, %m bulan, %d hari') }}<br>
+                                </p>
                             </div>
+                            
                         </div>
                     </div>
                 </div>

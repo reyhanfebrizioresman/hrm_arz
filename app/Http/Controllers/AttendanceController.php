@@ -17,24 +17,21 @@ class AttendanceController extends Controller
      */
     public function index(Request $request)
     {
-        // $query = Attendance::query();
-
-        // if ($request->has('start_date') && $request->has('end_date')) {
-        //     $startDate = $request->start_date;
-        //     $endDate = $request->end_date;
-
-        //     // Filter data kehadiran berdasarkan rentang tanggal yang dipilih
-        //     $query->whereBetween('date', [$startDate, $endDate]);
-        // }
-
-        // $attendances = $query->paginate(10);
-        $employees = EmployeeModel::all();
-        $attendances = Attendance::with('employee')->get();
+        
+        $date = $request->input('date');
+        $attendances = Attendance::whereDate('date', $date)->get();
         $title = 'Hapus Departemen!';
         $text = "Apa kamu yakin ingin menghapus departemen?";
         confirmDelete($title, $text);
-        return view('attendance.index', compact('attendances','employees'));
+        return view('attendance.index', compact('attendances'));
     }
+    // public function filterByDate(Request $request)
+    // {
+        
+
+       
+    //     return view('attendance.index', compact('attendances'));
+    // }
 
     public function import(Request $request)
     {
@@ -79,7 +76,7 @@ class AttendanceController extends Controller
      */
     public function create()
     {
-        //
+        return view('attendance.create');
     }
 
     /**
@@ -87,7 +84,28 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         // Validasi input
+    $request->validate([
+        'employee_id' => 'required',
+        'status' => 'required',
+        'overtime' => 'required',
+        'clock_in' => 'required',
+        'clock_out' => 'required',
+        'date' => 'required',
+    ]);
+
+    // Membuat data kehadiran baru
+    Attendance::create([
+        'employee_id' => $request->employee_id,
+        'status' => $request->status,
+        'overtime' => $request->overtime,
+        'clock_in' => $request->clock_in,
+        'clock_out' => $request->clock_out,
+        'date' => $request->date,
+    ]);
+
+    // Redirect ke halaman index atau halaman detail kehadiran baru
+    return redirect()->route('attendance.index')->with('success', 'Attendance created successfully');
     }
 
     /**
@@ -103,7 +121,8 @@ class AttendanceController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $attendance = Attendance::findOrFail($id);
+        return view('attendance.edit',compact('attendance'));
     }
 
     /**
@@ -111,7 +130,21 @@ class AttendanceController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $attendance = Attendance::findOrFail($id);
+
+        // Perbarui data kehadiran
+        $attendance->update([
+            'employee_id' => $request->employee_id,
+            'employee_name' => $request->employee_name,
+            'status' => $request->status,
+            'overtime' => $request->overtime,
+            'clock_in' => $request->clock_in,
+            'clock_out' => $request->clock_out,
+            'date' => $request->date,
+        ]);
+    
+        // Redirect ke halaman index atau halaman detail kehadiran yang telah diperbarui
+        return redirect()->route('attendance.index')->with('success', 'Attendance updated successfully');
     }
 
     /**

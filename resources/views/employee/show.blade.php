@@ -22,26 +22,24 @@
     <!-- Dropdown -->
     <div class="dropdown d-flex justify-content-end">
         <button class="btn btn-primary dropdown-toggle mt-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Actions
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="{{ route('employee.edit', $employee->id) }}">Edit</a>
             <div class="dropdown-divider"></div>
             <div class="dropdown-item">
                 <div class="custom-control custom-switch">
-            <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="customSwitch" {{ $employee->status === 'active' ? 'checked' : '' }}>
-                    <label class="custom-control-label" for="customSwitch">Status</label>
-                </div>                            
+                    <input type="checkbox" class="custom-control-input" id="customSwitch-{{ $employee->id }}" {{ $employee->status === 'active' ? 'checked' : '' }}>
+                    <label class="custom-control-label" for="customSwitch-{{ $employee->id }}">Status</label>
+                </div>
+                <form id="toggle-form-{{ $employee->id }}" action="{{ route('employee.toggleStatus', $employee->id) }}" method="POST" style="display: none;">
+                    @csrf
+                    @method('PATCH')
+                </form>
             </div>
-            </div>
-            <form id="toggle-form-{{ $employee->id }}" action="{{ route('employee.toggleStatus', $employee->id) }}" method="POST" style="display: none;">
-                @csrf
-                @method('PATCH')
-            </form>
-            
-            </form>
         </div>
     </div>
+    
     <!-- Isi tab -->
     <div class="tab-content" id="myTabContent">
         <!-- Tab Profile -->
@@ -60,7 +58,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-9">
                     <div class="card mb-4">
                         <div class="card-header"><h5>Informasi</h5></div>
                       <div class="card-body">
@@ -181,9 +179,9 @@
                             <div class="col-sm-9">
                               <p class="text-muted mb-0">
                                 @if($employee->status == 'active')
-                                            <span style="color: black" class="badge badge-success font-weight-bold">{{ ucfirst($employee->status) }}</span>
+                                            <span style="color: black" class="badge badge-success">{{ ucfirst($employee->status == 'active' ? 'Aktif' : '') }}</span>
                                         @else
-                                            <span class="badge badge-danger">{{ ucfirst($employee->status) }}</span>
+                                            <span style="color: black" class="badge badge-danger font-weight-bold">{{ ucfirst($employee->status == 'inactive' ? 'Non Aktif' : '') }}</span>
                                         @endif
                               </p>
                             </div>
@@ -260,7 +258,9 @@
 </div>
 
 <script>
-    document.getElementById('customSwitch').addEventListener('change', function() {
+    document.getElementById('customSwitch-{{ $employee->id }}').addEventListener('change', function() {
         document.getElementById('toggle-form-{{ $employee->id }}').submit();
+    });
 </script>
+
 @endsection

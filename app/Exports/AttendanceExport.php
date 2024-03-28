@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Illuminate\Support\Collection;
+use Carbon\Carbon;
 
 class AttendanceExport implements FromCollection, WithHeadings, WithTitle
 {
@@ -34,12 +35,15 @@ class AttendanceExport implements FromCollection, WithHeadings, WithTitle
             //     ->get();
             $employeeId = (int) $employee->id;
             $attendances_dates = [$this->startDate, $this->endDate]; 
+            $startDate = Carbon::parse($this->startDate);
+            $endDate = Carbon::parse($this->endDate);
+            $dateRange = $startDate->toPeriod($endDate);
 
-            foreach ($attendances_dates as $attendances_date) {
+            foreach ($dateRange as $date) {
                 $data[] = [
                     'employee_id' => $employeeId,
                     'employee_name' => $employee->name,
-                    'date' => $attendances_date,
+                    'date' => $date->format('Y-m-d'),
                     'check_in' => '',
                     'check_out' => '',
                 ];
