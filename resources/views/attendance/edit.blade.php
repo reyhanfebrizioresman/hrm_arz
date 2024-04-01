@@ -1,5 +1,5 @@
 @extends('layouts.template')
-@section('title','DasHboard')
+@section('title','Dashboard')
 @section('sub-judul','Departemen')
 @section('content')
 
@@ -10,12 +10,12 @@
             @csrf
             @method('PUT')
             <div class="form-group">
-                <label for="employee_id">Employee ID:</label>
-                <input type="text" class="form-control" id="employee_id" name="employee_id" value="{{ $attendance->employee_id }}">
-            </div>
-            <div class="form-group">
-                <label for="employee_name">Employee Name:</label>
-                <input type="text" class="form-control" id="employee_name" name="employee_name" value="{{ $attendance->employee_name }}">
+                <label for="employee_id">Karir:</label>
+                <select class="form-control" name="employee_id" id="employee_id">
+                    @foreach($employees as $employee)
+                        <option value="{{ $employee->id }}" {{ $attendance->employee_id == $employee->id ? 'selected' : '' }}>{{ $employee->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label for="status">Status:</label>
@@ -27,15 +27,15 @@
             </div>
             <div class="form-group">
                 <label for="clock_in">Clock In:</label>
-                <input type="text" class="form-control" id="clock_in" name="clock_in" value="{{ $attendance->clock_in }}">
+                <input type="time" class="form-control" id="clock_in" name="clock_in" value="{{ $attendance->clock_in }}">
             </div>
             <div class="form-group">
                 <label for="clock_out">Clock Out:</label>
-                <input type="text" class="form-control" id="clock_out" name="clock_out" value="{{ $attendance->clock_out }}">
+                <input type="time" class="form-control" id="clock_out" name="clock_out" value="{{ $attendance->clock_out }}">
             </div>
             <div class="form-group">
                 <label for="date">Date:</label>
-                <input type="text" class="form-control" id="date" name="date" value="{{ $attendance->date }}">
+                <input type="date" class="form-control" id="date" name="date" value="{{ $attendance->date }}">
             </div>
             <button type="submit" class="btn btn-primary">Update</button>
         </form>

@@ -33,7 +33,7 @@ class AttendanceImport implements ToModel, WithHeadingRow
 
         return new Attendance([
             'employee_id' => intval($row['employee_id']),
-            'employee_name' => $row['employee_name'],
+            // 'employee_name' => $row['employee_name'],
             'date' =>  $formattedDate,
             'clock_in' => $this->transformDate($row['clock_in']),
             'clock_out' => $this->transformDate($row['clock_out']),

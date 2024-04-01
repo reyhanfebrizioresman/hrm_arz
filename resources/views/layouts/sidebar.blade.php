@@ -8,7 +8,7 @@
       </div>
       <ul class="sidebar-menu">
         <li class="menu-header">Dashboard</li>
-        <li class="active">
+        <li>
         <a href="{{url('/dashboard')}}" class="nav-link "><i class="fas fa-fire"></i><span>Dashboard</span></a>
          
         </li>
@@ -32,10 +32,5 @@
         <li class="">
           <a href="{{url('/attendance')}}" class="nav-link "><i class="fas fa-id-badge"></i><span>Absensi</span></a>
         </li>
-        
-
-     
-       
-       
       </aside>
   </div>

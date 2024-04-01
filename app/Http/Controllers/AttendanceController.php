@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AttendanceController extends Controller
 {
@@ -17,21 +18,18 @@ class AttendanceController extends Controller
      */
     public function index(Request $request)
     {
-        
-        $date = $request->input('date');
-        $attendances = Attendance::whereDate('date', $date)->get();
-        $title = 'Hapus Departemen!';
-        $text = "Apa kamu yakin ingin menghapus departemen?";
+        $query = Attendance::query();
+        if ($request->has('date')) {
+            $filterDate = $request->input('date');
+            $query->where('date', 'like', "%$filterDate%");
+        }
+        $title = 'Hapus Absensi!';
+        $text = "Apa kamu yakin ingin menghapus Absensi?";
         confirmDelete($title, $text);
+        $attendances = $query->get();
+        $attendances->load('employee');
         return view('attendance.index', compact('attendances'));
     }
-    // public function filterByDate(Request $request)
-    // {
-        
-
-       
-    //     return view('attendance.index', compact('attendances'));
-    // }
 
     public function import(Request $request)
     {
@@ -44,7 +42,7 @@ class AttendanceController extends Controller
         $file->storeAs('public/excel', $fileName);
         
         $import = Excel::import(new AttendanceImport, storage_path('app/public/excel/' . $fileName)); // Panggil class import untuk file Excel
-        
+        Alert::success('Selamat', 'Data Telah Berhasil di Import'); 
         if($import) {
             return redirect()->route('attendance.index')->with('success', 'Attendance data imported successfully');
         } else {
@@ -76,7 +74,8 @@ class AttendanceController extends Controller
      */
     public function create()
     {
-        return view('attendance.create');
+        $employees = EmployeeModel::all();
+        return view('attendance.create',compact('employees'));
     }
 
     /**
@@ -87,14 +86,11 @@ class AttendanceController extends Controller
          // Validasi input
     $request->validate([
         'employee_id' => 'required',
-        'status' => 'required',
-        'overtime' => 'required',
         'clock_in' => 'required',
         'clock_out' => 'required',
         'date' => 'required',
     ]);
 
-    // Membuat data kehadiran baru
     Attendance::create([
         'employee_id' => $request->employee_id,
         'status' => $request->status,
@@ -103,9 +99,8 @@ class AttendanceController extends Controller
         'clock_out' => $request->clock_out,
         'date' => $request->date,
     ]);
-
-    // Redirect ke halaman index atau halaman detail kehadiran baru
-    return redirect()->route('attendance.index')->with('success', 'Attendance created successfully');
+    Alert::success('Selamat', 'Data Telah Berhasil di input'); 
+    return redirect()->route('attendance.index');
     }
 
     /**
@@ -122,7 +117,8 @@ class AttendanceController extends Controller
     public function edit(string $id)
     {
         $attendance = Attendance::findOrFail($id);
-        return view('attendance.edit',compact('attendance'));
+        $employees = EmployeeModel::all();
+        return view('attendance.edit',compact('attendance','employees'));
     }
 
     /**
@@ -132,10 +128,8 @@ class AttendanceController extends Controller
     {
         $attendance = Attendance::findOrFail($id);
 
-        // Perbarui data kehadiran
         $attendance->update([
             'employee_id' => $request->employee_id,
-            'employee_name' => $request->employee_name,
             'status' => $request->status,
             'overtime' => $request->overtime,
             'clock_in' => $request->clock_in,
@@ -143,17 +137,18 @@ class AttendanceController extends Controller
             'date' => $request->date,
         ]);
     
-        // Redirect ke halaman index atau halaman detail kehadiran yang telah diperbarui
-        return redirect()->route('attendance.index')->with('success', 'Attendance updated successfully');
+        Alert::success('Selamat', 'Data Telah Berhasil di Rubah'); 
+        return redirect()->route('attendance.index', ['date' => $request->input('date')]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request,string $id)
     {
         $attendances = Attendance::findOrFail($id);
         $attendances->delete();
-        return redirect('attendance');
+        Alert::success('Selamat', 'Data Telah Berhasil di Hapus'); 
+        return redirect()->route('attendance.index', ['date' => $request->input('date')]);
     }
 }

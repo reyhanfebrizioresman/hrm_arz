@@ -138,14 +138,14 @@
                         <div class="form-group">
                             <label for="status">PTKP:</label>
                             <select class="form-control" id="ptkp" name="ptkp">
-                                <option value="TK0" {{ (old('status', $employee->status ?? '') == 'TK0') ? 'selected' : '' }}>Lajang - 0 tanggungan</option>
-                                <option value="TK1" {{ (old('status', $employee->status ?? '') == 'TK1') ? 'selected' : '' }}>Lajang - 1 tanggungan</option>
-                                <option value="TK2" {{ (old('status', $employee->status ?? '') == 'TK2') ? 'selected' : '' }}>Lajang - 2 tanggungan</option>
-                                <option value="TK3" {{ (old('status', $employee->status ?? '') == 'TK3') ? 'selected' : '' }}>Lajang - 3 tanggungan</option>
-                                <option value="K0" {{ (old('status', $employee->status ?? '') == 'K0') ? 'selected' : '' }}>Menikah - 0 tanggungan</option>
-                                <option value="K1" {{ (old('status', $employee->status ?? '') == 'K1') ? 'selected' : '' }}>Menikah - 1 tanggungan</option>
-                                <option value="K2" {{ (old('status', $employee->status ?? '') == 'K2') ? 'selected' : '' }}>Menikah - 2 tanggungan</option>
-                                <option value="K3" {{ (old('status', $employee->status ?? '') == 'K3') ? 'selected' : '' }}>Menikah - 3 tanggungan</option>
+                                <option value="TK0" {{ (old('status', $employee->status ?? '') == 'TK0') ? 'selected' : '' }}>TK0</option>
+                                <option value="TK1" {{ (old('status', $employee->status ?? '') == 'TK1') ? 'selected' : '' }}>TK1</option>
+                                <option value="TK2" {{ (old('status', $employee->status ?? '') == 'TK2') ? 'selected' : '' }}>TK2</option>
+                                <option value="TK3" {{ (old('status', $employee->status ?? '') == 'TK3') ? 'selected' : '' }}>TK3</option>
+                                <option value="K0" {{ (old('status', $employee->status ?? '') == 'K0') ? 'selected' : '' }}>K0</option>
+                                <option value="K1" {{ (old('status', $employee->status ?? '') == 'K1') ? 'selected' : '' }}>K1</option>
+                                <option value="K2" {{ (old('status', $employee->status ?? '') == 'K2') ? 'selected' : '' }}>K2</option>
+                                <option value="K3" {{ (old('status', $employee->status ?? '') == 'K3') ? 'selected' : '' }}>K3</option>
                             </select>
                         </div>
                         <div class="form-group">
