@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('attendance', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('employee_id');
-            // $table->string('employee_name')->nullable();
             $table->enum('status', ['izin', 'cuti', 'sakit'])->nullable();
-            $table->decimal('overtime', 8, 2)->nullable();
-            $table->time('late')->nullable(); // Format untuk waktu lembur dalam jam
+            $table->integer('overtime')->nullable();
+            $table->time('late')->nullable();
             $table->time('clock_in');
             $table->time('clock_out');
             $table->date('date');

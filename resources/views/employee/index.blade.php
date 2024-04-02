@@ -39,10 +39,10 @@
                         <div class="col-md-8">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-9">
                                         <h5>{{ ucfirst($employee->name) }}</h5>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-3">
                                         @if($employee->status == 'active')
                                             <span class="badge badge-success">Aktif</span>
                                         @else

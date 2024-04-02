@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\EmployeeModel;
 
 class Shift extends Model
 {
@@ -12,7 +13,13 @@ class Shift extends Model
     protected $table = "shifts";
     protected $fillable = [
         'name',
-        'day',
+        'monday',
+        'tuesday',
+        'wednesday',
+        'thursday',
+        'friday',
+        'saturday',
+        'sunday',
         'start_time',
         'end_time',
         'break_start',
@@ -21,4 +28,9 @@ class Shift extends Model
         'late_tolerance',
         'early_leave_tolerance',
     ];
+
+    public function employees()
+    {
+        return $this->belongsToMany(Employee::class);
+    }
 }

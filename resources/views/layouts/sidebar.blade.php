@@ -29,8 +29,23 @@
         <li class="">
           <a href="{{url('/departments')}}" class="nav-link "><i class="fas fa-building"></i><span>Departmen</span></a>
         </li>
+        <li class="dropdown">
+          <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users"></i> <span>Absensi</span></a>
+          <ul class="dropdown-menu">
+          <li>
+          <li class="">
+            <a href="{{url('/attendance')}}" class="nav-link "></i><span>Data Kehadiran</span></a>
+          </li>
+          <li class="">
+            <a href="{{url('/attendance')}}" class="nav-link "></i><span>Import/Export</span></a>
+          </li>
+          <li class="">
+            <a href="{{url('/shifts')}}" class="nav-link "><span>Shift</span></a>
+          </li>
+          </ul>
+          
+        </li>
         <li class="">
-          <a href="{{url('/attendance')}}" class="nav-link "><i class="fas fa-id-badge"></i><span>Absensi</span></a>
         </li>
       </aside>
   </div>

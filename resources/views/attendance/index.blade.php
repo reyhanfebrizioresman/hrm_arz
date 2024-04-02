@@ -58,24 +58,24 @@
     </div>
 </div>
 
-
+   
     <div class="d-flex justify-content-end mb-2">
     <a class="btn btn-primary btn-sm" href="{{route('attendance.create')}}"><i class="fas fa-plus"></i></a>
     </div>
     <!-- Attendance Table -->
     <div class="card mb-3">
         <div class="card-body">
-        <h5>Tanggal : {{request('date')}}</h5>
+        {{-- <h5>Tanggal : {{request('date')}}</h5> --}}
             <div class="table-responsive">
                 <table id="tabel_product" class="table datatable">
                     <thead>
                         <tr>
                             <th>Nama</th>
                             <th>Tanggal</th>
-                            <th>Cek In</th>
-                            <th>Cek Out</th>
-                            <th>Lembur</th>
+                            <th>Jam Masuk</th>
+                            <th>Jam Keluar</th>
                             <th>Telat</th>
+                            <th>Lembur</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -87,8 +87,8 @@
                             <td>{{ date('Y-m-d', strtotime($item->date)) }}</td>
                             <td>{{ \Carbon\Carbon::parse($item->clock_in)->format('H:i') }}</td>
                             <td>{{ \Carbon\Carbon::parse($item->clock_out)->format('H:i') }}</td>
-                            <td>{{$item->overtime}}</td>
-                            <td></td>
+                            <td>{{$item->late}} Menit</td>
+                            <td>{{$item->overtime}} Menit</td>
                             <td>
                                 <a href="{{ route('attendance.edit', $item->id) }}" class="btn btn-primary btn-sm">
                                     <i class="fas fa-edit"></i>

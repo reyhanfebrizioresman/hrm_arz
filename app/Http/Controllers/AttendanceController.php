@@ -10,6 +10,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use RealRashid\SweetAlert\Facades\Alert;
+use Carbon\Carbon;
+
 
 class AttendanceController extends Controller
 {
@@ -18,15 +20,30 @@ class AttendanceController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Attendance::query();
-        if ($request->has('date')) {
-            $filterDate = $request->input('date');
-            $query->where('date', 'like', "%$filterDate%");
-        }
         $title = 'Hapus Absensi!';
         $text = "Apa kamu yakin ingin menghapus Absensi?";
         confirmDelete($title, $text);
-        $attendances = $query->get();
+        // Mendapatkan tanggal hari ini
+        $today = Carbon::today()->toDateString();
+        $filterDate = $request->has('date') && !empty($request->date) ? $request->input('date') : null;
+
+        $query = Attendance::query();
+        // Filter berdasarkan tanggal (jika ada)
+        if ($filterDate) {
+            $query->whereDate('date', '=', $filterDate)
+            ;
+        } else {
+            // Menampilkan data hari ini
+            $query->where('date', '=', $today);
+        }
+        // Menggunakan distinct untuk mendapatkan employee_id yang unik
+        $attendances = $query->distinct('employee_id')->get();
+        foreach ($attendances as $attendance){
+            $attendanceModel = new Attendance();
+            $lateAndOvertime = $attendanceModel->calculateLateAndOvertime($attendance->clock_in,$attendance->clock_out);
+            $attendance->late = $lateAndOvertime['late'];
+            $attendance->overtime = $lateAndOvertime['overtime'];
+        }
         $attendances->load('employee');
         return view('attendance.index', compact('attendances'));
     }

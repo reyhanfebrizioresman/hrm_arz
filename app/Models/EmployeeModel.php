@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\CareerHistory;
+use App\Models\Shift;
 
 
 class EmployeeModel extends Model
@@ -39,6 +40,10 @@ class EmployeeModel extends Model
     }
     public function attendances()
     {
-        return $this->hasMany(attendance::class, 'employee_id');
+        return $this->hasMany(Attendance::class, 'employee_id');
+    }
+    public function shifts()
+    {
+        return $this->belongsToMany(Shift::class);
     }
 }

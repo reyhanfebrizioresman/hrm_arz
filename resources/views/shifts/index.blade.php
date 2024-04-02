@@ -26,8 +26,8 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $shiftName }}</td>
-                                    <td>{{ date('Y-m-d', strtotime($shiftGroup->first()->start_time)) }}</td>
-                                    <td>{{ date('Y-m-d', strtotime($shiftGroup->first()->end_time)) }}</td>
+                                    <td>{{ date('Y-m-d', strtotime($shiftGroup->first()->start_date)) }}</td>
+                                    <td>{{ date('Y-m-d', strtotime($shiftGroup->first()->end_date)) }}</td>
                                     <td>
                                         <a href="{{ route('shifts.edit',$shiftGroup->first()->id) }}" class="btn btn-primary  btn-sm"><i class="fas fa-edit"></i></a>
 

@@ -14,14 +14,19 @@ return new class extends Migration
         Schema::create('shifts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('day', ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']);
+            $table->boolean('monday')->default(false);
+            $table->boolean('tuesday')->default(false);
+            $table->boolean('wednesday')->default(false);
+            $table->boolean('thursday')->default(false);
+            $table->boolean('friday')->default(false);
+            $table->boolean('saturday')->default(false);
+            $table->boolean('sunday')->default(false);
             $table->time('start_time');
             $table->time('end_time');
             $table->time('break_start')->nullable();
             $table->time('break_end')->nullable();
-            $table->enum('shift', ['Morning', 'Evening']);
-            $table->integer('late_tolerance');
-            $table->integer('early_leave_tolerance');
+            $table->integer('late_tolerance')->default(0);
+            $table->integer('early_leave_tolerance')->default(0);
             $table->timestamps();
         });
     }
