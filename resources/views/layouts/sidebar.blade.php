@@ -27,7 +27,7 @@
           <a href="{{url('/positions')}}" class="nav-link "><i class="fas fa-user-alt"></i><span>Posisi</span></a>
         </li>
         <li class="">
-          <a href="{{url('/departments')}}" class="nav-link "><i class="fas fa-building"></i><span>Departmen</span></a>
+          <a href="{{url('/departments')}}" class="nav-link "><i class="fas fa-building"></i><span>Departemen</span></a>
         </li>
         <li class="dropdown">
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users"></i> <span>Absensi</span></a>
@@ -37,7 +37,7 @@
             <a href="{{url('/attendance')}}" class="nav-link "></i><span>Data Kehadiran</span></a>
           </li>
           <li class="">
-            <a href="{{url('/attendance')}}" class="nav-link "></i><span>Import/Export</span></a>
+            <a href="{{url('/attendance')}}" class="nav-link "></i><span>Impor/Ekspor</span></a>
           </li>
           <li class="">
             <a href="{{url('/shifts')}}" class="nav-link "><span>Shift</span></a>

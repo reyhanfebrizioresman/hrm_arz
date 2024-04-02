@@ -15,9 +15,9 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Shift Kerja</th>
-                                <th>Tanggal Mulai</th>
-                                <th>Tanggal akhir</th>
+                                <th>Tanggal Shift</th>
+                                <th>Jam Masuk</th>
+                                <th>Jam Keluar</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -25,9 +25,9 @@
                             @foreach ($shifts->groupBy('name') as $shiftName => $shiftGroup)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $shiftName }}</td>
-                                    <td>{{ date('Y-m-d', strtotime($shiftGroup->first()->start_date)) }}</td>
-                                    <td>{{ date('Y-m-d', strtotime($shiftGroup->first()->end_date)) }}</td>
+                                    <td>{{ date('Y-m-d', strtotime($shiftGroup->first()->end_time)) }}</td>
+                                    <td>{{ date('H:i', strtotime($shiftGroup->first()->start_time)) }}</td>
+                                    <td>{{ date('H:i', strtotime($shiftGroup->first()->end_time)) }}</td>
                                     <td>
                                         <a href="{{ route('shifts.edit',$shiftGroup->first()->id) }}" class="btn btn-primary  btn-sm"><i class="fas fa-edit"></i></a>
 
