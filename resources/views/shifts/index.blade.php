@@ -15,8 +15,13 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
+<<<<<<< HEAD
                                 <th>Shift Kerja</th>
                                 <th>Jam Mulai</th>
+=======
+                                <th>Tanggal Shift</th>
+                                <th>Jam Masuk</th>
+>>>>>>> 8fe16ff95b0c4b052b37c2d31b19b30ba71b24a5
                                 <th>Jam Keluar</th>
                                 <th>Aksi</th>
                             </tr>
@@ -25,9 +30,15 @@
                             @foreach ($shifts as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+<<<<<<< HEAD
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->monday_start_time}}</td>
                                     <td>{{ $item->monday_end_time}}</td>
+=======
+                                    <td>{{ date('Y-m-d', strtotime($shiftGroup->first()->end_time)) }}</td>
+                                    <td>{{ date('H:i', strtotime($shiftGroup->first()->start_time)) }}</td>
+                                    <td>{{ date('H:i', strtotime($shiftGroup->first()->end_time)) }}</td>
+>>>>>>> 8fe16ff95b0c4b052b37c2d31b19b30ba71b24a5
                                     <td>
                                         <a href="{{ route('shifts.edit',$item->id) }}" class="btn btn-primary  btn-sm"><i class="fas fa-edit"></i></a>
 
