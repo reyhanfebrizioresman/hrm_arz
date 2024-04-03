@@ -20,34 +20,61 @@ class AttendanceController extends Controller
      */
     public function index(Request $request)
     {
+        $filterDate = $request->has('date') && !empty($request->date) ? $request->input('date') : null;
+        $today = Carbon::today()->toDateString();
+        // $attendance = Attendance::with(['employee' => function ($q)use($filterDate,$today){
+        //                 $q->orderBy('name','DESC');
+        // }])->get();
+        $employees = EmployeeModel::with(['attendance' => function($q)use($filterDate,$today){
+                if ($filterDate) {
+                    $q->whereDate('date', '=', $filterDate);
+                } else {
+                    // Menampilkan data hari ini
+                    $q->where('date', '=', $today);
+                }
+         
+        }])->get();
+        // return response()->json($employees);
+        // if ($filterDate && $employees->isEmpty()) {
+        //     Alert::error('error', 'Data tidak ditemukan'); 
+        //     return redirect()->route('attendance.index', ['date' => $request->input('date')]);
+        // }
+        $filteredEmployees = $employees->each(function($employee) {
+            return $employee->first();
+        });
+         // Mengelompokkan hasil berdasarkan employee_id
+    // $groupedEmployees = $employees->groupBy('id');
+    // Membuat koleksi baru dengan hanya satu data untuk setiap karyawan
+    
+        // return response()->json($employees);
         $title = 'Hapus Absensi!';
         $text = "Apa kamu yakin ingin menghapus Absensi?";
         confirmDelete($title, $text);
         // Mendapatkan tanggal hari ini
-        $today = Carbon::today()->toDateString();
-        $filterDate = $request->has('date') && !empty($request->date) ? $request->input('date') : null;
 
-        $query = Attendance::query();
+        // $query = Attendance::query();
         // Filter berdasarkan tanggal (jika ada)
-        if ($filterDate) {
-            $query->whereDate('date', '=', $filterDate)
-            ;
-        } else {
-            // Menampilkan data hari ini
-            $query->where('date', '=', $today);
-        }
+        // if ($filterDate) {
+        //     $query->whereDate('date', '=', $filterDate);
+        // } else {
+        //     // Menampilkan data hari ini
+        //     $query->where('date', '=', $today);
+        // }
         // Menggunakan distinct untuk mendapatkan employee_id yang unik
-        $attendances = $query->distinct('employee_id')->get();
-        foreach ($attendances as $attendance){
-            $attendanceModel = new Attendance();
-            $lateAndOvertime = $attendanceModel->calculateLateAndOvertime($attendance->clock_in,$attendance->clock_out);
-            $attendance->late = $lateAndOvertime['late'];
-            $attendance->overtime = $lateAndOvertime['overtime'];
-        }
-        $attendances->load('employee');
-        return view('attendance.index', compact('attendances'));
+        // $attendances = $query->distinct('employee_id')->get();
+        // foreach ($attendances as $attendance){
+        //     $attendanceModel = new Attendance();
+        //     $lateAndOvertime = $attendanceModel->calculateLateAndOvertime($attendance->clock_in,$attendance->clock_out);
+        //     $attendance->late = $lateAndOvertime['late'];
+        //     $attendance->overtime = $lateAndOvertime['overtime'];
+        // }
+        // $attendances->load('employee');
+        return view('attendance.index', compact('employees'));
     }
-
+    public function importExport(Request $request)
+    {
+        return view('attendance.import-export');
+    }
     public function import(Request $request)
     {
         $request->validate([
@@ -108,10 +135,31 @@ class AttendanceController extends Controller
         'date' => 'required',
     ]);
 
+    $overtime = 0;
+    $late = 0;
+
+    $clockIn = strtotime($request->clock_in);
+    $clockOut = strtotime($request->clock_out);
+    $defaultStartTime = strtotime('07:00:00');
+    $defaultEndTime = strtotime('17:00:00'); 
+
+
+    if($clockIn > $defaultStartTime){
+        $late = $clockIn - $defaultStartTime;
+    }
+
+    if ($clockOut > $defaultEndTime) {
+        $overtime = $clockOut - $defaultEndTime;
+    }
+    $late = round($late / 60);
+    $overtime = round($overtime / 60);
+
+
     Attendance::create([
         'employee_id' => $request->employee_id,
         'status' => $request->status,
-        'overtime' => $request->overtime,
+        'overtime' => $overtime,
+        'late' => $late,
         'clock_in' => $request->clock_in,
         'clock_out' => $request->clock_out,
         'date' => $request->date,
@@ -163,8 +211,10 @@ class AttendanceController extends Controller
      */
     public function destroy(Request $request,string $id)
     {
-        $attendances = Attendance::findOrFail($id);
-        $attendances->delete();
+        // Temukan data employee berdasarkan ID
+        $employee = EmployeeModel::find($id);
+        $employee->attendance()->delete();
+        $employee->delete();
         Alert::success('Selamat', 'Data Telah Berhasil di Hapus'); 
         return redirect()->route('attendance.index', ['date' => $request->input('date')]);
     }

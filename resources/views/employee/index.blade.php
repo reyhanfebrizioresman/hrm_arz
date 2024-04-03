@@ -44,7 +44,7 @@
                                     </div>
                                     <div class="col-3">
                                         @if($employee->status == 'active')
-                                            <span class="badge badge-success">Aktif</span>
+                                            <span style="color:black;" class="badge badge-success">Aktif</span>
                                         @else
                                             <span class="badge badge-danger font-weight-bold">Non Aktif</span>
                                         @endif

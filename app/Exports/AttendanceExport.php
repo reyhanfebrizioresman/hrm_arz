@@ -46,6 +46,8 @@ class AttendanceExport implements FromCollection, WithHeadings, WithTitle
                     'date' => $date->format('Y-m-d'),
                     'check_in' => '',
                     'check_out' => '',
+                    'late' => '',
+                    'overtime' => '',
                 ];
             }
         }
@@ -66,6 +68,8 @@ class AttendanceExport implements FromCollection, WithHeadings, WithTitle
             'Date',
             'Clock In',
             'Clock Out',
+            'Late',
+            'Overtime',
         ];
     }
 }

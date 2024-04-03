@@ -38,53 +38,64 @@ class ShiftsController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            // 'start_time' => 'required|date_format:H:i',
-            // 'end_time' => 'required|date_format:H:i|after:start_time',
+            
         ]);
 
-        // Buat objek Shift baru
-        // $shift = new Shift();
-        // $shift->name = $request->name;
+       
+        $shifts = new Shift([
+            'name' => $request->input('name'),
+            'monday' => $request->has('monday'),
+            'monday_start_time' => $request->input('monday_start_time'),
+            'monday_end_time' => $request->input('monday_end_time'),
+            'monday_break_start' => $request->input('monday_break_start'),
+            'monday_break_end' => $request->input('monday_break_end'),
+            'monday_late_tolerance' => $request->input('monday_late_tolerance') ?? 0,
+            'monday_early_leave_tolerance' => $request->input('monday_early_leave_tolerance') ?? 0,
+            'tuesday' => $request->has('tuesday'),
+            'tuesday_start_time' => $request->input('tuesday_start_time'),
+            'tuesday_end_time' => $request->input('tuesday_end_time'),
+            'tuesday_break_start' => $request->input('tuesday_break_start'),
+            'tuesday_break_end' => $request->input('tuesday_break_end'),
+            'tuesday_late_tolerance' => $request->input('tuesday_late_tolerance') ?? 0,
+            'tuesday_early_leave_tolerance' => $request->input('tuesday_early_leave_tolerance') ?? 0,
+            'wednesday' => $request->has('wednesday'),
+            'wednesday_start_time' => $request->input('wednesday_start_time'),
+            'wednesday_end_time' => $request->input('wednesday_end_time'),
+            'wednesday_break_start' => $request->input('wednesday_break_start'),
+            'wednesday_break_end' => $request->input('wednesday_break_end'),
+            'wednesday_late_tolerance' => $request->input('wednesday_late_tolerance') ?? 0,
+            'wednesday_early_leave_tolerance' => $request->input('wednesday_early_leave_tolerance') ?? 0,
+            'thursday' => $request->has('thursday'),
+            'thursday_start_time' => $request->input('thursday_start_time'),
+            'thursday_end_time' => $request->input('thursday_end_time'),
+            'thursday_break_start' => $request->input('thursday_break_start'),
+            'thursday_break_end' => $request->input('thursday_break_end'),
+            'thursday_late_tolerance' => $request->input('thursday_late_tolerance') ?? 0,
+            'thursday_early_leave_tolerance' => $request->input('thursday_early_leave_tolerance') ?? 0,
+            'friday' => $request->has('friday'),
+            'friday_start_time' => $request->input('friday_start_time'),
+            'friday_end_time' => $request->input('friday_end_time'),
+            'friday_break_start' => $request->input('friday_break_start'),
+            'friday_break_end' => $request->input('friday_break_end'),
+            'friday_late_tolerance' => $request->input('friday_late_tolerance') ?? 0,
+            'friday_early_leave_tolerance' => $request->input('friday_early_leave_tolerance') ?? 0,
+            'saturday' => $request->has('saturday'),
+            'saturday_start_time' => $request->input('saturday_start_time'),
+            'saturday_end_time' => $request->input('saturday_end_time'),
+            'saturday_break_start' => $request->input('saturday_break_start'),
+            'saturday_break_end' => $request->input('saturday_break_end'),
+            'saturday_late_tolerance' => $request->input('saturday_late_tolerance') ?? 0,
+            'saturday_early_leave_tolerance' => $request->input('saturday_early_leave_tolerance') ?? 0,
+            'sunday' => $request->has('sunday'),
+            'sunday_start_time' => $request->input('sunday_start_time'),
+            'sunday_end_time' => $request->input('sunday_end_time'),
+            'sunday_break_start' => $request->input('sunday_break_start'),
+            'sunday_break_end' => $request->input('sunday_break_end'),
+            'sunday_late_tolerance' => $request->input('sunday_late_tolerance') ?? 0,
+            'sunday_early_leave_tolerance' => $request->input('sunday_early_leave_tolerance') ?? 0,
+        ]);
+        $shifts->save();
         
-
-        // // Atur nilai untuk setiap hari
-        // $shift->monday = $request->has('monday') ? true : false;
-        // $shift->tuesday = $request->has('tuesday') ? true : false;
-        // $shift->wednesday = $request->has('wednesday') ? true : false;
-        // $shift->thursday = $request->has('thursday') ? true : false;
-        // $shift->friday = $request->has('friday') ? true : false;
-        // $shift->saturday = $request->has('saturday') ? true : false;
-        // $shift->sunday = $request->has('sunday') ? true : false;
-
-        // // Atur nilai opsional untuk istirahat dan toleransi
-        // $shift->start_time = $request->start_time ?? '07:00:00';
-        // $shift->end_time = $request->end_time ?? '17:00:00';
-        // $shift->break_start = $request->break_start ?? null;
-        // $shift->break_end = $request->break_end ?? null;
-        // $shift->late_tolerance = $request->late_tolerance ?? 0;
-        // $shift->early_leave_tolerance = $request->early_leave_tolerance ?? 0;
-
-        // // Simpan shift ke dalam database
-        // $shift->save();
-
-        $shiftMonday = new Shift();
-        $shiftMonday->name = $request->name;
-        $shiftMonday->monday = true;
-        $shiftMonday->start_time = $request->start_time_monday ?? '07:00:00';
-        $shiftMonday->end_time = $request->end_time_monday ?? '17:00:00';
-        // Atur nilai lainnya
-
-        // Selasa
-        $shiftTuesday = new Shift();
-        $shiftTuesday->name = $request->name;
-        $shiftTuesday->tuesday = true;
-        $shiftTuesday->start_time = $request->start_time_tuesday ?? '07:00:00';
-        $shiftTuesday->end_time = $request->end_time_tuesday ?? '17:00:00';
-        // Atur nilai lainnya
-
-        // Simpan kedua shift ke dalam database
-        $shiftMonday->save();
-        $shiftTuesday->save();
 
         Alert::success('Selamat', 'Data Telah Berhasil di input'); 
 
@@ -107,33 +118,7 @@ class ShiftsController extends Controller
     {
         // Mencari data shift berdasarkan ID
         $shift = Shift::findOrFail($id);
-
-        // Mendapatkan hari aktif dari shift (jika ada)
-        $shiftDays = $shift->days ? array_keys(array_filter($shift->days)) : [];
-        $shiftTimes = [];
-        
-        if ($shiftDays) {
-        // Membuat array kosong untuk menyimpan data waktu shift
-
-        // Mengisi array dengan data waktu shift
-        foreach ($shiftDays as $day) {
-            $shiftTimes[$day] = [
-              'start_time' => $shift->start_times[$day] ?? null,
-              'end_time' => $shift->end_times[$day] ?? null,
-              'break_start' => $shift->break_starts[$day] ?? null,
-              'break_end' => $shift->break_ends[$day] ?? null,
-              'shift' => $shift->shifts[$day] ?? null,
-              'late_tolerance' => $shift->late_tolerances[$day] ?? null,
-              'early_leave_tolerance' => $shift->early_leave_tolerances[$day] ?? null,
-            ];
-          }
-        } else {
-          // Penanganan jika tidak ada hari aktif (opsional)
-          //  - bisa mengembalikan nilai default untuk $shiftTimes
-          //  - bisa menampilkan pesan error
-        }
-        
-    return view('shifts.edit',compact('shift','shiftDays','shiftTimes'));
+        return view('shifts.edit',compact('shift'));
         
     }
 
@@ -142,7 +127,60 @@ class ShiftsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $shift = Shift::findOrFail($id);
+        $shift->update([
+            'name' => $request->input('name'),
+            'monday' => $request->has('monday'),
+            'monday_start_time' => $request->input('monday_start_time'),
+            'monday_end_time' => $request->input('monday_end_time'),
+            'monday_break_start' => $request->input('monday_break_start'),
+            'monday_break_end' => $request->input('monday_break_end'),
+            'monday_late_tolerance' => $request->input('monday_late_tolerance') ?? 0,
+            'monday_early_leave_tolerance' => $request->input('monday_early_leave_tolerance') ?? 0,
+            'tuesday' => $request->has('tuesday'),
+            'tuesday_start_time' => $request->input('tuesday_start_time'),
+            'tuesday_end_time' => $request->input('tuesday_end_time'),
+            'tuesday_break_start' => $request->input('tuesday_break_start'),
+            'tuesday_break_end' => $request->input('tuesday_break_end'),
+            'tuesday_late_tolerance' => $request->input('tuesday_late_tolerance') ?? 0,
+            'tuesday_early_leave_tolerance' => $request->input('tuesday_early_leave_tolerance') ?? 0,
+            'wednesday' => $request->has('wednesday'),
+            'wednesday_start_time' => $request->input('wednesday_start_time'),
+            'wednesday_end_time' => $request->input('wednesday_end_time'),
+            'wednesday_break_start' => $request->input('wednesday_break_start'),
+            'wednesday_break_end' => $request->input('wednesday_break_end'),
+            'wednesday_late_tolerance' => $request->input('wednesday_late_tolerance') ?? 0,
+            'wednesday_early_leave_tolerance' => $request->input('wednesday_early_leave_tolerance') ?? 0,
+            'thursday' => $request->has('thursday'),
+            'thursday_start_time' => $request->input('thursday_start_time'),
+            'thursday_end_time' => $request->input('thursday_end_time'),
+            'thursday_break_start' => $request->input('thursday_break_start'),
+            'thursday_break_end' => $request->input('thursday_break_end'),
+            'thursday_late_tolerance' => $request->input('thursday_late_tolerance') ?? 0,
+            'thursday_early_leave_tolerance' => $request->input('thursday_early_leave_tolerance') ?? 0,
+            'friday' => $request->has('friday'),
+            'friday_start_time' => $request->input('friday_start_time'),
+            'friday_end_time' => $request->input('friday_end_time'),
+            'friday_break_start' => $request->input('friday_break_start'),
+            'friday_break_end' => $request->input('friday_break_end'),
+            'friday_late_tolerance' => $request->input('friday_late_tolerance') ?? 0,
+            'friday_early_leave_tolerance' => $request->input('friday_early_leave_tolerance') ?? 0,
+            'saturday' => $request->has('saturday'),
+            'saturday_start_time' => $request->input('saturday_start_time'),
+            'saturday_end_time' => $request->input('saturday_end_time'),
+            'saturday_break_start' => $request->input('saturday_break_start'),
+            'saturday_break_end' => $request->input('saturday_break_end'),
+            'saturday_late_tolerance' => $request->input('saturday_late_tolerance') ?? 0,
+            'saturday_early_leave_tolerance' => $request->input('saturday_early_leave_tolerance') ?? 0,
+            'sunday' => $request->has('sunday'),
+            'sunday_start_time' => $request->input('sunday_start_time'),
+            'sunday_end_time' => $request->input('sunday_end_time'),
+            'sunday_break_start' => $request->input('sunday_break_start'),
+            'sunday_break_end' => $request->input('sunday_break_end'),
+            'sunday_late_tolerance' => $request->input('sunday_late_tolerance') ?? 0,
+            'sunday_early_leave_tolerance' => $request->input('sunday_early_leave_tolerance') ?? 0,
+        ]);
+        return redirect('shifts');
     }
 
     /**

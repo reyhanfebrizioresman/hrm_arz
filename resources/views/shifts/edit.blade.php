@@ -16,73 +16,326 @@
                             <label for="name">Nama Shift:</label>
                             <input type="text" name="name" id="name" class="form-control" value="{{ $shift->name }}">
                         </div>
-                        <div class="form-group">
-                            <label for="shift">Berlaku Shift</label>
-                            <div class="row">
-                                <div class="col-6">
-                                    <input type="date" name="start_date" id="start_date" class="form-control" value="{{ $shift->start_date }}">
-                                </div>
-                                <div class="col-6">
-                                    <input type="date" name="end_date" id="end_date" class="form-control" value="{{ $shift->end_date }}">
-                                </div>
-                            </div>
-                        </div>
-                        @foreach(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday'] as $day)
+                        {{-- Hari Senin --}}
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label>Hari Kerja:</label><br>
+                                    <label for="days">Hari Kerja:</label><br>
                                     <div class="custom-control custom-checkbox">
-                                        <input type="hidden" name="days[{{ $day }}]" value="0">
-                                        <input type="checkbox" class="custom-control-input" id="{{ $day }}" name="days[{{ $day }}]" value="1" {{ in_array($day, $shiftDays) ? 'checked' : '' }}>
-                                        <label class="custom-control-label" for="{{ $day }}">{{ ucfirst($day) }}</label>
+                                        <input type="checkbox" class="custom-control-input" id="monday" name="monday" value="1" {{ $shift->monday ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="monday">Senin</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Masuk:</label>
-                                    <input type="time" name="start_times[{{ $day }}]" class="form-control" value="{{ $shiftTimes[$day]['start_time'] ?? '' }}">
+                                    <input type="time" name="monday_start_time" class="form-control" value="{{ $shift->monday_start_time }}">
                                 </div>
                                 <div class="form-group">
                                     <label>Toleransi Keterlambatan:</label>
-                                    <input type="number" name="late_tolerances[{{ $day }}]" class="form-control" value="{{ $shiftTimes[$day]['late_tolerance'] ?? '' }}">
+                                    <input type="number" name="monday_late_tolerance" class="form-control" value="{{ $shift->monday_late_tolerance }}">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Pulang:</label>
-                                    <input type="time" name="end_times[{{ $day }}]" class="form-control" value="{{ $shiftTimes[$day]['end_time'] ?? '' }}">
+                                    <input type="time" name="monday_end_time" class="form-control" value="{{ $shift->monday_end_time }}">
                                 </div>
                                 <div class="form-group">
                                     <label>Toleransi Pulang Cepat:</label>
-                                    <input type="number" name="early_leave_tolerances[{{ $day }}]" class="form-control" value="{{ $shiftTimes[$day]['early_leave_tolerance'] ?? '' }}">
+                                    <input type="number" name="monday_early_leave_tolerance" class="form-control" value="{{ $shift->monday_early_leave_tolerance }}">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Istirahat:</label>
-                                    <input type="time" name="break_starts[{{ $day }}]" class="form-control" value="{{ $shiftTimes[$day]['break_start'] ?? '' }}">
+                                    <input type="time" name="monday_break_start" class="form-control" value="{{ $shift->monday_break_start }}">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Istirahat Selesai:</label>
-                                    <input type="time" name="break_ends[{{ $day }}]" class="form-control" value="{{ $shiftTimes[$day]['break_end'] ?? '' }}">
+                                    <input type="time" name="monday_break_end" class="form-control" value="{{ $shift->monday_break_end }}">
+                                </div>
+                            </div>
+                        </div>
+                       {{-- Hari Selasa --}}
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="days">Hari Kerja:</label><br>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="tuesday" name="tuesday" value="1" {{ $shift->tuesday ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="tuesday">Selasa</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label>Shift:</label><br>
-                                    <input type="radio" name="shifts[{{ $day }}]" value="morning" {{ $shiftTimes[$day]['shift'] == 'morning' ? 'checked' : '' }}> Pagi
-                                    <input type="radio" name="shifts[{{ $day }}]" value="evening" {{ $shiftTimes[$day]['shift'] == 'evening' ? 'checked' : '' }}> Malam
+                                    <label>Jam Masuk:</label>
+                                    <input type="time" name="tuesday_start_time" class="form-control" value="{{ $shift->tuesday_start_time }}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Toleransi Keterlambatan:</label>
+                                    <input type="number" name="tuesday_late_tolerance" class="form-control" value="{{ $shift->tuesday_late_tolerance }}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Pulang:</label>
+                                    <input type="time" name="tuesday_end_time" class="form-control" value="{{ $shift->tuesday_end_time }}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Toleransi Pulang Cepat:</label>
+                                    <input type="number" name="tuesday_early_leave_tolerance" class="form-control" value="{{ $shift->tuesday_early_leave_tolerance }}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Istirahat:</label>
+                                    <input type="time" name="tuesday_break_start" class="form-control" value="{{ $shift->tuesday_break_start }}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Istirahat Selesai:</label>
+                                    <input type="time" name="tuesday_break_end" class="form-control" value="{{ $shift->tuesday_break_end }}">
                                 </div>
                             </div>
                         </div>
                         <hr>
-                        @endforeach
+                        {{-- Hari Rabu --}}
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="days">Hari Kerja:</label><br>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="wednesday" name="wednesday" value="1" {{ $shift->wednesday ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="wednesday">Rabu</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Masuk:</label>
+                                    <input type="time" name="wednesday_start_time" class="form-control" value="{{ $shift->wednesday_start_time }}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Toleransi Keterlambatan:</label>
+                                    <input type="number" name="wednesday_late_tolerance" class="form-control" value="{{ $shift->wednesday_late_tolerance }}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Pulang:</label>
+                                    <input type="time" name="wednesday_end_time" class="form-control" value="{{ $shift->wednesday_end_time }}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Toleransi Pulang Cepat:</label>
+                                    <input type="number" name="wednesday_early_leave_tolerance" class="form-control" value="{{ $shift->wednesday_early_leave_tolerance }}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Istirahat:</label>
+                                    <input type="time" name="wednesday_break_start" class="form-control" value="{{ $shift->wednesday_break_start }}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Istirahat Selesai:</label>
+                                    <input type="time" name="wednesday_break_end" class="form-control" value="{{ $shift->wednesday_break_end }}">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        {{-- Hari Kamis --}}
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="days">Hari Kerja:</label><br>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="thursday" name="thursday" value="1" {{ $shift->thursday ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="thursday">Kamis</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Masuk:</label>
+                                    <input type="time" name="thursday_start_time" class="form-control" value="{{ $shift->thursday_start_time }}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Toleransi Keterlambatan:</label>
+                                    <input type="number" name="thursday_late_tolerance" class="form-control" value="{{ $shift->thursday_late_tolerance }}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Pulang:</label>
+                                    <input type="time" name="thursday_end_time" class="form-control" value="{{ $shift->thursday_end_time }}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Toleransi Pulang Cepat:</label>
+                                    <input type="number" name="thursday_early_leave_tolerance" class="form-control" value="{{ $shift->thursday_early_leave_tolerance }}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Istirahat:</label>
+                                    <input type="time" name="thursday_break_start" class="form-control" value="{{ $shift->thursday_break_start }}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Istirahat Selesai:</label>
+                                    <input type="time" name="thursday_break_end" class="form-control" value="{{ $shift->thursday_break_end }}">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        {{-- Hari Jumat --}}
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="days">Hari Kerja:</label><br>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="friday" name="friday" value="1" {{ $shift->friday ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="friday">Jumat</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Masuk:</label>
+                                    <input type="time" name="friday_start_time" class="form-control" value="{{ $shift->friday_start_time }}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Toleransi Keterlambatan:</label>
+                                    <input type="number" name="friday_late_tolerance" class="form-control" value="{{ $shift->friday_late_tolerance }}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Pulang:</label>
+                                    <input type="time" name="friday_end_time" class="form-control" value="{{ $shift->friday_end_time }}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Toleransi Pulang Cepat:</label>
+                                    <input type="number" name="friday_early_leave_tolerance" class="form-control" value="{{ $shift->friday_early_leave_tolerance }}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Istirahat:</label>
+                                    <input type="time" name="friday_break_start" class="form-control" value="{{ $shift->friday_break_start }}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Istirahat Selesai:</label>
+                                    <input type="time" name="friday_break_end" class="form-control" value="{{ $shift->friday_break_end }}">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        {{-- Hari Sabtu --}}
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="days">Hari Kerja:</label><br>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="saturday" name="saturday" value="1" {{ $shift->saturday ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="saturday">Sabtu</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Masuk:</label>
+                                    <input type="time" name="saturday_start_time" class="form-control" value="{{ $shift->saturday_start_time }}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Toleransi Keterlambatan:</label>
+                                    <input type="number" name="saturday_late_tolerance" class="form-control" value="{{ $shift->saturday_late_tolerance }}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Pulang:</label>
+                                    <input type="time" name="saturday_end_time" class="form-control" value="{{ $shift->saturday_end_time }}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Toleransi Pulang Cepat:</label>
+                                    <input type="number" name="saturday_early_leave_tolerance" class="form-control" value="{{ $shift->saturday_early_leave_tolerance }}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Istirahat:</label>
+                                    <input type="time" name="saturday_break_start" class="form-control" value="{{ $shift->saturday_break_start }}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Istirahat Selesai:</label>
+                                    <input type="time" name="saturday_break_end" class="form-control" value="{{ $shift->saturday_break_end }}">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        {{-- Hari Minggu --}}
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="days">Hari Kerja:</label><br>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="sunday" name="sunday" value="1" {{ $shift->sunday ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="sunday">Minggu</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Masuk:</label>
+                                    <input type="time" name="sunday_start_time" class="form-control" value="{{ $shift->sunday_start_time }}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Toleransi Keterlambatan:</label>
+                                    <input type="number" name="sunday_late_tolerance" class="form-control" value="{{ $shift->sunday_late_tolerance }}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Pulang:</label>
+                                    <input type="time" name="sunday_end_time" class="form-control" value="{{ $shift->sunday_end_time }}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Toleransi Pulang Cepat:</label>
+                                    <input type="number" name="sunday_early_leave_tolerance" class="form-control" value="{{ $shift->sunday_early_leave_tolerance }}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Istirahat:</label>
+                                    <input type="time" name="sunday_break_start" class="form-control" value="{{ $shift->sunday_break_start }}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Jam Istirahat Selesai:</label>
+                                    <input type="time" name="sunday_break_end" class="form-control" value="{{ $shift->sunday_break_end }}">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+
                         <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                            <button type="submit" class="btn btn-primary">Perbarui Shift</button>
                         </div>
                     </form>
                 </div>

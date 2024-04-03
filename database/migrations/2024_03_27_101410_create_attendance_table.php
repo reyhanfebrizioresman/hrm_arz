@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('employee_id');
             $table->enum('status', ['izin', 'cuti', 'sakit'])->nullable();
             $table->integer('overtime')->nullable();
-            $table->time('late')->nullable();
+            $table->integer('late')->nullable();
             $table->time('clock_in');
             $table->time('clock_out');
             $table->date('date');

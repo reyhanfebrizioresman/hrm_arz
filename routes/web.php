@@ -31,6 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/employee/{id}/toggleStatus', [EmployeeController::class, 'toggleStatus'])->name('employee.toggleStatus');
     Route::resource('/attendance', AttendanceController::class);
     Route::resource('/shifts', ShiftsController::class);
+    // Route::get('/attendance/import-export', [AttendanceController::class, 'importExport'])->name('attendance.importExport');
+
     // Route::get('/export/attendance', function () {
     //     return Excel::download(new AttendanceExport, 'attendance.xlsx');
     // });

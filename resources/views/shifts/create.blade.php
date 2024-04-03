@@ -13,7 +13,6 @@
                         @csrf
                         <div class="form-group">
                             <label for="name">Nama Shift:</label>
-
                             <input type="text" name="name" id="name" class="form-control">
                         </div>
                         {{-- Hari Senin --}}
@@ -30,33 +29,33 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Masuk:</label>
-                                    <input type="time" name="start_time" class="form-control">
+                                    <input type="time" name="monday_start_time" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Toleransi Keterlambatan:</label>
-                                    <input type="number" name="late_tolerance" class="form-control">
+                                    <input type="number" name="monday_late_tolerance" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Pulang:</label>
-                                    <input type="time" name="end_time" class="form-control">
+                                    <input type="time" name="monday_end_time" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Toleransi Pulang Cepat:</label>
-                                    <input type="number" name="early_leave_tolerance" class="form-control">
+                                    <input type="number" name="monday_early_leave_tolerance" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Istirahat:</label>
-                                    <input type="time" name="break_start" class="form-control">
+                                    <input type="time" name="monday_break_start" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Istirahat Selesai:</label>
-                                    <input type="time" name="break_end" class="form-control">
+                                    <input type="time" name="monday_break_end" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -75,33 +74,33 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Masuk:</label>
-                                    <input type="time" name="start_time" class="form-control">
+                                    <input type="time" name="tuesday_start_time" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Toleransi Keterlambatan:</label>
-                                    <input type="number" name="late_tolerance" class="form-control">
+                                    <input type="number" name="tuesday_late_tolerance" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Pulang:</label>
-                                    <input type="time" name="end_time" class="form-control">
+                                    <input type="time" name="tuesday_end_time" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Toleransi Pulang Cepat:</label>
-                                    <input type="number" name="early_leave_tolerance" class="form-control">
+                                    <input type="number" name="tuesday_early_leave_tolerance" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Istirahat:</label>
-                                    <input type="time" name="break_start" class="form-control">
+                                    <input type="time" name="tuesday_break_start" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Istirahat Selesai:</label>
-                                    <input type="time" name="break_end" class="form-control">
+                                    <input type="time" name="tuesday_break_end" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -120,33 +119,33 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Masuk:</label>
-                                    <input type="time" name="start_time" class="form-control">
+                                    <input type="time" name="wednesday_start_time" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Toleransi Keterlambatan:</label>
-                                    <input type="number" name="late_tolerance" class="form-control">
+                                    <input type="number" name="wednesday_late_tolerance" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Pulang:</label>
-                                    <input type="time" name="end_time" class="form-control">
+                                    <input type="time" name="wednesday_end_time" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Toleransi Pulang Cepat:</label>
-                                    <input type="number" name="early_leave_tolerance" class="form-control">
+                                    <input type="number" name="wednesday_early_leave_tolerance" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Istirahat:</label>
-                                    <input type="time" name="break_start" class="form-control">
+                                    <input type="time" name="wednesday_break_start" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Istirahat Selesai:</label>
-                                    <input type="time" name="break_end" class="form-control">
+                                    <input type="time" name="wednesday_break_end" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -165,33 +164,33 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Masuk:</label>
-                                    <input type="time" name="start_time" class="form-control">
+                                    <input type="time" name="thursday_start_time" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Toleransi Keterlambatan:</label>
-                                    <input type="number" name="late_tolerance" class="form-control">
+                                    <input type="number" name="thursday_late_tolerance" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Pulang:</label>
-                                    <input type="time" name="end_time" class="form-control">
+                                    <input type="time" name="thursday_end_time" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Toleransi Pulang Cepat:</label>
-                                    <input type="number" name="early_leave_tolerance" class="form-control">
+                                    <input type="number" name="thursday_early_leave_tolerance" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Istirahat:</label>
-                                    <input type="time" name="break_start" class="form-control">
+                                    <input type="time" name="thursday_break_start" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Istirahat Selesai:</label>
-                                    <input type="time" name="break_end" class="form-control">
+                                    <input type="time" name="thursday_break_end" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -210,33 +209,33 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Masuk:</label>
-                                    <input type="time" name="start_time" class="form-control">
+                                    <input type="time" name="friday_start_time" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Toleransi Keterlambatan:</label>
-                                    <input type="number" name="late_tolerance" class="form-control">
+                                    <input type="number" name="friday_late_tolerance" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Pulang:</label>
-                                    <input type="time" name="end_time" class="form-control">
+                                    <input type="time" name="friday_end_time" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Toleransi Pulang Cepat:</label>
-                                    <input type="number" name="early_leave_tolerance" class="form-control">
+                                    <input type="number" name="friday_early_leave_tolerance" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Istirahat:</label>
-                                    <input type="time" name="break_start" class="form-control">
+                                    <input type="time" name="friday_break_start" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Istirahat Selesai:</label>
-                                    <input type="time" name="break_end" class="form-control">
+                                    <input type="time" name="friday_break_end" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -255,33 +254,33 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Masuk:</label>
-                                    <input type="time" name="start_time" class="form-control">
+                                    <input type="time" name="saturday_start_time" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Toleransi Keterlambatan:</label>
-                                    <input type="number" name="late_tolerance" class="form-control">
+                                    <input type="number" name="saturday_late_tolerance" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Pulang:</label>
-                                    <input type="time" name="end_time" class="form-control">
+                                    <input type="time" name="saturday_end_time" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Toleransi Pulang Cepat:</label>
-                                    <input type="number" name="early_leave_tolerance" class="form-control">
+                                    <input type="number" name="saturday_early_leave_tolerance" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Istirahat:</label>
-                                    <input type="time" name="break_start" class="form-control">
+                                    <input type="time" name="saturday_break_start" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Istirahat Selesai:</label>
-                                    <input type="time" name="break_end" class="form-control">
+                                    <input type="time" name="saturday_break_end" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -300,33 +299,33 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Masuk:</label>
-                                    <input type="time" name="start_time" class="form-control">
+                                    <input type="time" name="sunday_start_time" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Toleransi Keterlambatan:</label>
-                                    <input type="number" name="late_tolerance" class="form-control">
+                                    <input type="number" name="sunday_late_tolerance" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Pulang:</label>
-                                    <input type="time" name="end_time" class="form-control">
+                                    <input type="time" name="sunday_end_time" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Toleransi Pulang Cepat:</label>
-                                    <input type="number" name="early_leave_tolerance" class="form-control">
+                                    <input type="number" name="sunday_early_leave_tolerance" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Istirahat:</label>
-                                    <input type="time" name="break_start" class="form-control">
+                                    <input type="time" name="sunday_break_start" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Jam Istirahat Selesai:</label>
-                                    <input type="time" name="break_end" class="form-control">
+                                    <input type="time" name="sunday_break_end" class="form-control">
                                 </div>
                             </div>
                         </div>

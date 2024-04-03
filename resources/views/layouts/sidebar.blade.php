@@ -37,7 +37,7 @@
             <a href="{{url('/attendance')}}" class="nav-link "></i><span>Data Kehadiran</span></a>
           </li>
           <li class="">
-            <a href="{{url('/attendance')}}" class="nav-link "></i><span>Import/Export</span></a>
+            <a href="{{url('/attendance/create')}}" class="nav-link "></i><span>Import/Export</span></a>
           </li>
           <li class="">
             <a href="{{url('/shifts')}}" class="nav-link "><span>Shift</span></a>

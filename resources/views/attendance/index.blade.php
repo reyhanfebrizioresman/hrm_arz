@@ -2,68 +2,28 @@
 @section('title','Dashboard')
 @section('sub-judul','Absensi')
 @section('content')
-<div class="container">
-    <div class="card mb-3">
-        <div class="card-body">
-            <!-- Export to Excel Form -->
-            <form action="{{ route('attendance.export') }}" method="POST" class="mb-3">
-                @csrf
-                <div class="row align-items-center">
-                    <div class="col-md-4">
-                        <label for="start_date">Start Date:</label>
-                        <input type="date" id="start_date" name="start_date" class="form-control">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="end_date">End Date:</label>
-                        <input type="date" id="end_date" name="end_date" class="form-control">
-                    </div>
-                    <div class="col-md-4">
-                        <button type="submit" class="btn btn-primary btn-block">Export to Excel</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    
-    <div class="card mb-3">
-        <div class="card-body">
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <!-- Import from Excel Form -->
-                    <form action="{{ route('attendance.import') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="row align-items-center">
-                            <div class="col-md-6">
-                                <input type="file" name="file" accept=".xlsx, .xls" class="form-control">
-                            </div>
-                            <div class="col-md-6">
-                                <button type="submit" class="btn btn-primary btn-block">Import Excel</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-md-6">
-                    <!-- Filter by Date -->
-                    <div class="row align-items-center">
-                        <div class="col-md-6">
-                            <input type="date" id="filterDate" class="form-control" value="{{ request('date') }}">
-                        </div>                        
-                        <div class="col-md-6">
-                            <button id="filterButton" class="btn btn-primary btn-block">Filter</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-   
-    <div class="d-flex justify-content-end mb-2">
-    <a class="btn btn-primary btn-sm" href="{{route('attendance.create')}}"><i class="fas fa-plus"></i></a>
+    
+
+   <div class="row">
+    <div class="col-md-3 mb-2">
+        <div class="input-group input-group-sm">
+            <input type="date" id="filterDate" class="form-control" value="{{ request('date') }}">
+                <div class="input-group-append">
+            <button id="filterButton" class="btn btn-primary">Filter</button>
+        </div>
+    </div>   
+    </div>
+    <div class="col-md-9">
+        <div class="d-flex justify-content-end mb-2">
+        <a class="btn btn-primary btn-sm" href="{{route('attendance.create')}}"><i class="fas fa-plus"></i></a>
+        </div>
+    </div>
+   </div>
+    {{-- <a class="btn btn-primary btn-sm" href="{{route('attendance.importExport')}}">Export/Import</a> --}}
     </div>
     <!-- Attendance Table -->
-    <div class="card mb-3">
+    <div class="card mb-3 shadow-md">
         <div class="card-body">
         {{-- <h5>Tanggal : {{request('date')}}</h5> --}}
             <div class="table-responsive">
@@ -80,15 +40,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($attendances as $item)
+                        @foreach($employees as $item)
                         <tr>
                             {{-- <td>{{ $loop->iteration }}</td> --}}
-                            <td>{{ $item->employee->name }}</td>
-                            <td>{{ date('Y-m-d', strtotime($item->date)) }}</td>
-                            <td>{{ \Carbon\Carbon::parse($item->clock_in)->format('H:i') }}</td>
-                            <td>{{ \Carbon\Carbon::parse($item->clock_out)->format('H:i') }}</td>
-                            <td>{{$item->late}} Menit</td>
-                            <td>{{$item->overtime}} Menit</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ date('Y-m-d', strtotime($item->attendance->date)) }}</td>
+                            <td>{{ \Carbon\Carbon::parse($item->attendance->clock_in)->format('H:i') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($item->attendance->clock_out)->format('H:i') }}</td>
+                            <td>{{$item->attendance->late}} Menit</td>
+                            <td>{{$item->attendance->overtime}} Menit</td>
                             <td>
                                 <a href="{{ route('attendance.edit', $item->id) }}" class="btn btn-primary btn-sm">
                                     <i class="fas fa-edit"></i>

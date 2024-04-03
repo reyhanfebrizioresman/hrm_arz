@@ -1,48 +1,79 @@
 @extends('layouts.template')
-@section('title','DasHboard')
-@section('sub-judul','Departemen')
+@section('title','Dashboard')
+@section('sub-judul','Absensi')
 @section('content')
+<div class="container">
+    <div class="card mb-3">
+        <div class="card-header">Export-Import</div>
+        <div class="card-body">
+            <!-- Export to Excel Form -->
+            <form action="{{ route('attendance.export') }}" method="POST" class="mb-3">
+                @csrf
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="start_date">Tanggal Di Mulai:</label>
+                        <input type="date" id="start_date" name="start_date" class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="end_date">Tanggal Berakhir:</label>
+                        <input type="date" id="end_date" name="end_date" class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary">Export to Excel</button>
+                    </div>
+                </form>
+                    <div class="col-md-6">
+                        <form action="{{ route('attendance.import') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <label for="">Import Absensi</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="file" name="file" accept=".xlsx, .xls" class="form-control">
+                                        <div class="input-group-append">
+                                    <button type="submit" class="btn btn-primary btn-block">Import</button>
+                                        </div>
+                                </div>                                           
+                        </form>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 <div class="card">
+    <div class="card-header">Tambah Kehadiran</div>
     <div class="card-body">
-        <h5 class="card-title">Input Kehadiran</h5>
         <form action="{{ route('attendance.store') }}" method="POST">
             @csrf
-            <div class="form-group">
-                <label for="employee_id">Employee Name:</label>
-                <select class="form-control" name="employee_id" id="employee_id">
-                    @foreach($employees as $employee)
-                        <option value="{{ $employee->id }}">{{ $employee->name }}</option>
-                    @endforeach
-                </select>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="employee_id">Nama Karyawan:*</label>
+                        <select class="form-control" name="employee_id" id="employee_id">
+                            @foreach($employees as $employee)
+                                <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="date">Tanggal:*</label>
+                        <input type="date" class="form-control" id="date" name="date">
+                    </div>
+                </div>
             </div>
-            {{-- <div class="form-group">
-                <label for="employee_name">Employee Name:</label>
-                <input type="text" class="form-control" id="employee_name" name="employee_name"  value="{{ $employee->name }}">
-                <select class="form-control" name="employee_name" id="employee_name">
-                    @foreach($employees as $employee)
-                        <option value="{{ $employee->name }}">{{ $employee->name }}</option>
-                    @endforeach
-                </select>
-            </div> --}}
-            <div class="form-group">
-                <label for="status">Status:</label>
-                <input type="text" class="form-control" id="status" name="status">
-            </div>
-            <div class="form-group">
-                <label for="overtime">Overtime:</label>
-                <input type="text" class="form-control" id="overtime" name="overtime">
-            </div>
-            <div class="form-group">
-                <label for="clock_in">Clock In:</label>
-                <input type="time" class="form-control" id="clock_in" name="clock_in">
-            </div>
-            <div class="form-group">
-                <label for="clock_out">Clock Out:</label>
-                <input type="time" class="form-control" id="clock_out" name="clock_out">
-            </div>
-            <div class="form-group">
-                <label for="date">Date:</label>
-                <input type="date" class="form-control" id="date" name="date">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="clock_in">Jam Masuk:*</label>
+                        <input type="time" class="form-control" id="clock_in" name="clock_in">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="clock_out">Jam Keluar:*</label>
+                        <input type="time" class="form-control" id="clock_out" name="clock_out">
+                    </div>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

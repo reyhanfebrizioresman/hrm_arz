@@ -39,7 +39,7 @@ class EmployeeController extends Controller
               ->orWhere('exit_date', 'like', "%$search%");
     }
     //withQuertyString agar query tetap ada di page selanjut nya
-        $employees = $query->paginate(10)->withQueryString();
+        $employees = $query->paginate(1)->withQueryString();
         $employees->load('careerHistories.department', 'careerHistories.position');
         return view('employee.index',compact('employees'));
     }
@@ -152,7 +152,7 @@ class EmployeeController extends Controller
         return redirect()->back()->with('success', 'Status karyawan berhasil diperbarui.');
     }
 
-    public function showCareer(Employee $employee)
+    public function showCareer($employee)
     {
         $careerHistories = $employee->careerHistories;
         return view('carieerHistory.show',compact('careerHistories'));

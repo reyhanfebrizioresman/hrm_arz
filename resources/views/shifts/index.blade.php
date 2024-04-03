@@ -16,26 +16,26 @@
                             <tr>
                                 <th>No.</th>
                                 <th>Shift Kerja</th>
-                                <th>Tanggal Mulai</th>
-                                <th>Tanggal akhir</th>
+                                <th>Jam Mulai</th>
+                                <th>Jam Keluar</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($shifts->groupBy('name') as $shiftName => $shiftGroup)
+                            @foreach ($shifts as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $shiftName }}</td>
-                                    <td>{{ date('Y-m-d', strtotime($shiftGroup->first()->start_date)) }}</td>
-                                    <td>{{ date('Y-m-d', strtotime($shiftGroup->first()->end_date)) }}</td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->monday_start_time}}</td>
+                                    <td>{{ $item->monday_end_time}}</td>
                                     <td>
-                                        <a href="{{ route('shifts.edit',$shiftGroup->first()->id) }}" class="btn btn-primary  btn-sm"><i class="fas fa-edit"></i></a>
+                                        <a href="{{ route('shifts.edit',$item->id) }}" class="btn btn-primary  btn-sm"><i class="fas fa-edit"></i></a>
 
                                         <!-- Tombol Delete -->
-                                        <a href="{{ route('shifts.destroy', $shiftGroup->first()->id) }}" class="btn btn-danger btn-sm" data-confirm-delete="true">
+                                        <a href="{{ route('shifts.destroy', $item->id) }}" class="btn btn-danger btn-sm" data-confirm-delete="true">
                                             <i class="fas fa-trash"></i>
                                         </a>
-                                        <form id="delete-form-{{ $shiftGroup->first()->id }}" action="{{ route('shifts.destroy', $shiftGroup->first()->id) }}" method="POST" style="display: none;">
+                                        <form id="delete-form-{{ $item->id }}" action="{{ route('shifts.destroy', $item->id) }}" method="POST" style="display: none;">
                                             @csrf
                                             @method('DELETE')
                                         </form> 

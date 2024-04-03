@@ -40,6 +40,11 @@
                     <!-- Kolom 1: Form Pribadi -->
                     <div class="col-md-6">
                     <h5>Data Pribadi</h5>
+                    <div class="form-group">
+                        <label for="picture">Gambar:</label>
+                        <input type="file" id="image" name="picture" onchange="previewImage(event)">
+                        <div id="image-preview"></div>
+                    </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -54,11 +59,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="picture">Gambar:</label>
-                            <input type="file" id="image" name="picture" onchange="previewImage(event)">
-                            <div id="image-preview"></div>
-                        </div>
+                        
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
