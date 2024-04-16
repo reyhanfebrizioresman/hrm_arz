@@ -12,22 +12,6 @@
     }
 </style>
 <div class="container">
-    {{-- @if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ session('success') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    @endif
-    @if(session('error'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        {{ session('error') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    @endif --}}
     <div class="card">
         <div class="card-header">
             <h4>Tambah Karyawan</h4>
@@ -173,8 +157,6 @@
                             <input type="date" class="form-control" id="exit_date" name="exit_date">
                         </div>
                         <h5>Riwayat Karir</h5>
-                       
-                    
                         <div class="form-group">
                             <label for="position_id">Posisi:</label>
                             <select class="form-control" name="position_id" id="position_id">

@@ -24,6 +24,6 @@ class Shift extends Model
 
     public function employees()
     {
-        return $this->belongsToMany(EmployeeModel::class);
+        return $this->belongsToMany(EmployeeModel::class, 'employee_shift', 'employee_id','shift_id');
     }
 }

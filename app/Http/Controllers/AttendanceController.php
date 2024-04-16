@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Models\EmployeeModel;
 use App\Exports\AttendanceExport;
+use App\Exports\AllAttendanceExport;
 use App\Imports\AttendanceImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -32,21 +33,9 @@ class AttendanceController extends Controller
                     // Menampilkan data hari ini
                     $q->where('date', '=', $today);
                 }
-         
         }])->get();
-        // return response()->json($employees);
-        // if ($filterDate && $employees->isEmpty()) {
-        //     Alert::error('error', 'Data tidak ditemukan'); 
-        //     return redirect()->route('attendance.index', ['date' => $request->input('date')]);
-        // }
-        $filteredEmployees = $employees->each(function($employee) {
-            return $employee->first();
-        });
-         // Mengelompokkan hasil berdasarkan employee_id
-    // $groupedEmployees = $employees->groupBy('id');
-    // Membuat koleksi baru dengan hanya satu data untuk setiap karyawan
-    
-        // return response()->json($employees);
+        // return $employees;
+       
         $title = 'Hapus Absensi!';
         $text = "Apa kamu yakin ingin menghapus Absensi?";
         confirmDelete($title, $text);
@@ -71,10 +60,6 @@ class AttendanceController extends Controller
         // $attendances->load('employee');
         return view('attendance.index', compact('employees'));
     }
-    public function importExport(Request $request)
-    {
-        return view('attendance.import-export');
-    }
     public function import(Request $request)
     {
         $request->validate([
@@ -84,7 +69,7 @@ class AttendanceController extends Controller
         $file = $request->file('file');
         $fileName = Str::random(20) . '.' . $file->getClientOriginalExtension(); // Gunakan ekstensi file yang benar
         $file->storeAs('public/excel', $fileName);
-        
+        $employee_id = EmployeeModel::all();
         $import = Excel::import(new AttendanceImport, storage_path('app/public/excel/' . $fileName)); // Panggil class import untuk file Excel
         Alert::success('Selamat', 'Data Telah Berhasil di Import'); 
         if($import) {
@@ -111,6 +96,12 @@ class AttendanceController extends Controller
         $employees = $query->get();
         // return $employees;
         return Excel::download(new AttendanceExport($employees, $request->start_date, $request->end_date), 'attendance.xlsx');
+    }
+
+    public function exportAttendance(Request $request)
+    {
+        // $attendances = Attendance::all();
+        return Excel::download(new AllAttendanceExport, 'attendance.xlsx');
     }
 
     /**
@@ -212,8 +203,7 @@ class AttendanceController extends Controller
     public function destroy(Request $request,string $id)
     {
         // Temukan data employee berdasarkan ID
-        $employee = EmployeeModel::find($id);
-        $employee->attendance()->delete();
+        $employee = Attendance::find($id);
         $employee->delete();
         Alert::success('Selamat', 'Data Telah Berhasil di Hapus'); 
         return redirect()->route('attendance.index', ['date' => $request->input('date')]);

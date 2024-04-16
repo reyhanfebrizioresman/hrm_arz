@@ -18,43 +18,48 @@
         <li class="nav-item">
             <a class="nav-link" id="career-tab" data-toggle="tab" href="#career" role="tab" aria-controls="career" aria-selected="false">Riwayat Karir</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" id="shift-tab" data-toggle="tab" href="#shift" role="tab" aria-controls="shift" aria-selected="false">Shift Kerja</a>
+      </li>
     </ul>
-    <!-- Dropdown -->
-    <div class="dropdown d-flex justify-content-end">
-        <button class="btn btn-primary dropdown-toggle mt-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Actions
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="{{ route('employee.edit', $employee->id) }}">Edit</a>
-            <div class="dropdown-divider"></div>
-            <div class="dropdown-item">
-                <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="customSwitch-{{ $employee->id }}" {{ $employee->status === 'active' ? 'checked' : '' }}>
-                    <label class="custom-control-label" for="customSwitch-{{ $employee->id }}">Status</label>
-                </div>
-                <form id="toggle-form-{{ $employee->id }}" action="{{ route('employee.toggleStatus', $employee->id) }}" method="POST" style="display: none;">
-                    @csrf
-                    @method('PATCH')
-                </form>
-            </div>
-        </div>
-    </div>
+
     
     <!-- Isi tab -->
     <div class="tab-content" id="myTabContent">
         <!-- Tab Profile -->
         <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+              <!-- Dropdown -->
+            <div class="dropdown d-flex justify-content-end">
+              <button class="btn btn-primary dropdown-toggle mt-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Actions
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="{{ route('employee.edit', $employees->id) }}">Edit</a>
+                  <div class="dropdown-divider"></div>
+                  <div class="dropdown-item">
+                      <div class="custom-control custom-switch">
+                          <input type="checkbox" class="custom-control-input" id="customSwitch-{{ $employees->id }}" {{ $employees->status === 'active' ? 'checked' : '' }}>
+                          <label class="custom-control-label" for="customSwitch-{{ $employees->id }}">Status</label>
+                      </div>
+                      <form id="toggle-form-{{ $employees->id }}" action="{{ route('employee.toggleStatus', $employees->id) }}" method="POST" style="display: none;">
+                          @csrf
+                          @method('PATCH')
+                      </form>
+                  </div>
+              </div>
+          </div>
             <div class="row">
                 <!-- Kolom 1: Image dan Career History -->
                 <div class="col-md-3">
                     <div class="card shadow-md">
+                      
                         <div class="card-body text-center">
                             <!-- Gambar bundar -->
-                            <img src="{{ asset('/storage/pictures/'. $employee->picture) }}" class="card-img rounded-circle mx-auto d-block mb-3" alt="Profile Picture" style="object-fit:cover; width: 150px; height: 150px;">
+                            <img src="{{ asset('/storage/pictures/'. $employees->picture) }}" class="card-img rounded-circle mx-auto d-block mb-3" alt="Profile Picture" style="object-fit:cover; width: 150px; height: 150px;">
                             <!-- Nama -->
-                            <h5 class="card-title">{{ $employee->name }}</h5>
+                            <h5 class="card-title">{{ $employees->name }}</h5>
                             <!-- Email -->
-                            <p class="card-text">{{ $employee->email }}</p>
+                            <p class="card-text">{{ $employees->email }}</p>
                         </div>
                     </div>
                 </div>
@@ -67,7 +72,7 @@
                             <p class="mb-0 font-weight-bold">Full Name</p>
                           </div>
                           <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ $employee->name }}</p>
+                            <p class="text-muted mb-0">{{ $employees->name }}</p>
                           </div>
                         </div>
                         <hr>
@@ -76,7 +81,7 @@
                             <p class="mb-0 font-weight-bold">Email</p>
                           </div>
                           <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ $employee->email }}</p>
+                            <p class="text-muted mb-0">{{ $employees->email }}</p>
                           </div>
                         </div>
                         <hr>
@@ -85,7 +90,7 @@
                             <p class="mb-0 font-weight-bold">Phone Number</p>
                           </div>
                           <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ $employee->phone_number }}</p>
+                            <p class="text-muted mb-0">{{ $employees->phone_number }}</p>
                           </div>
                         </div>
                         <hr>
@@ -94,7 +99,7 @@
                             <p class="mb-0 font-weight-bold">No darurat</p>
                           </div>
                           <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ $employee->phone_number }}</p>
+                            <p class="text-muted mb-0">{{ $employees->phone_number }}</p>
                           </div>
                         </div>
                         <hr>
@@ -103,7 +108,7 @@
                               <p class="mb-0 font-weight-bold">No Identitas</p>
                             </div>
                             <div class="col-sm-9">
-                              <p class="text-muted mb-0">{{ $employee->identity_no }}</p>
+                              <p class="text-muted mb-0">{{ $employees->identity_no }}</p>
                             </div>
                           </div>
                           <hr>
@@ -112,7 +117,7 @@
                             <p class="mb-0 font-weight-bold">Domisili</p>
                           </div>
                           <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ $employee->city }}</p>
+                            <p class="text-muted mb-0">{{ $employees->city }}</p>
                           </div>
                         </div>
                         <hr>
@@ -121,7 +126,7 @@
                               <p class="mb-0 font-weight-bold">Alamat</p>
                             </div>
                             <div class="col-sm-9">
-                              <p class="text-muted mb-0">{{ $employee->address }}</p>
+                              <p class="text-muted mb-0">{{ $employees->address }}</p>
                             </div>
                           </div>
                         <hr>
@@ -130,7 +135,7 @@
                               <p class="mb-0 font-weight-bold">Tanggal Lahir</p>
                             </div>
                             <div class="col-sm-9">
-                              <p class="text-muted mb-0">{{ date('d F Y', strtotime($employee->date_of_birth)) }}</p>
+                              <p class="text-muted mb-0">{{ date('d F Y', strtotime($employees->date_of_birth)) }}</p>
                             </div>
                           </div>
                         <hr>
@@ -139,7 +144,7 @@
                               <p class="mb-0 font-weight-bold">Tempat Lahir</p>
                             </div>
                             <div class="col-sm-9">
-                              <p class="text-muted mb-0">{{$employee->place_of_birth}}</p>
+                              <p class="text-muted mb-0">{{$employees->place_of_birth}}</p>
                             </div>
                           </div>
                         <hr>
@@ -148,7 +153,7 @@
                               <p class="mb-0 font-weight-bold">Jenis Kelamin</p>
                             </div>
                             <div class="col-sm-9">
-                              <p class="text-muted mb-0">{{ $employee->gender }}</p>
+                              <p class="text-muted mb-0">{{ $employees->gender }}</p>
                             </div>
                           </div>
                         <hr>
@@ -157,7 +162,7 @@
                               <p class="mb-0 font-weight-bold">Status Pernikahan</p>
                             </div>
                             <div class="col-sm-9">
-                              <p class="text-muted mb-0">{{ $employee->marital_status }}</p>
+                              <p class="text-muted mb-0">{{ $employees->marital_status }}</p>
                             </div>
                           </div>
                           <hr>
@@ -167,7 +172,7 @@
                             </div>
                             <div class="col-sm-9">
                               <p class="text-muted mb-0">
-                                {{$employee->ptkp}}
+                                {{$employees->ptkp}}
                               </p>
                             </div>
                           </div>
@@ -178,10 +183,10 @@
                             </div>
                             <div class="col-sm-9">
                               <p class="text-muted mb-0">
-                                @if($employee->status == 'active')
-                                            <span style="color: black" class="badge badge-success">{{ ucfirst($employee->status == 'active' ? 'Aktif' : '') }}</span>
+                                @if($employees->status == 'active')
+                                            <span style="color: black" class="badge badge-success">{{ ucfirst($employees->status == 'active' ? 'Aktif' : '') }}</span>
                                         @else
-                                            <span style="color: black" class="badge badge-danger font-weight-bold">{{ ucfirst($employee->status == 'inactive' ? 'Non Aktif' : '') }}</span>
+                                            <span style="color: black" class="badge badge-danger font-weight-bold">{{ ucfirst($employees->status == 'inactive' ? 'Non Aktif' : '') }}</span>
                                         @endif
                               </p>
                             </div>
@@ -192,7 +197,7 @@
                               <p class="mb-0 font-weight-bold">Status Pekerja</p>
                             </div>
                             <div class="col-sm-9">
-                              <p class="text-muted mb-0">{{ $employee->employment_status }}</p>
+                              <p class="text-muted mb-0">{{ $employees->employment_status }}</p>
                             </div>
                           </div>
                         <hr>
@@ -201,7 +206,7 @@
                               <p class="mb-0 font-weight-bold">Tanggal Bergabung</p>
                             </div>
                             <div class="col-sm-9">
-                              <p class="text-muted mb-0">{{ date('d F Y', strtotime($employee->joining_date)) }}</p>
+                              <p class="text-muted mb-0">{{ date('d F Y', strtotime($employees->joining_date)) }}</p>
                             </div>
                           </div>
                         <hr>
@@ -210,7 +215,7 @@
                               <p class="mb-0 font-weight-bold">Tanggal Keluar</p>
                             </div>
                             <div class="col-sm-9">
-                              <p class="text-muted mb-0">{{ date('d F Y', strtotime($employee->exit_date)) }}</p>
+                              <p class="text-muted mb-0">{{ date('d F Y', strtotime($employees->exit_date)) }}</p>
                             </div>
                           </div>
                         <hr>
@@ -238,7 +243,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($employee->careerHistories as $history)
+                                            @foreach ($employees->careerHistories as $history)
                                             <tr>
                                                 <td>{{ $history->date }}</td>
                                                 <td>{{ $history->position->job_position }}</td>
@@ -254,12 +259,51 @@
                 </div>
             </div>
         </div>
+
+        {{-- shift kerja --}}
+        <div class="tab-pane fade" id="shift" role="tabpanel" aria-labelledby="shift-tab">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-12">
+                      <div class="card">
+                        <div class="card-header">Shift Kerja</div>
+                          <div class="card-body">
+                            <div class=" mb-4 d-flex justify-content-end">
+                              <a href="{{ route('employee.addShift',$employees->id) }}" class="btn btn-primary">Tambah Shift</a>
+                          </div>
+                              <div class="card-footer">
+                                  <table class="table">
+                                      <thead>
+                                          <tr>
+                                              <th>No</th>
+                                              <th>Shift Kerja</th>
+                                              <th>Tanggal Mulai</th>
+                                              <th>Aksi</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                       @foreach($employees->shifts as $employee)
+                                          <tr>
+                                            <td>{{$loop->iteration}}</td>
+                                            <td>{{$employee->name}}</td>
+                                            <td></td>
+                                          </tr>
+                                       @endforeach
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
     </div>
 </div>
 
 <script>
-    document.getElementById('customSwitch-{{ $employee->id }}').addEventListener('change', function() {
-        document.getElementById('toggle-form-{{ $employee->id }}').submit();
+    document.getElementById('customSwitch-{{ $employees->id }}').addEventListener('change', function() {
+        document.getElementById('toggle-form-{{ $employees->id }}').submit();
     });
 </script>
 

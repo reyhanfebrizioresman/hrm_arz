@@ -2,64 +2,6 @@
 @section('title','Dashboard')
 @section('sub-judul','Absensi')
 @section('content')
-<<<<<<< HEAD
-=======
-<div class="container">
-    <div class="card mb-3">
-        <div class="card-body">
-            <!-- Export to Excel Form -->
-            <form action="{{ route('attendance.export') }}" method="POST" class="mb-3">
-                @csrf
-                <div class="row align-items-center">
-                    <div class="col-md-4">
-                        <label for="start_date">Mulai Tanggal:</label>
-                        <input type="date" id="start_date" name="start_date" class="form-control">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="end_date">Tanggal Berakhir:</label>
-                        <input type="date" id="end_date" name="end_date" class="form-control">
-                    </div>
-                    <div class="col-md-4">
-                        <button type="submit" class="btn btn-primary btn-block">Ekspor ke Excel</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    
-    <div class="card mb-3">
-        <div class="card-body">
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <!-- Import from Excel Form -->
-                    <form action="{{ route('attendance.import') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="row align-items-center">
-                            <div class="col-md-6">
-                                <input type="file" name="file" accept=".xlsx, .xls" class="form-control">
-                            </div>
-                            <div class="col-md-6">
-                                <button type="submit" class="btn btn-primary btn-block">Impor ke Excel</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-md-6">
-                    <!-- Filter by Date -->
-                    <div class="row align-items-center">
-                        <div class="col-md-6">
-                            <input type="date" id="filterDate" class="form-control" value="{{ request('date') }}">
-                        </div>                        
-                        <div class="col-md-6">
-                            <button id="filterButton" class="btn btn-primary btn-block">Filter</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
->>>>>>> 8fe16ff95b0c4b052b37c2d31b19b30ba71b24a5
 
     
 
@@ -70,7 +12,14 @@
                 <div class="input-group-append">
             <button id="filterButton" class="btn btn-primary">Filter</button>
         </div>
-    </div>   
+    </div>
+        <!-- Export to Excel Form -->
+    <form action="{{ route('attendance.exportAttendance') }}" method="POST" >
+        @csrf
+        <div class="mt-3">
+         <button type="submit" class="btn btn-primary btn-block">Export to Excel</button>
+        </div>
+    </form> 
     </div>
     <div class="col-md-9">
         <div class="d-flex justify-content-end mb-2">
@@ -89,7 +38,7 @@
                     <thead>
                         <tr>
                             <th>Nama</th>
-                            <th>Tanggal</th>
+                            <th>Status</th>
                             <th>Jam Masuk</th>
                             <th>Jam Keluar</th>
                             <th>Telat</th>
@@ -98,26 +47,50 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($employees as $item)
+                        @foreach($employees as $employee)
                         <tr>
                             {{-- <td>{{ $loop->iteration }}</td> --}}
-                            <td>{{ $item->name }}</td>
-                            <td>{{ date('Y-m-d', strtotime($item->attendance->date)) }}</td>
-                            <td>{{ \Carbon\Carbon::parse($item->attendance->clock_in)->format('H:i') }}</td>
-                            <td>{{ \Carbon\Carbon::parse($item->attendance->clock_out)->format('H:i') }}</td>
-                            <td>{{$item->attendance->late}} Menit</td>
-                            <td>{{$item->attendance->overtime}} Menit</td>
+                            <td>{{ $employee->name }}</td>
+                            @if($employee->attendance != null )
                             <td>
-                                <a href="{{ route('attendance.edit', $item->id) }}" class="btn btn-primary btn-sm">
+                                @if($employee->attendance->status == 'hadir')
+                                <span class="badge badge-success">{{$employee->attendance->status ?? null}}</span>
+                                @elseif($employee->attendance->status == 'izin')
+                                <span class="badge badge-info">{{$employee->attendance->status ?? null}}</span>
+                                @elseif($employee->attendance->status == 'sakit')
+                                <span class="badge badge-secondary">{{$employee->attendance->status ?? null}}</span>
+                                @else
+                                <span class="badge badge-danger">{{$employee->attendance->status ?? null}}</span>
+                                @endif
+                            </td>
+                            <td>{{ \Carbon\Carbon::parse($employee->attendance->clock_in ?? null)->format('H:i') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($employee->attendance->clock_out ?? null)->format('H:i') }}</td>
+                            <td>{{$employee->attendance->late ?? null}} Menit</td>
+                            <td>{{$employee->attendance->overtime ?? null}} Menit</td>
+                            @else
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            
+                            @endif
+                            
+                            <td>
+                                @if($employee->attendance != null)
+                                <a href="{{ route('attendance.edit', $employee->attendance->id) }}" class="btn btn-primary btn-sm">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="{{ route('attendance.destroy', $item->id) }}" class="btn btn-danger btn-sm" data-confirm-delete="true">
+                                <a href="{{ route('attendance.destroy',  $employee->attendance->id ?? null) }}" class="btn btn-danger btn-sm" data-confirm-delete="true">
                                     <i class="fas fa-trash"></i>
                                 </a>
-                                <form id="delete-form-{{ $item->id }}" action="{{ route('attendance.destroy', $item->id) }}" method="POST" style="display: none;">
+                                <form id="delete-form-{{ $employee->attendance->id ?? null }}" action="{{ route('attendance.destroy', $employee->id) }}" method="POST" style="display: none;">
                                     @csrf
                                     @method('DELETE')
                                 </form>
+                                @endif
+
                             </td>
                         </tr>
                         @endforeach

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\EmployeeModel;
 use App\Models\CareerHistory;
 use App\Models\Position;
+use App\Models\Shift;
 use App\Models\Department;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -39,7 +40,7 @@ class EmployeeController extends Controller
               ->orWhere('exit_date', 'like', "%$search%");
     }
     //withQuertyString agar query tetap ada di page selanjut nya
-        $employees = $query->paginate(1)->withQueryString();
+        $employees = $query->paginate(10)->withQueryString();
         $employees->load('careerHistories.department', 'careerHistories.position');
         return view('employee.index',compact('employees'));
     }
@@ -129,9 +130,9 @@ class EmployeeController extends Controller
      */
     public function show(string $id)
     {
-        $employee = EmployeeModel::findOrFail($id);
-        $employee->careerHistories()->pluck('id');
-        return view('employee.show',compact('employee'));
+        $employees = EmployeeModel::findOrFail($id);
+        $employees->careerHistories()->pluck('id');
+        return view('employee.show',compact('employees'));
     }
 
     public function toggleStatus($id)
@@ -151,6 +152,32 @@ class EmployeeController extends Controller
         // Kirim respons JSON dengan status berhasil
         return redirect()->back()->with('success', 'Status karyawan berhasil diperbarui.');
     }
+    public function addShift($id)
+    {
+        $employee = EmployeeModel::findOrFail($id);
+        $shifts = Shift::all();
+        return view('employee.addShift',compact('employee','shifts'));
+    }
+    public function storeShift(Request $request, EmployeeModel $employee)
+    {
+        $employeeId = $request->input('employee_id');
+        $shiftIds = $request->input('shifts');
+    
+        // Pastikan employee_id tidak null
+        if (!$employeeId) {
+            return response()->json(['error' => 'Employee ID is required.'], 400);
+        }
+    
+        // Attach shifts to the employee
+        $employee = EmployeeModel::find($employeeId);
+        if (!$employee) {
+            return response()->json(['error' => 'Employee not found.'], 404);
+        }
+    
+        $employee->shifts()->attach($shiftIds);
+        Alert::success('Selamat', 'Shift Telah di Tambahkan di Karyawan'); 
+        return redirect()->route('employee.show',$employeeId);
+    }
 
     public function showCareer($employee)
     {
@@ -164,7 +191,8 @@ class EmployeeController extends Controller
     public function edit(string $id)
     {
         $employee = EmployeeModel::findOrFail($id);
-        return view('employee.edit',compact('employee'));
+        $shifts = Shift::all();
+        return view('employee.edit',compact('employee','shifts'));
     }
 
     /**
@@ -211,6 +239,7 @@ class EmployeeController extends Controller
 
     // Perbarui data employee
     $employee->update([
+        'employee_id' => $employee->id,
         'name' => $request->name,
         'email' => $request->email,
         'picture' => $fileName,
@@ -230,6 +259,8 @@ class EmployeeController extends Controller
         'exit_date' => $request->exit_date,
         'ptkp' => $request->ptkp,
     ]);
+
+    $employee->shifts()->attach($request->input('shifts'));
 
     // 
     Alert::success('Selamat', 'Data Telah Berhasil di Update'); 

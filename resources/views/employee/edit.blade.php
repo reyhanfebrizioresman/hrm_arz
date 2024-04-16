@@ -145,6 +145,14 @@
                         <label for="exit_date">Tanggal Keluar:</label>
                         <input type="date" class="form-control" id="exit_date" name="exit_date" value="{{ $employee->exit_date }}">
                     </div>
+                    <div class="form-group">
+                        <label for="shift">Pilih Shift:</label>
+                        <select name="shifts[]" id="shift" class="form-control">
+                            @foreach($shifts as $shift)
+                                <option value="{{ $shift->id }}">{{ $shift->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="card-footer text-right">
                         <button class="btn btn-primary">Simpan Perubahan</button>
                     </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Shift;
+use App\Models\EmployeeModel;
 use RealRashid\SweetAlert\Facades\Alert;
 
 
@@ -27,7 +28,8 @@ class ShiftsController extends Controller
      */
     public function create()
     {
-        return view('shifts.create');
+        $employees = EmployeeModel::all();
+        return view('shifts.create',compact('employees'));
         
     }
 
@@ -94,6 +96,9 @@ class ShiftsController extends Controller
             'sunday_late_tolerance' => $request->input('sunday_late_tolerance') ?? 0,
             'sunday_early_leave_tolerance' => $request->input('sunday_early_leave_tolerance') ?? 0,
         ]);
+
+        $shifts->employees()->attach($request->employees);
+        dd($shifts);
         $shifts->save();
         
 

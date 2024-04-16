@@ -43,11 +43,13 @@ class AttendanceExport implements FromCollection, WithHeadings, WithTitle
                 $data[] = [
                     'employee_id' => $employeeId,
                     'employee_name' => $employee->name,
+                    'status' => '',
                     'date' => $date->format('Y-m-d'),
                     'check_in' => '',
                     'check_out' => '',
                     'late' => '',
                     'overtime' => '',
+                    'overtime_note' => '',
                 ];
             }
         }
@@ -65,11 +67,13 @@ class AttendanceExport implements FromCollection, WithHeadings, WithTitle
         return [
             'Employee ID',
             'Employee Name',
+            'Status',
             'Date',
             'Clock In',
             'Clock Out',
             'Late',
             'Overtime',
+            'Overtime Note',
         ];
     }
 }

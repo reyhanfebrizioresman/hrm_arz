@@ -44,11 +44,12 @@ class EmployeeModel extends Model
     }
     public function shifts()
     {
-        return $this->belongsToMany(Shift::class);
+        return $this->belongsToMany(Shift::class,'employee_shift', 'employee_id','shift_id');
     }
 
     public function attendance()
     {
         return $this->hasOne(Attendance::class, 'employee_id')->latest();
     }
+
 }

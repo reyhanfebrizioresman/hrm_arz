@@ -24,43 +24,44 @@ class AttendanceImport implements ToModel, WithHeadingRow
     }
 
     public function model(array $row)
-    {
+    {   
+        // dd(Carbon::parse($row['clock_in'])->toTimeString());
 
         $formattedDate = date('Y-m-d', strtotime($row['date']));
         
         $overtime = 0;
         $late = 0;
         
-
-        $clockIn = strtotime($row['clock_in']);
-        $clockOut = strtotime($row['clock_out']);
-        $defaultStartTime = strtotime('07:00:00');
-        $defaultEndTime = strtotime('17:00:00'); 
-        // return dd($clockIn,$clockOut);
-
-
-        if($clockIn > $defaultStartTime){
-            $late = $clockIn - $defaultStartTime;
+        
+        $clockIn = $this->transformDate($row['clock_in']);
+        $clockOut = $this->transformDate($row['clock_out']);
+        $defaultStartTime = date('1970-01-01 H:i:s',strtotime('07:00:00'));
+        $defaultEndTime = date('1970-01-01 H:i:s',strtotime('17:00:00')); 
+        $late = Carbon::parse($clockIn)->diffInMinutes($defaultStartTime);
+        $overtime = Carbon::parse($clockOut)->diffInMinutes($defaultEndTime);
+ 
+        if($clockIn < $defaultStartTime){
+            $late = 0;
         }
 
-        if ($clockOut > $defaultEndTime) {
-            $overtime = $clockOut - $defaultEndTime;
+        if($clockOut < $defaultEndTime){
+            $overtime = 0;
         }
-        $late = round($late / 60);
-        $overtime = round($overtime / 60);
-        $maxLateAllowed = 480; // Misalnya, nilai maksimum yang diperbolehkan adalah 8 jam (480 menit)
+        $status = $row['status'];
 
-        // Pastikan nilai late tidak melebihi nilai maksimum yang diperbolehkan
-        $late = min($late, $maxLateAllowed);
-        $overtime = min($overtime, $maxLateAllowed);
 
+        if($status == null){
+            $status = 'hadir';
+        }
+        
         return new Attendance([
             'employee_id' => intval($row['employee_id']),
+            'status' => $status,
             'date' =>  $formattedDate,
             'clock_in' => $this->transformDate($row['clock_in']),
             'clock_out' => $this->transformDate($row['clock_out']),
-            'late' => $late,
-            'overtime' => $overtime,
+            'late' => $late * -1,
+            'overtime' => $overtime * -1,
         ]);
     }
 }
