@@ -22,22 +22,22 @@
                 <input type="text" class="form-control" id="status" name="status" value="{{ $attendance->status }}">
             </div>
             <div class="form-group">
-                <label for="overtime">Overtime:</label>
+                <label for="overtime">Lembur:</label>
                 <input type="text" class="form-control" id="overtime" name="overtime" value="{{ $attendance->overtime }}">
             </div>
             <div class="form-group">
-                <label for="clock_in">Clock In:</label>
+                <label for="clock_in">Jam Masuk:</label>
                 <input type="time" class="form-control" id="clock_in" name="clock_in" value="{{ $attendance->clock_in }}">
             </div>
             <div class="form-group">
-                <label for="clock_out">Clock Out:</label>
+                <label for="clock_out">Jam Keluar:</label>
                 <input type="time" class="form-control" id="clock_out" name="clock_out" value="{{ $attendance->clock_out }}">
             </div>
             <div class="form-group">
-                <label for="date">Date:</label>
+                <label for="date">Tanggal:</label>
                 <input type="date" class="form-control" id="date" name="date" value="{{ $attendance->date }}">
             </div>
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="submit" class="btn btn-primary">Perbarui</button>
         </form>
     </div>
 </div>

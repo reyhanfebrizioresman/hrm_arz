@@ -17,7 +17,7 @@
     <form action="{{ route('attendance.exportAttendance') }}" method="POST" >
         @csrf
         <div class="mt-3">
-         <button type="submit" class="btn btn-primary btn-block">Export to Excel</button>
+         <button type="submit" class="btn btn-primary btn-block">Ekspor ke Excel</button>
         </div>
     </form> 
     </div>
@@ -27,7 +27,7 @@
         </div>
     </div>
    </div>
-    {{-- <a class="btn btn-primary btn-sm" href="{{route('attendance.importExport')}}">Export/Import</a> --}}
+    {{-- <a class="btn btn-primary btn-sm" href="{{route('attendance.importExport')}}">Ekspor/Impor</a> --}}
     </div>
     <!-- Attendance Table -->
     <div class="card mb-3 shadow-md">

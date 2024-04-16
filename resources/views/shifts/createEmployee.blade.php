@@ -1,4 +1,4 @@
-@extends('layouts.template')
+    @extends('layouts.template')
 @section('title','Dasboard')
 @section('sub-judul','Tambah Shift  ')
 @section('content')

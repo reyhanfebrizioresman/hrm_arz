@@ -4,7 +4,7 @@
 @section('content')
 <div class="container">
     <div class="card mb-3">
-        <div class="card-header">Export-Import</div>
+        <div class="card-header">Ekspor-Impor</div>
         <div class="card-body">
             <!-- Export to Excel Form -->
             <form action="{{ route('attendance.export') }}" method="POST" class="mb-3">
@@ -19,17 +19,17 @@
                         <input type="date" id="end_date" name="end_date" class="form-control">
                     </div>
                     <div class="col-md-2">
-                        <button type="submit" class="btn btn-primary">Export to Excel</button>
+                        <button type="submit" class="btn btn-primary">Ekspor ke Excel</button>
                     </div>
                 </form>
                     <div class="col-md-6">
                         <form action="{{ route('attendance.import') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <label for="">Import Absensi</label>
+                            <label for="">Impor Absensi</label>
                                 <div class="input-group input-group-sm">
                                     <input type="file" name="file" accept=".xlsx, .xls" class="form-control">
                                         <div class="input-group-append">
-                                    <button type="submit" class="btn btn-primary btn-block">Import</button>
+                                    <button type="submit" class="btn btn-primary btn-block">Impor</button>
                                         </div>
                                 </div>                                           
                         </form>
@@ -75,7 +75,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Kirim</button>
         </form>
     </div>
 </div>
