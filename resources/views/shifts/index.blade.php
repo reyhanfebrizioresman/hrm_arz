@@ -22,7 +22,7 @@
                                 <th>Jumat</th>
                                 <th>Sabtu</th>
                                 <th>Minggu</th>
-                                <th>Aksi</th>
+                                <th>Opsi</th>
                             </tr>
                         </thead>
                         <tbody>

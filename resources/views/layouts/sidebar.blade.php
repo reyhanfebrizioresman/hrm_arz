@@ -40,7 +40,7 @@
             <a href="{{url('/attendance/create')}}" class="nav-link "></i><span>Impor/Ekspor</span></a>
           </li>
           <li class="">
-            <a href="{{url('/shifts')}}" class="nav-link "><span>Shift</span></a>
+          <a href="{{url('/shifts')}}" class="nav-link "><span>Shift</span></a>
           </li>
           </ul>
           
