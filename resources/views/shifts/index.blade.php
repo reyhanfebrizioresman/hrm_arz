@@ -37,7 +37,7 @@
                                             <strong>Jam Keluar:</strong> {{ \Carbon\Carbon::parse($shif->monday_end_time)->format('H:i') ?? '-' }}
                                         </div>
                                         @else
-                                        data kosong
+                                        -
                                     @endif</td>
                                     <td>@if ($shif->tuesday)
                                         <div>
@@ -47,7 +47,7 @@
                                             <strong>Jam Keluar</strong> {{ \Carbon\Carbon::parse($shif->tuesday_end_time)->format('H:i') ?? '-' }}
                                         </div>
                                         @else
-                                        data kosong
+                                        -
                                     @endif</td>
 
                                     <td>@if ($shif->wednesday)
@@ -58,7 +58,7 @@
                                             <strong>Jam Keluar:</strong> {{ \Carbon\Carbon::parse($shif->wednesday_end_time)->format('H:i') ?? '-' }}
                                         </div>
                                         @else
-                                        data kosong
+                                        -
                                     @endif</td>
 
                                     <td>@if ($shif->thursday)
@@ -69,7 +69,7 @@
                                             <strong>Jam Keluar:</strong> {{ \Carbon\Carbon::parse($shif->thursday_end_time)->format('H:i') ?? '-' }}
                                         </div>
                                         @else
-                                        data kosong
+                                        -
                                     @endif</td>
 
                                     <td>@if ($shif->friday)
@@ -80,7 +80,7 @@
                                             <strong>Jam Keluar:</strong> {{ \Carbon\Carbon::parse($shif->friday_end_time)->format('H:i') ?? '-' }}
                                         </div>
                                         @else
-                                        data kosong
+                                        -
                                     @endif</td>
                                     
                                     <td>@if ($shif->saturday)
@@ -91,7 +91,7 @@
                                             <strong>Jam Keluar:</strong> {{ \Carbon\Carbon::parse($shif->saturday_end_time)->format('H:i') ?? '-' }}
                                         </div>
                                         @else
-                                        data kosong
+                                        -
                                     @endif</td>
 
                                     <td>@if ($shif->sunday)
@@ -102,7 +102,7 @@
                                             <strong>Jam Keluar:</strong> {{ \Carbon\Carbon::parse($shif->sunday_end_time)->format('H:i') ?? '-' }}
                                         </div>
                                         @else
-                                        data kosong
+                                         -
                                     @endif</td>
                                     
                                     

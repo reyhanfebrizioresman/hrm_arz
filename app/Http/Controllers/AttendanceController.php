@@ -100,9 +100,10 @@ class AttendanceController extends Controller
 
     public function exportAttendance(Request $request)
     {
-        // $attendances = Attendance::all();
-        return Excel::download(new AllAttendanceExport, 'attendance.xlsx');
-    }
+        $employees = EmployeeModel::all();
+
+        return Excel::download(new AllAttendanceExport($employees), 'all_attendance.xlsx');
+}
 
     /**
      * Show the form for creating a new resource.

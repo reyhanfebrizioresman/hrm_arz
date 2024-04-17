@@ -96,6 +96,10 @@ class ShiftsController extends Controller
             'sunday_late_tolerance' => $request->input('sunday_late_tolerance') ?? 0,
             'sunday_early_leave_tolerance' => $request->input('sunday_early_leave_tolerance') ?? 0,
         ]);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4aabeb8e4edb7a77326819faa0827edddd9a4bcd
         $shifts->save();
         
 

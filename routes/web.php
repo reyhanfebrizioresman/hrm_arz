@@ -8,7 +8,7 @@ use App\Http\Controllers\CareerHistoryController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\ShiftsController;
 use App\Exports\AttendanceExport;
-
+use App\Http\Controllers\SalaryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/employee/storeShift', [EmployeeController::class, 'storeShift'])->name('employee.storeShift');
     Route::resource('/attendance', AttendanceController::class);
     Route::resource('/shifts', ShiftsController::class);
+    Route::resource('/salaries', SalaryController::class);
     // Route::get('/shifts/{id}/', [ ShiftsController::class, 'createEmployee'])->name('shifts.createEmployee');
     // Route::post('/shifts', [ ShiftsController::class, 'storeEmployee'])->name('shifts.storeEmployee');
 
