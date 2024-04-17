@@ -10,15 +10,15 @@
                 @csrf
                 <div class="row align-items-center">
                     <div class="col-md-4">
-                        <label for="start_date">Start Date:</label>
+                        <label for="start_date">Tanggal Mulai:</label>
                         <input type="date" id="start_date" name="start_date" class="form-control">
                     </div>
                     <div class="col-md-4">
-                        <label for="end_date">End Date:</label>
+                        <label for="end_date">Tanggal Akhir:</label>
                         <input type="date" id="end_date" name="end_date" class="form-control">
                     </div>
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn-primary btn-block">Export to Excel</button>
+                        <button type="submit" class="btn btn-primary btn-block">Ekspor ke Excel</button>
                     </div>
                 </div>
             </form>
@@ -37,7 +37,7 @@
                                 <input type="file" name="file" accept=".xlsx, .xls" class="form-control">
                             </div>
                             <div class="col-md-6">
-                                <button type="submit" class="btn btn-primary btn-block">Import Excel</button>
+                                <button type="submit" class="btn btn-primary btn-block">Impor ke Excel</button>
                             </div>
                         </div>
                     </form>
@@ -49,7 +49,7 @@
                             <input type="date" id="filterDate" class="form-control" value="{{ request('date') }}">
                         </div>                        
                         <div class="col-md-6">
-                            <button id="filterButton" class="btn btn-primary btn-block">Filter</button>
+                            <button id="filterButton" class="btn btn-primary btn-block">Pilih</button>
                         </div>
                     </div>
                 </div>
