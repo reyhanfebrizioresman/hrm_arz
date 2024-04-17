@@ -23,10 +23,10 @@
           </ul>
           
         </li>
-        <li class="">
+        <li class="dropdown">
           <a href="{{url('/positions')}}" class="nav-link "><i class="fas fa-user-alt"></i><span>Posisi</span></a>
         </li>
-        <li class="">
+        <li class="dropdown">
           <a href="{{url('/departments')}}" class="nav-link "><i class="fas fa-building"></i><span>Departmen</span></a>
         </li>
         <li class="dropdown">
@@ -43,9 +43,9 @@
             <a href="{{url('/shifts')}}" class="nav-link "><span>Shift</span></a>
           </li>
           </ul>
-          
         </li>
-        <li class="">
+        <li class="dropdown">
+          <a href="{{url('/salaries')}}" class="nav-link"><i class="fas fa-users"></i> <span>Salaries</span></a>     
         </li>
       </aside>
   </div>

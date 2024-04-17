@@ -2,16 +2,31 @@
 
 namespace App\Exports;
 
+use App\Models\EmployeeModel;
 use App\Models\Attendance;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
-class AllAttendanceExport implements FromCollection
+class AllAttendanceExport implements WithMultipleSheets
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
+    protected $employees;
+
+    public function __construct($employees)
     {
-        return Attendance::all();
+        $this->employees = $employees;
     }
+
+    public function sheets(): array
+    {
+        $sheets = [];
+
+        foreach ($this->employees as $employee) {
+            $sheets[] = new EmployeeAttendanceSheet($employee);
+        }
+
+        return $sheets;
+    }
+
 }
+
+
+

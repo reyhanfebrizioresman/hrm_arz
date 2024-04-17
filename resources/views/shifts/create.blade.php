@@ -15,14 +15,14 @@
                             <label for="name">Nama Shift:</label>
                             <input type="text" name="name" id="name" class="form-control">
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="shift">Nama Karyawan:</label>
                             <select name="employees[]" id="employee" class="form-control">
                                 @foreach($employees as $employee)
                                     <option value="{{ $employee->id }}">{{ $employee->name }}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
                         {{-- Hari Senin --}}
                         <div class="row">
                             <div class="col-md-2">

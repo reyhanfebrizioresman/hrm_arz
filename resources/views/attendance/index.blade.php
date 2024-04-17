@@ -8,7 +8,7 @@
    <div class="row">
     <div class="col-md-3 mb-2">
         <div class="input-group input-group-sm">
-            <input type="date" id="filterDate" class="form-control" value="{{ request('date') }}">
+            <input type="date" id="filterDate" class="form-control" value="{{ request('date') ?? date('Y-m-d') }}">
                 <div class="input-group-append">
             <button id="filterButton" class="btn btn-primary">Filter</button>
         </div>
@@ -58,7 +58,7 @@
                                 @elseif($employee->attendance->status == 'izin')
                                 <span class="badge badge-info">{{$employee->attendance->status ?? null}}</span>
                                 @elseif($employee->attendance->status == 'sakit')
-                                <span class="badge badge-secondary">{{$employee->attendance->status ?? null}}</span>
+                                <span class="badge badge-warning">{{$employee->attendance->status ?? null}}</span>
                                 @else
                                 <span class="badge badge-danger">{{$employee->attendance->status ?? null}}</span>
                                 @endif
