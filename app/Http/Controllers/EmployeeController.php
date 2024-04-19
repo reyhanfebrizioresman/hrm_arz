@@ -8,6 +8,7 @@ use App\Models\CareerHistory;
 use App\Models\Position;
 use App\Models\Shift;
 use App\Models\Department;
+use App\Models\Salary;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -132,6 +133,8 @@ class EmployeeController extends Controller
     {
         $employees = EmployeeModel::findOrFail($id);
         $employees->careerHistories()->pluck('id');
+        // $title = 'Hapus Gajih!';
+        // $text = "Apa kamu yakin ingin menghapus Data Gaji?";
         return view('employee.show',compact('employees'));
     }
 
@@ -178,7 +181,77 @@ class EmployeeController extends Controller
         Alert::success('Selamat', 'Shift Telah di Tambahkan di Karyawan'); 
         return redirect()->route('employee.show',$employeeId);
     }
+    public function addSalary($id)
+    {
+        $employee = EmployeeModel::findOrFail($id);
+        $selectedSalaries = $employee->salaryComponents->pluck('id')->toArray();
+        $salaries = Salary::all();
+        return view('employee.addSalary',compact('employee','salaries','selectedSalaries'));
+    }
+    public function storeSalary(Request $request, EmployeeModel $employee)
+    {
+        $employeeId = $request->input('employee_id');
+        
+        // Pastikan employee_id tidak null
+        if (!$employeeId) {
+            return response()->json(['error' => 'Employee ID is required.'], 400);
+        }
+    
+        // Attach shifts to the employee
+        $employee = EmployeeModel::find($employeeId);
+        if (!$employee) {
+            return response()->json(['error' => 'Employee not found.'], 404);
+        }
+    
+        foreach ($request->input('salaryComponents') as $salaryComponentId) {
+            $amount = $request->input('amount');
+            $employeeId = $request->input('employee_id');
+            $employee->salaryComponents()->attach($salaryComponentId, [
+                'amount' => $amount,
+                'employee_id' => $employeeId,
+        ]);
+        }
+        // dd($employee);
+        Alert::success('Selamat', 'Gaji Telah di Tambahkan di Karyawan'); 
+        return redirect()->route('employee.show',$employeeId);
+    }
 
+    public function editSalary($employeeId, $salaryId)
+    {
+         // Cari karyawan
+         $employee = EmployeeModel::findOrFail($employeeId);
+         $salaryComponent = $employee->salaryComponents()->findOrFail($salaryId);
+        return view('employee.editSalary', compact('employee','salaryComponent'));
+    }
+
+    public function updateSalary(Request $request, $employeeId, $salaryId)
+{
+    // Validasi data yang diterima dari formulir
+
+    $employee = EmployeeModel::findOrFail($employeeId);
+    $salaryComponent = $employee->salaryComponents()->findOrFail($salaryId);
+    // Update jumlah gaji pada pivot tabel
+    $employee->salaryComponents()->updateExistingPivot($salaryComponent->id, ['amount' => $request->amount]);
+
+    // Redirect kembali ke halaman sebelumnya dengan pesan sukses
+    Alert::success('Selamat', 'Gaji Telah Berhasil di Update'); 
+    return redirect()->route('employee.show',$employeeId);
+}
+
+    public function deleteSalary($employeeId, $salaryId)
+    {
+        // Cari karyawan
+        $employee = EmployeeModel::findOrFail($employeeId);
+
+        // Cari komponen gaji yang akan dihapus
+        $salaryComponent = Salary::findOrFail($salaryId);
+
+        // Hapus relasi gaji karyawan
+        $employee->salaryComponents()->detach($salaryComponent);
+
+        // Redirect kembali ke halaman sebelumnya
+        return redirect()->route('employee.show',$employeeId);
+    }
     public function showCareer($employee)
     {
         $careerHistories = $employee->careerHistories;

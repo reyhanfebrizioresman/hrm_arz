@@ -13,7 +13,7 @@ class SalaryController extends Controller
     public function index()
     {
         $salaries = Salary::all();
-        $title = 'Hapus Gajih!';
+        $title = 'Hapus Gaji!';
         $text = "Apa kamu yakin ingin menghapus Data Gaji?";
         confirmDelete($title, $text);
         return view('salaries.index',compact('salaries'));
@@ -33,11 +33,8 @@ class SalaryController extends Controller
     public function store(Request $request)
     {
         $salary = new Salary();
-        $salary->basic_salary = $request->basic_salary;
-        $salary->allowance = $request->allowance;
-        // $salary->bonus = $request->bonus;
+        $salary->name = $request->name;
         $salary->category = $request->category;
-        // $salary->amount = $request->amount;
 
         // Simpan data salary ke dalam database
         $salary->save();

@@ -12,20 +12,9 @@
                 <form action="{{ route('salaries.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="basic_salary">Gaji Pokok:</label>
-                        <input type="number" class="form-control" id="basic_salary" name="basic_salary">
+                        <label for="basic_salary">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name">
                     </div>
-
-                    <div class="form-group">
-                        <label for="allowance">Tunjangan:</label>
-                        <input type="number" class="form-control" id="allowance" name="allowance">
-                    </div>
-
-                    {{-- <div class="form-group">
-                        <label for="bonus">Bonus:</label>
-                        <input type="text" class="form-control" id="bonus" name="bonus">
-                    </div> --}}
-
                     <div class="form-group">
                         <label for="category">Kategori:</label>
                         <select class="form-control" id="category" name="category">

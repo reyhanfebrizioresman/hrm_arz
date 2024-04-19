@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('employee_salary', function (Blueprint $table) {
+        Schema::create('employee_salary_component', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('employee_id');
-            $table->unsignedBigInteger('salary_id');
-            $table->date('start_date');
-            $table->timestamps();
+            $table->unsignedBigInteger('salary_component_id');
+            $table->integer('amount');
             $table->foreign('employee_id')->references('id')->on('employee')->onDelete('cascade');
-            $table->foreign('shift_id')->references('id')->on('salary_component')->onDelete('cascade');
+            $table->foreign('salary_component_id')->references('id')->on('salary_component')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('employee_salary');
+        Schema::dropIfExists('employee_salary_component');
     }
 };

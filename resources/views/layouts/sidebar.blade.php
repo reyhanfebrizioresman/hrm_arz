@@ -26,13 +26,8 @@
         <li class="dropdown">
           <a href="{{url('/positions')}}" class="nav-link "><i class="fas fa-user-alt"></i><span>Posisi</span></a>
         </li>
-<<<<<<< HEAD
         <li class="dropdown">
           <a href="{{url('/departments')}}" class="nav-link "><i class="fas fa-building"></i><span>Departmen</span></a>
-=======
-        <li class="">
-          <a href="{{url('/departments')}}" class="nav-link "><i class="fas fa-building"></i><span>Departemen</span></a>
->>>>>>> d535b0cfabef1ad0ae095dac30dbf58757ebcfb2
         </li>
         <li class="dropdown">
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users"></i> <span>Absensi</span></a>

@@ -21,6 +21,9 @@
         <li class="nav-item">
           <a class="nav-link" id="shift-tab" data-toggle="tab" href="#shift" role="tab" aria-controls="shift" aria-selected="false">Shift Kerja</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" id="salaries-tab" data-toggle="tab" href="#salaries" role="tab" aria-controls="salaries" aria-selected="false">Gaji Karyawan</a>
+    </li>
     </ul>
 
     
@@ -298,6 +301,67 @@
               </div>
           </div>
       </div>
+
+      {{-- Komponen Gaji --}}
+      <div class="tab-pane fade" id="salaries" role="tabpanel" aria-labelledby="salaries-tab">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                      <div class="card-header">
+                        <h5>Gaji</h5>
+                      </div>
+                        <div class="card-body">
+                          <div class=" mb-4 d-flex justify-content-end">
+                            <a href="{{ route('employee.addSalary',$employees->id) }}" class="btn btn-primary">Tambah Gaji</a>
+                        </div>
+                            <div class="card-footer">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Name</th>
+                                            <th>Total</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                     @foreach($employees->salaryComponents as $salaryComponent)
+                                     {{-- @if($salaryComponent->created_at == $employees->latestSalaryDate()) --}}
+                                        <tr>
+                                          <td>{{$loop->iteration}}</td>
+                                          <td>{{$salaryComponent->name}}</td>
+                                          <td>{{"Rp " . number_format($salaryComponent->pivot->amount,2,',','.')}}</td>
+                                          <td>
+                                            <a href="{{ route('employee.editSalary',['employeeId' => $employees->id, 'salaryId' => $salaryComponent->id]) }}" class="btn btn-primary  btn-sm"><i class="fas fa-edit"></i></a>
+                                            <form action="{{ route('employee.deleteSalary', ['employeeId' => $employees->id, 'salaryId' => $salaryComponent->id]) }}" method="POST">
+                                              @csrf
+                                              @method('DELETE')
+                                              <button class="btn btn-danger btn-sm">
+                                              <i class="fas fa-trash"></i>
+                                              </button>
+                                            </form>
+                                            {{-- <a href="{{ route('employee.deleteSalary', ['employeeId' => $employees->id, 'salaryId' => $salaryComponent->id]) }}" class="btn btn-danger btn-sm" data-confirm-delete="true">
+                                              <i class="fas fa-trash"></i>
+                                            </a> --}}
+                                          {{-- <form id="delete-form-{{  $employees->id }}-{{ $salaryComponent->id }}" action="{{ route('employee.deleteSalary', ['employeeId' => $employees->id, 'salaryId' => $salaryComponent->id]) }}" method="POST" style="display: none;">
+                                              @csrf
+                                              @method('DELETE')
+                                          </form>  --}}
+                                          </td>
+                                        </tr> 
+                                        {{-- @endif --}}
+                                     @endforeach
+                                     {{-- {{dd($employees)}} --}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 </div>
 

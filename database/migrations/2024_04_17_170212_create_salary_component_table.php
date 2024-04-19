@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('salary_component', function (Blueprint $table) {
             $table->id();
-            $table->decimal('basic_salary');
-            $table->decimal('allowance');
+            $table->string('name');
             $table->enum('category',['income','deduction'])->nullable();
             $table->timestamps();
         });

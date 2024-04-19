@@ -11,8 +11,7 @@
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Gaji Pokok</th>
-                        <th>Tunjangan</th>
+                        <th>Nama</th>
                         <th>Kategori</th>
                         {{-- <th>Bonus</th> --}}
                         <th>Aksi</th>
@@ -22,14 +21,13 @@
                     @foreach($salaries as $salary)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ "Rp " . number_format($salary->basic_salary,2,',','.') }}</td>
-                        <td>{{ "Rp " . number_format($salary->allowance,2,',','.') }}</td>
+                        <td>{{ $salary->name }}</td>
                         {{-- <td>{{ $salary->category }}</td> --}}
                         <td>
                             @if($salary->category == 'income')
-                            <span class="badge badge-success">{{$salary->category ?? null}}</span>
+                            <span class="badge badge-success">{{$salary->category ? 'Pendapatan' : ''}}</span>
                             @else
-                            <span class="badge badge-danger">{{$salary->category ?? null}}</span>
+                            <span class="badge badge-danger">{{$salary->category ? 'Potongan' : ''}}</span>
                             @endif
                         </td>
                         <td><a href="{{ route('salaries.edit',$salary->id) }}" class="btn btn-primary  btn-sm"><i class="fas fa-edit"></i></a>

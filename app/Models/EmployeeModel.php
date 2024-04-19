@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 use App\Models\CareerHistory;
 use App\Models\Shift;
+use App\Models\Salary;
 
 
 class EmployeeModel extends Model
@@ -52,4 +52,22 @@ class EmployeeModel extends Model
         return $this->hasOne(Attendance::class, 'employee_id')->latest();
     }
 
+    public function salaryComponents()
+    {
+        return $this->belongsToMany(Salary::class, 'employee_salary_component', 'employee_id','salary_component_id')->withPivot('amount');
+    }
+
+    public function latestSalaryDate()
+    {
+        // Ambil tanggal gaji terbaru menggunakan relasi
+        $latestSalary = $this->salaryComponents()->latest()->first();
+
+        // Periksa jika gaji terbaru ditemukan
+        if ($latestSalary) {
+            return $latestSalary->created_at;
+        }
+
+        // Jika tidak ada gaji yang ditemukan, kembalikan nilai null atau sesuai kebutuhan Anda
+        return null;
+    }
 }

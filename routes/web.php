@@ -31,15 +31,15 @@ Route::middleware('auth')->group(function () {
     Route::patch('/employee/{id}/toggleStatus', [EmployeeController::class, 'toggleStatus'])->name('employee.toggleStatus');
     Route::get('/employee/{id}/addShift', [EmployeeController::class, 'addShift'])->name('employee.addShift');
     Route::post('/employee/storeShift', [EmployeeController::class, 'storeShift'])->name('employee.storeShift');
+    Route::get('/employee/{id}/addSalary', [EmployeeController::class, 'addSalary'])->name('employee.addSalary');
+    Route::post('/employee/storeSalary', [EmployeeController::class, 'storeSalary'])->name('employee.storeSalary');
+    Route::get('/employee/{employeeId}/edit-salary/{salaryId}', [EmployeeController::class, 'editSalary'])->name('employee.editSalary');
+    Route::put('/employee/{employeeId}/update-salary/{salaryId}', [EmployeeController::class, 'updateSalary'])->name('employee.updateSalary');
+    Route::delete('/employee/{employeeId}/delete-salary/{salaryId}', [EmployeeController::class, 'deleteSalary'])->name('employee.deleteSalary');
     Route::resource('/attendance', AttendanceController::class);
-    Route::resource('/shifts', ShiftsController::class);
+    Route::get('/viewExport',[AttendanceController::class, 'viewExport'])->name('attendance.viewExport');
+    Route::resource('/shifts', ShiftsController::class); 
     Route::resource('/salaries', SalaryController::class);
-    // Route::get('/shifts/{id}/', [ ShiftsController::class, 'createEmployee'])->name('shifts.createEmployee');
-    // Route::post('/shifts', [ ShiftsController::class, 'storeEmployee'])->name('shifts.storeEmployee');
-
-    // Route::get('/export/attendance', function () {
-    //     return Excel::download(new AttendanceExport, 'attendance.xlsx');
-    // });
     Route::get('/attendance/filter', [AttendanceController::class, 'filterByDate'])->name('attendance.filter');
     Route::post('/attendance/export', [AttendanceController::class, 'export'])->name('attendance.export');
     Route::post('/attendance/import', [AttendanceController::class, 'import'])->name('attendance.import');
