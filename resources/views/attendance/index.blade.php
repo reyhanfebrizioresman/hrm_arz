@@ -1,5 +1,5 @@
 @extends('layouts.template')
-@section('title','Dashboard')
+@section('title','Absensi')
 @section('sub-judul','Absensi')
 @section('content')
 
@@ -13,8 +13,6 @@
             <button id="filterButton" class="btn btn-primary">Filter</button>
         </div>
     </div>
-    <a href="{{ route('attendance.viewExport') }}" class="btn btn-primary btn-sm">
-    export
 </a>
         <!-- Export to Excel Form -->
     <form action="{{ route('attendance.exportAttendance') }}" method="POST" >

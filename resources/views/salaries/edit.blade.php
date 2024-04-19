@@ -1,6 +1,6 @@
 @extends('layouts.template')
-@section('title','Dasboard')
-@section('sub-judul','Tambah Shift  ')
+@section('title','Ubah Gaji')
+@section('sub-judul','Ubah Gaji')
 @section('content')
 
     <div class="container">
@@ -23,7 +23,7 @@
                             <option value="deduction" {{$salaries->category == 'deduction' ? 'selected' : ''}}>Pengurangan</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Ubah</button>
                 </form>
             </div>
         </div>

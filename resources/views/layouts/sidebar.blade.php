@@ -1,10 +1,10 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
       <div class="sidebar-brand">
-        <a href="index.html">HRM</a>
+        <a href="http://127.0.0.1:8000/">HRM</a>
       </div>
       <div class="sidebar-brand sidebar-brand-sm">
-        <a href="index.html">HRM</a>
+        <a href="http://127.0.0.1:8000/">HRM</a>
       </div>
       <ul class="sidebar-menu">
         <li class="menu-header">Dashboard</li>
@@ -13,6 +13,12 @@
          
         </li>
         <li class="menu-header">Pengaturan</li>
+        <li class="dropdown">
+          <a href="{{url('/departments')}}" class="nav-link "><i class="fas fa-building"></i><span>Departemen</span></a>
+        </li>
+        <li class="dropdown">
+          <a href="{{url('/positions')}}" class="nav-link "><i class="fas fa-user-alt"></i><span>Posisi</span></a>
+        </li>
         <li class="dropdown">
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users"></i> <span>Karyawan</span></a>
           <ul class="dropdown-menu">
@@ -24,20 +30,14 @@
           
         </li>
         <li class="dropdown">
-          <a href="{{url('/positions')}}" class="nav-link "><i class="fas fa-user-alt"></i><span>Posisi</span></a>
-        </li>
-        <li class="dropdown">
-          <a href="{{url('/departments')}}" class="nav-link "><i class="fas fa-building"></i><span>Departmen</span></a>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users"></i> <span>Absensi</span></a>
+          <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="far fa-address-card"></i> <span>Absensi</span></a>
           <ul class="dropdown-menu">
           <li>
           <li class="">
             <a href="{{url('/attendance')}}" class="nav-link "></i><span>Data Kehadiran</span></a>
           </li>
           <li class="">
-            <a href="{{url('/attendance/create')}}" class="nav-link "></i><span>Impor/Ekspor</span></a>
+            <a href="{{url('/attendance/create')}}" class="nav-link "></i><span>Impor / Ekspor</span></a>
           </li>
           <li class="">
           <a href="{{url('/shifts')}}" class="nav-link "><span>Shift</span></a>
@@ -45,7 +45,7 @@
           </ul>
         </li>
         <li class="dropdown">
-          <a href="{{url('/salaries')}}" class="nav-link"><i class="fas fa-users"></i> <span>Salaries</span></a>     
+          <a href="{{url('/salaries')}}" class="nav-link"><i class="fas fa-money-bill-alt"></i> <span>Gaji</span></a>     
         </li>
       </aside>
   </div>
