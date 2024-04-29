@@ -4,12 +4,14 @@ namespace App\Exports;
 
 use App\Models\EmployeeModel;
 use App\Models\Attendance;
+use Carbon\Carbon;
+use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class EmployeeAttendanceSheet implements FromCollection, WithTitle, WithEvents
+class EmployeeAttendanceSheet implements WithTitle, WithEvents
 {
     protected $employee;
     protected $attendanceData; 
@@ -24,84 +26,143 @@ class EmployeeAttendanceSheet implements FromCollection, WithTitle, WithEvents
         return $this->employee->name; // Set judul sheet dengan nama employee
     }
 
-    public function collection()
-    {
-        $attendances = Attendance::where('employee_id', $this->employee->id)->get();
+    // public function collection()
+    // {
+    //     $attendances = Attendance::where('employee_id', $this->employee->id)->get();
 
-        $attendanceData = [];
-        foreach ($attendances as $attendance) {
-            $attendanceData[] = [
-                'Tanggal' => $attendance->date,
-                'In' => $attendance->clock_in,
-                'Out' => $attendance->clock_out,
-                'Jam Puasa' => '', // Sesuaikan dengan atribut yang sesuai
-                'eza' => '', // Sesuaikan dengan atribut yang sesuai
-                'Ket' => '', // Sesuaikan dengan atribut yang sesuai
-            ];
+    //     $attendanceData = [];
+    //     foreach ($attendances as $attendance) {
+    //         $attendanceData[] = [
+    //             'Tanggal' => 'Tanggal',
+    //             'In' => $attendance->clock_in,
+    //             'Out' => $attendance->clock_out,
+    //             'Jam Puasa' => '', // Sesuaikan dengan atribut yang sesuai
+    //             'eza' => '', // Sesuaikan dengan atribut yang sesuai
+    //             'Ket' => '', // Sesuaikan dengan atribut yang sesuai
+    //         ];
+    //     }
+
+    //     return collect($attendanceData);
+    // }
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class => function (AfterSheet $event)
+            {
+                $event->sheet->mergeCells('A1:A2');
+                $event->sheet->mergeCells('B1:C1');
+                $event->sheet->mergeCells('D1:E1');
+                $event->sheet->mergeCells('D2:E2');
+
+
+                $event->sheet->setCellValue('A1','Tanggal');
+                $event->sheet->setCellValue('B1','Jam');
+                $event->sheet->setCellValue('B2','In');
+                $event->sheet->setCellValue('C2','Out');
+                $event->sheet->setCellValue('D1', $this->employee->name);
+                $event->sheet->setCellValue('D2','Ket');
+
+         // Mendapatkan data absensi untuk setiap bulan
+        $currentMonth = Carbon::now()->startOfMonth()->subDays(5); // Mulai dari tanggal 25 bulan sebelumnya
+        $endOfMonth = Carbon::now()->endOfMonth();
+
+        while ($currentMonth->lte($endOfMonth)) {
+            // Tentukan tanggal awal dan akhir bulan
+            $startDate = $currentMonth->copy()->startOfMonth();
+            $endDate = $currentMonth->copy()->endOfMonth();
+
+            // Inisialisasi struktur data untuk menyimpan entri absensi unik
+            $uniqueAttendances = [];
+
+            // Ambil data absensi untuk bulan ini
+            foreach ($this->employee->attendances as $attendance) {
+                $attendanceDate = Carbon::parse($attendance->date);
+
+                // Cek apakah entri untuk tanggal tersebut sudah ada dalam struktur data unik
+                $attendanceDateString = $attendanceDate->toDateString();
+                if (!isset($uniqueAttendances[$attendanceDateString])) {
+                    // Jika belum, tambahkan entri tersebut ke dalam struktur data unik
+                    $uniqueAttendances[$attendanceDateString] = $attendance;
+                }
+            }
+
+            $row = 3; // Mulai menulis dari baris ke-3
+            foreach ($uniqueAttendances as $attendance) {
+                $event->sheet->setCellValue('A' . $row, date('d D', strtotime($attendance->date)));
+                $event->sheet->setCellValue('B' . $row, date('H:i', strtotime($attendance->clock_in)));
+                $event->sheet->setCellValue('C' . $row, date('H:i', strtotime($attendance->clock_out)));
+                $event->sheet->setCellValue('D' . $row, $attendance->note);
+                $row++; // Pindah ke baris berikutnya
+            }
+
+            // Pindah ke bulan berikutnya
+            $currentMonth->addMonth();
         }
 
-        return collect($attendanceData);
-    }
-    public function registerEvents(): array
-{
-    return [
-        AfterSheet::class => function(AfterSheet $event) {
-            $sheet = $event->sheet;
 
-            // Set column widths
-            if (!is_null($this->attendanceData) && is_array($this->attendanceData) && count($this->attendanceData[0]) > 0) {
-                // for ($col = 0; $col < count($this->attendanceData[0]); $col++) {
-                    $sheet->getColumnDimension()->setWidth([
-                        'A' => 15,
-                        'B' => 10,
-                        'C' => 10,
-                        'D' => 15,
-                        'E' => 30,
-                        'F' => 15,
-                    ]);
+                // $row = 3; // Mulai menulis dari baris ke-3
+                // foreach ($this->employee->attendances as $attendance) {
+                //     $event->sheet->setCellValue('A' . $row, date('m D', strtotime($attendance->date)));
+                //     $event->sheet->setCellValue('B' . $row, date('H:i', strtotime($attendance->clock_in)));
+                //     $event->sheet->setCellValue('C' . $row, date('H:i', strtotime($attendance->clock_out)));
+                //     $event->sheet->setCellValue('E' . $row, $attendance->note);
+                //     $row++; // Pindah ke baris berikutnya
                 // }
-            }
+        
 
-            // Set column headers
-            $sheet->setCellValue('A1', 'Tanggal');
-            $sheet->setCellValue('A2', '');
-            $sheet->setCellValue('C1', 'Jam');
-            $sheet->setCellValue('B2', 'In' , );
-            $sheet->setCellValue('C2', 'Out');
-            $sheet->setCellValue('D2', 'Jam Puasa');
-            $sheet->setCellValue('E1', $this->employee->name);
-            $sheet->setCellValue('E2', 'Ket');
+                 //DEFINISIKAN STYLE UNTUK CELL
+                 //DEFINISIKAN STYLE UNTUK CELL HEADER
+        $headerStyleArray = [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                ],
+            ],
+            'font' => [
+                'bold' => true,
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+            ],
+            'fill' => [
+                'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                'startColor' => [
+                    'argb' => '00FFFF', // Warna biru
+                ],
+            ],
+        ];
 
-            $sheet->getStyle('A1:E1')->applyFromArray([
-                'font' => [
-                    'bold' => true,
-                ],
-                'alignment' => [
-                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                ],
-                'borders' => [
-                    'allBorders' => [
-                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                    ],
-                ],
-                'fill' => [
-                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                    'startColor' => [
-                        'rgb' => 'EEEEEE',
-                    ],
-                ],
-            ]);
+        // Set style untuk header (baris pertama)
+        $event->sheet->getStyle('A1:E2')->applyFromArray($headerStyleArray);
 
-            // Insert attendance data starting from row 2
-            if (!is_null($this->attendanceData) && is_array($this->attendanceData) && count($this->attendanceData) > 0) {
-                $sheet->fromArray($this->attendanceData, null, 'A2', false, false);
-            }
+        // Set style untuk garis tabel (selain header)
+        $borderStyleArray = [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                ],
+            ],
+        ];
 
-            // Set borders for all cells
-            if (!is_null($this->attendanceData) && is_array($this->attendanceData) && count($this->attendanceData) > 0) {
-                $sheet->setBorder('A1:' . chr(count($this->attendanceData[0]) + 64) . (count($this->attendanceData) + 1), 'thin');
-            }
-        },
-    ];
-}
+        // Set style untuk sel-sel nilai (baris kedua ke atas)
+        $event->sheet->getStyle('A3:E3' . $row)->applyFromArray($borderStyleArray);
+    }
+];
+    }
+
+    public function view() : View
+    {
+        // $startDate = Carbon::now()->subDays(7)->startOfWeek();
+        // $endDate = Carbon::now()->subDays(1)->endOfWeek();
+        
+        // $employees = EmployeeModel::with(['attendance' => function($query) {
+        //     // Menampilkan data kehadiran dalam rentang tanggal 1 minggu terakhir
+        //     // $query->whereBetween('date', [$startDate, $endDate]);
+        // }])->get();
+
+        return view('attendance.viewExport',[
+            'employees' => $this->employee
+        ]);
+    }
+    
 }

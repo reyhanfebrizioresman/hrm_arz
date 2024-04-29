@@ -61,10 +61,10 @@ class AttendanceController extends Controller
         return view('attendance.index', compact('employees'));
     }
 
-    public function viewExport()
-    {
-        return view('attendance.viewExport');
-    }
+    // public function viewExport()
+    // {
+    //     return view('attendance.viewExport');
+    // }
     public function import(Request $request)
     {
         $request->validate([

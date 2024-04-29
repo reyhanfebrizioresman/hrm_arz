@@ -13,7 +13,7 @@
             <button id="filterButton" class="btn btn-primary">Filter</button>
         </div>
     </div>
-    <a href="{{ route('attendance.viewExport') }}" class="btn btn-primary btn-sm">
+    <a href="{{ route('attendance.exportAttendance') }}" class="btn btn-primary btn-sm">
     export
 </a>
         <!-- Export to Excel Form -->

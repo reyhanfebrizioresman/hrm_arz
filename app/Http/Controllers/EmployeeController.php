@@ -133,8 +133,6 @@ class EmployeeController extends Controller
     {
         $employees = EmployeeModel::findOrFail($id);
         $employees->careerHistories()->pluck('id');
-        // $title = 'Hapus Gajih!';
-        // $text = "Apa kamu yakin ingin menghapus Data Gaji?";
         return view('employee.show',compact('employees'));
     }
 

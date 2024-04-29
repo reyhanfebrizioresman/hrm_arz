@@ -45,7 +45,10 @@
           </ul>
         </li>
         <li class="dropdown">
-          <a href="{{url('/salaries')}}" class="nav-link"><i class="fas fa-users"></i> <span>Salaries</span></a>     
+          <a href="{{url('/salaries')}}" class="nav-link"><i class="fas fa-wallet"></i> <span>Salaries</span></a>     
+        </li>
+        <li class="dropdown">
+          <a href="{{url('/reports/salaries_report')}}" class="nav-link"><i class="fas fa-file-invoice"></i> <span>Laporan</span></a>     
         </li>
       </aside>
   </div>

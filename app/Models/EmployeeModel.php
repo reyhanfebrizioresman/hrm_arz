@@ -49,7 +49,12 @@ class EmployeeModel extends Model
 
     public function attendance()
     {
-        return $this->hasOne(Attendance::class, 'employee_id')->latest();
+        return $this->hasOne(Attendance::class, 'employee_id');
+    }
+
+    public function careerHistorie()
+    {
+        return $this->hasOne(CareerHistory::class, 'employee_id');
     }
 
     public function salaryComponents()

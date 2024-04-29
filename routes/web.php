@@ -8,6 +8,7 @@ use App\Http\Controllers\CareerHistoryController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\ShiftsController;
 use App\Exports\AttendanceExport;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SalaryController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,10 +41,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/viewExport',[AttendanceController::class, 'viewExport'])->name('attendance.viewExport');
     Route::resource('/shifts', ShiftsController::class); 
     Route::resource('/salaries', SalaryController::class);
+    // Route::get('/report',[ReportSalariesController::class, 'report']);
     Route::get('/attendance/filter', [AttendanceController::class, 'filterByDate'])->name('attendance.filter');
     Route::post('/attendance/export', [AttendanceController::class, 'export'])->name('attendance.export');
     Route::post('/attendance/import', [AttendanceController::class, 'import'])->name('attendance.import');
-    Route::post('/attendance/exportAttendance', [AttendanceController::class, 'exportAttendance'])->name('attendance.exportAttendance');
+    Route::get('/exportAttendance', [AttendanceController::class, 'exportAttendance'])->name('attendance.exportAttendance');
+    Route::get('/reports/salaries_report',[ReportController::class, 'salariesReport'])->name('report.salaries');
+    Route::get('/reports/export', [ReportController::class, 'salaryExport'])->name('reports.salaryExport');
 });
 
 require __DIR__.'/auth.php';
