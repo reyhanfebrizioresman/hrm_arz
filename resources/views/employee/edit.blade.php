@@ -1,5 +1,5 @@
 @extends('layouts.template')
-@section('title','Dashboard')
+@section('title','Karyawan')
 @section('sub-judul','Karyawan')
 @section('content')
 <style>

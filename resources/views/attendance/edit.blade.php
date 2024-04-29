@@ -1,6 +1,6 @@
 @extends('layouts.template')
-@section('title','Dashboard')
-@section('sub-judul','Departemen')
+@section('title','Ubah Absensi')
+@section('sub-judul','Absensi')
 @section('content')
 
 <div class="card">

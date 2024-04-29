@@ -1,5 +1,5 @@
 @extends('layouts.template')
-@section('title','DasHboard')
+@section('title','Departemen')
 @section('sub-judul','Departemen')
 @section('content')
 <form action="{{ isset($department) ? route('departments.update', $department->id) : route('departments.store') }}" method="POST">
