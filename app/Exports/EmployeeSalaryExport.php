@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\Attendance;
 use App\Models\EmployeeModel;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -43,10 +44,8 @@ class EmployeeSalaryExport implements WithMultipleSheets
         }, 'salaryComponents', 'careerHistories.department'])
         ->get();
 
-        
-
         // Buat instance dari kelas Export untuk minggu ini
-        $sheet = new EmployeeSalarySheet($employees);
+        $sheet = new EmployeeSalarySheet($employees,$startOfWeek, $endOfWeek);
 
 
         // Tambahkan sheet ke dalam array

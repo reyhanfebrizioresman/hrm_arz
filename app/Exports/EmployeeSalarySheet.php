@@ -17,10 +17,15 @@ class EmployeeSalarySheet implements WithEvents
     * @return \Illuminate\Support\Collection
     */
     protected $employees;
+    protected $currentWeek;
+    protected $startOfWeek;
+    protected $endOfWeek;
 
-    public function __construct($employees)
+    public function __construct($employees,$startOfWeek,$endOfWeek)
     {
         $this->employees = $employees;
+        $this->startOfWeek = $startOfWeek;
+        $this->endOfWeek = $endOfWeek;
     }
     // public function title(): string
     // {
@@ -112,12 +117,15 @@ class EmployeeSalarySheet implements WithEvents
 
 
                 $row = 10;
-                $angka = 1;
                 $total = 0;
-                
-                foreach($this->employees as $employee){
-                    // foreach($employee->attendances as $attendance){
-                                    $event->sheet->setCellValue('A' . $row, date('d M', strtotime($employee->attendance->date)));
+                $angka = 1;
+                $currentDate = $this->startOfWeek->copy();
+                while($currentDate->lte($this->endOfWeek)){
+                foreach($this->employees as $employee)
+                {
+                        $attendance = $employee->attendances->where('date', $currentDate->format('Y-m-d'))->first();
+                        if ($attendance) {
+                                    $event->sheet->setCellValue('B' . $row, date('d M', strtotime($currentDate)));
                                     $event->sheet->setCellValue('D' . $row, $angka++);
                                     $event->sheet->setCellValue('E' . $row, $employee->name);
                                     $event->sheet->setCellValue('F' . $row, $employee->careerHistories->last()->department->name);
@@ -125,8 +133,8 @@ class EmployeeSalarySheet implements WithEvents
                                     // if($salaryComponent->name == 'gaji pokok'){
                                     //     $event->sheet->setCellValue('G' . $row, "Rp " . number_format($salaryComponent->pivot->amount,2,',','.'));
                                     // }
-                                    $event->sheet->setCellValue('H' . $row, date('H:i', strtotime($employee->attendance->clock_in)));
-                                    $event->sheet->setCellValue('I' . $row, date('H:i', strtotime($employee->attendance->clock_out)));
+                                    $event->sheet->setCellValue('H' . $row, date('H:i', strtotime($attendance->clock_in)));
+                                    $event->sheet->setCellValue('I' . $row, date('H:i', strtotime($attendance->clock_out)));
                                     
                                     // $event->sheet->setCellValue('L' . $row, gmdate('H:i',$attendance->overtime));
                                     $event->sheet->setCellValue('K' . $row, '00:00');
@@ -134,7 +142,7 @@ class EmployeeSalarySheet implements WithEvents
 
                                     //pembulatan 2 keatas
                                     // langsung di bulatkan yang lembur di bagi 60 
-                                    $overtimeMinutes = intval($employee->attendance->overtime) / 60;
+                                    $overtimeMinutes = intval($attendance->overtime) / 60;
 
                                     $overtimeRounded = round($overtimeMinutes, 2);
                                     $event->sheet->setCellValue('O' . $row, $overtimeRounded);
@@ -148,6 +156,9 @@ class EmployeeSalarySheet implements WithEvents
                                     // $event->sheet->setCellValue('O' . $row, '=IF(L' . $row . ' > 0, CEILING(VALUE(L' . $row . ') / 60, 0.00), 0)');
                                    $row++;
                             // }
+                                }
+                            }
+                            $currentDate->addDay();
                          }
 
                 // foreach ($event->sheet->getWorksheet()->getColumnIterator() as $column) {

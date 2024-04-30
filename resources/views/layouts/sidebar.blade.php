@@ -47,5 +47,8 @@
         <li class="dropdown">
           <a href="{{url('/salaries')}}" class="nav-link"><i class="fas fa-money-bill-alt"></i> <span>Gaji</span></a>     
         </li>
+        <li class="dropdown">
+          <a href="{{url('/reports/salaries_report')}}" class="nav-link"><i class="fas fa-money-bill-alt"></i> <span>Laporan</span></a>     
+        </li>
       </aside>
   </div>
