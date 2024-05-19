@@ -18,6 +18,10 @@ class ReportController extends Controller
     {
         //
     }
+    public function export(Request $request)
+    {   
+       
+    }
     public function salariesReport()
     {
         $today = Carbon::today()->toDateString();
@@ -28,12 +32,16 @@ class ReportController extends Controller
         return view('reports.salaries_report',compact('employees'));
     }
 
-    public function salaryExport()
+    public function salaryExport(Request $request)
     {
-        // $startDate = Carbon::create(2024, 3, 25)->startOfDay();
-        // $endDate = Carbon::create(2024, 4, 24)->endOfDay();
+        $startDate = Carbon::parse($request->start_date)->startOfDay();
+        $endDate = Carbon::parse($request->end_date)->endOfDay();
+        // if($request->has('start_date') && $request->has('end_date')){
+        //     $startDate = $request->start_date;
+        //     $endDate = $request->end_date;
+        // }
         $employees = EmployeeModel::with(['attendances' ,'salaryComponents','careerHistories.department'])->get();
-        return Excel::download(new EmployeeSalaryExport($employees), 'employee_salaries.xlsx');
+        return Excel::download(new EmployeeSalaryExport($employees,$startDate,$endDate), 'employee_salaries.xlsx');
     }
     /**
      * Show the form for creating a new resource.

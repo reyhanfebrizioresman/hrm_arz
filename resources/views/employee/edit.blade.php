@@ -1,6 +1,20 @@
 @extends('layouts.template')
 @section('title','Karyawan')
 @section('sub-judul','Karyawan')
+
+
+@section('breadcrumb')
+@foreach ($breadcrumbs as $breadcrumb)
+    @if(isset($breadcrumb['url']))
+    <div class="breadcrumb-item">
+        <a href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['title'] }}</a>
+    </div>
+    @else
+    <div class="breadcrumb-item">{{ $breadcrumb['title'] }}</div>
+    @endif
+@endforeach
+@endsection
+
 @section('content')
 <style>
     #image-preview {
@@ -145,14 +159,14 @@
                         <label for="exit_date">Tanggal Keluar:</label>
                         <input type="date" class="form-control" id="exit_date" name="exit_date" value="{{ $employee->exit_date }}">
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="shift">Pilih Shift:</label>
                         <select name="shifts[]" id="shift" class="form-control">
                             @foreach($shifts as $shift)
                                 <option value="{{ $shift->id }}">{{ $shift->name }}</option>
                             @endforeach
                         </select>
-                    </div>
+                    </div> --}}
                     <div class="card-footer text-right">
                         <button class="btn btn-primary">Simpan Perubahan</button>
                     </div>

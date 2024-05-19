@@ -13,11 +13,15 @@ use Maatwebsite\Excel\Events\AfterSheet;
 
 class EmployeeSalaryExport implements WithMultipleSheets
 {
-    protected $employees;
+    // protected $employees;
+    protected $startDate;
+    protected $endDate;
 
-    public function __construct($employees)
+    public function __construct($employees,$startDate,$endDate)
     {
-        $this->employees = $employees;
+        // $this->employees = $employees;
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
     }
     /**
     * @return \Illuminate\Support\Collection
@@ -27,10 +31,11 @@ class EmployeeSalaryExport implements WithMultipleSheets
 {
     $sheets = [];
 
-    $startDate = Carbon::create(2024, 3, 26)->startOfDay();
-    $endDate = Carbon::create(2024, 4, 25)->endOfDay();
+    $startDate = Carbon::create($this->startDate)->startOfDay();
+    $endDate = Carbon::create($this->endDate)->endOfDay();
 
     $currentDate = $startDate->copy();
+    $weekNumber = 1;
 
     while ($currentDate->lte($endDate)) {
         // Tentukan tanggal awal dan akhir minggu
@@ -45,15 +50,24 @@ class EmployeeSalaryExport implements WithMultipleSheets
         ->get();
 
         // Buat instance dari kelas Export untuk minggu ini
-        $sheet = new EmployeeSalarySheet($employees,$startOfWeek, $endOfWeek);
+        $sheet = new EmployeeSalarySheet($employees,$startOfWeek, $endOfWeek,$startDate,$endDate);
 
+        
 
         // Tambahkan sheet ke dalam array
-        $sheets[] = $sheet;
+        $sheets['Week' . $weekNumber++] = $sheet;
 
         // Pindahkan ke minggu berikutnya
         $currentDate->addWeek();
+        // $weekNumber++;
     }
+
+    $datas = EmployeeModel::with('careerHistories.department')->get();
+
+
+    
+    $resultSheet = new ResultSheet($datas);
+    $sheets['result'] = $resultSheet;
 
     return $sheets;
 }

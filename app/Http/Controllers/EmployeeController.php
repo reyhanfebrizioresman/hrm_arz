@@ -23,6 +23,11 @@ class EmployeeController extends Controller
      */
     public function index(Request $request)
     {   
+        $breadcrumbs = [
+            ['url' => url('/dashboard'), 'title' => 'Dashboard'],
+            ['title' => 'Karyawan'],
+         ];
+
         $query = EmployeeModel::query();
     if ($request->has('search')) {
         $search = $request->search;
@@ -43,7 +48,13 @@ class EmployeeController extends Controller
     //withQuertyString agar query tetap ada di page selanjut nya
         $employees = $query->paginate(10)->withQueryString();
         $employees->load('careerHistories.department', 'careerHistories.position');
-        return view('employee.index',compact('employees'));
+        $employeeCounts = EmployeeModel::selectRaw('status, COUNT(*) as count')
+                                        ->groupBy('status')
+                                        ->pluck('count', 'status')
+                                        ->toArray();
+
+        return view('employee.index', compact('employees', 'employeeCounts','breadcrumbs'));
+
     }
 
     /**
@@ -74,7 +85,7 @@ class EmployeeController extends Controller
             'city' => 'required|string',
             'date_of_birth' => 'required|date',
             'place_of_birth' => 'required|string',
-            'address' => 'required|string',
+            // 'address' => 'required|string',
             'status' => 'required',
             'marital_status' => 'required|string',
             'employment_status' => 'required|string',
@@ -132,8 +143,14 @@ class EmployeeController extends Controller
     public function show(string $id)
     {
         $employees = EmployeeModel::findOrFail($id);
+
+        $breadcrumbs = [
+            ['url' => url('/dashboard'), 'title' => 'Dashboard'],
+            ['url' => url('/employee'), 'title' => 'Karyawan'],
+            ['title' => $employees->name],
+        ];
         $employees->careerHistories()->pluck('id');
-        return view('employee.show',compact('employees'));
+        return view('employee.show',compact('employees','breadcrumbs'));
     }
 
     public function toggleStatus($id)
@@ -262,8 +279,16 @@ class EmployeeController extends Controller
     public function edit(string $id)
     {
         $employee = EmployeeModel::findOrFail($id);
+
+        $breadcrumbs = [
+            ['url' => url('/dashboard'), 'title' => 'Dashboard'],
+            ['url' => url('/employee'), 'title' => 'Karyawan'],
+            ['url' => route('employee.show', $employee->id), 'title' => $employee->name],
+            ['title' => 'Edit'],
+        ];
+
         $shifts = Shift::all();
-        return view('employee.edit',compact('employee','shifts'));
+        return view('employee.edit',compact('employee','shifts','breadcrumbs'));
     }
 
     /**

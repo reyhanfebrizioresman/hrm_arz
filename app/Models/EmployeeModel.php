@@ -75,4 +75,19 @@ class EmployeeModel extends Model
         // Jika tidak ada gaji yang ditemukan, kembalikan nilai null atau sesuai kebutuhan Anda
         return null;
     }
+
+    public function leaves()
+    {
+        return $this->hasMany(Leave::class);
+    }
+
+    public function paidLeaves()
+    {
+        return $this->hasMany(PaidLeave::class);
+    }
+
+    public function permissionLeaves()
+    {
+        return $this->hasMany(PermissionLeave::class);
+    }
 }

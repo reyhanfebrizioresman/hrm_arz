@@ -1,9 +1,72 @@
 @extends('layouts.template')
 @section('title','Data Karyawan')
 @section('sub-judul','Karyawan')
+@section('breadcrumb')
+@foreach ($breadcrumbs as $breadcrumb)
+    @if(isset($breadcrumb['url']))
+    <div class="breadcrumb-item">
+        <a href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['title'] }}</a>
+    </div>
+    @else
+    <div class="breadcrumb-item">{{ $breadcrumb['title'] }}</div>
+    @endif
+@endforeach
+@endsection
 @section('content')
 
 <div class="container">
+    {{-- <section class="section">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-primary">
+                        <i class="far fa-user"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Karyawan</h4>
+                        </div>
+                        <div class="card-body">
+                            {{ $employeeCounts['active'] + $employeeCounts['inactive'] ?? 0}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-success">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            Karyawan Aktif
+                        </div>
+                        <div class="card-body">
+                            {{ $employeeCounts['active'] ?? 0 }}
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-danger">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            Karyawan Non Aktif
+                        </div>
+                        <div class="card-body">
+                            {{ $employeeCounts['inactive'] ?? 0 }}
+                        </div>
+                    </div>
+                </div>
+            </div>                  
+        </div>
+    </section> --}}
+    
+    
+
     <div class="row">
         <div class="col-6">
             <form action="{{ route('employee.index') }}" method="GET" class="flex-grow-1 mr-2" id="searchForm">
@@ -20,8 +83,7 @@
         </div>
         <div class="col-6">
     <div class="d-flex justify-content-end">
-        <a href="{{ route('employee.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i></a>
-
+        <a href="{{ route('employee.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Data Pegawai</a>
         </div>
     </div>
         
@@ -44,9 +106,9 @@
                                     </div>
                                     <div class="col-3">
                                         @if($employee->status == 'active')
-                                            <span style="color:black;" class="badge badge-success">Aktif</span>
+                                            <span class="badge badge-success">Aktif</span>
                                         @else
-                                            <span class="badge badge-danger font-weight-bold">Non Aktif</span>
+                                            <span class="badge badge-danger">Non Aktif</span>
                                         @endif
                                     </div>
                                 </div>

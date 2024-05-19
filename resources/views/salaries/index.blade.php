@@ -25,9 +25,9 @@
                         {{-- <td>{{ $salary->category }}</td> --}}
                         <td>
                             @if($salary->category == 'income')
-                            <span class="badge badge-light">{{$salary->category ? 'Pendapatan' : ''}}</span>
+                            <span class="badge badge-success">{{$salary->category ? 'Pendapatan' : ''}}</span>
                             @else
-                            <span class="badge badge-dark">{{$salary->category ? 'Potongan' : ''}}</span>
+                            <span class="badge badge-danger ">{{$salary->category ? 'Potongan' : ''}}</span>
                             @endif
                         </td>
                         <td><a href="{{ route('salaries.edit',$salary->id) }}" class="btn btn-primary  btn-sm"><i class="fas fa-edit"></i></a>

@@ -42,6 +42,17 @@
           <li class="">
           <a href="{{url('/shifts')}}" class="nav-link "><span>Shift</span></a>
           </li>
+          {{-- <li class="">
+            <a href="{{url('/submissions')}}" class="nav-link "><span>Pengajuan</span></a>
+            </li> --}}
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users"></i> <span>Pengajuan</span></a>
+          <ul class="dropdown-menu">
+          <li><a class="nav-link" href="{{url('/sick_leaves')}}">Pengajuan Sakit</a></li> 
+          <li><a class="nav-link" href="{{url('/paid_leaves')}}">Pengajuan Cuti</a></li> 
+          <li><a class="nav-link" href="{{url('/permission_leaves')}}">Pengajuan Izin</a></li> 
           </ul>
         </li>
         <li class="dropdown">

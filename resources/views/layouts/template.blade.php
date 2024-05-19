@@ -20,6 +20,9 @@
         <section class="section">
           <div class="section-header">
           <h1>@yield('sub-judul')</h1>
+          <div class="section-header-breadcrumb">
+           @yield('breadcrumb')
+          </div>
              
             
           </div>

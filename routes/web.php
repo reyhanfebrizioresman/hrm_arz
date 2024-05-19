@@ -8,8 +8,13 @@ use App\Http\Controllers\CareerHistoryController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\ShiftsController;
 use App\Exports\AttendanceExport;
+use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\PaidLeaveController;
+use App\Http\Controllers\PermissionLeaveController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\SickLeaveController;
+use App\Http\Controllers\SubmissionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -47,7 +52,18 @@ Route::middleware('auth')->group(function () {
     Route::post('/attendance/import', [AttendanceController::class, 'import'])->name('attendance.import');
     Route::get('/exportAttendance', [AttendanceController::class, 'exportAttendance'])->name('attendance.exportAttendance');
     Route::get('/reports/salaries_report',[ReportController::class, 'salariesReport'])->name('report.salaries');
-    Route::get('/reports/export', [ReportController::class, 'salaryExport'])->name('reports.salaryExport');
+    Route::post('/reports/export', [ReportController::class, 'salaryExport'])->name('reports.salaryExport');
+    // Route::post('/reports/export', [ReportController::class, 'export'])->name('reports.export');
+    Route::resource('/submissions', SubmissionController::class);
+    Route::resource('/sick_leaves', SickLeaveController::class);
+    Route::resource('/paid_leaves', PaidLeaveController::class);
+    Route::resource('/permission_leaves', PermissionLeaveController::class);
+    Route::put('/paid_leaves/{id}/updateStatus', [PaidLeaveController::class, 'updateStatus'])->name('paid_leaves.updateStatus');
+    Route::put('/sick_leaves/{id}/updateStatus', [SickLeaveController::class, 'updateStatus'])->name('sick_leaves.updateStatus');
+    Route::put('/permission_leaves/{id}/updateStatus', [PermissionLeaveController::class, 'updateStatus'])->name('permission_leaves.updateStatus');
+    // Route::post('/submissions/paidLeave', [SubmissionController::class, 'paidLeave'])->name('submissions.paidLeave');
+
+
 });
 
 require __DIR__.'/auth.php';

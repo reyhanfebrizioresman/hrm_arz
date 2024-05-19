@@ -33,7 +33,7 @@ class AttendanceImport implements ToModel, WithHeadingRow
         
         $clockIn = $this->transformDate($row['clock_in']);
         $clockOut = $this->transformDate($row['clock_out']);
-        $defaultStartTime = date('1970-01-01 H:i:s',strtotime('07:00:00'));
+        $defaultStartTime = date('1970-01-01 H:i:s',strtotime('08:00:00'));
         $defaultEndTime = date('1970-01-01 H:i:s',strtotime('17:00:00')); 
         $late = Carbon::parse($clockIn)->diffInMinutes($defaultStartTime);
         $overtime = Carbon::parse($clockOut)->diffInMinutes($defaultEndTime);

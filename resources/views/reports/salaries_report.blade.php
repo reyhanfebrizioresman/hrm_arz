@@ -4,14 +4,33 @@
 @section('content')
 
 <div class="container">
-    <a href="{{ route('reports.salaryExport') }}" class="btn btn-primary">Export to Excel</a>
+    <div class="card mb-3">
+        <div class="card-header">Export Laporan</div>
+        <div class="card-body">
+            <!-- Export to Excel Form -->
+            <form action="{{ route('reports.salaryExport') }}" method="POST" class="mb-3">
+                @csrf
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="start_date">Tanggal Di Mulai:</label>
+                        <input type="date" id="start_date" name="start_date" class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="end_date">Tanggal Berakhir:</label>
+                        <input type="date" id="end_date" name="end_date" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm">Ekspor ke Excel</button>
+                    </div>
+                </form>
+        </div>
+    </div>
+    {{-- <a href="{{ route('reports.salaryExport') }}" class="btn btn-primary">Export to Excel</a>
     <table id="tabel_product" class="table datatable">
         <thead>
             <tr>
-                <th>Tanggal</th>
                 <th>Nama</th>
-                {{-- <th>Divisi</th> --}}
                 <th>Gaji Pokok</th>
+                <th>Tanggal</th>
                 <th>Masuk</th>
                 <th>Keluar</th>
                 <th>Lembur</th>
@@ -20,29 +39,34 @@
         </thead>
         <tbody>
             @foreach($employees as $employee)
-                @foreach($employee->salaryComponents as $salaryComponent)
-                @if($salaryComponent->name == 'gaji pokok')
-                    <tr>
+            <tr>
+            <td>{{ $employee->name }}</td>
+            <td>
+                {{$employee->salaryComponents->where('name', 'gaji pokok')->first()->pivot->amount, 2, ',', '.'}}
+            </td>
+            @if($employee->attendance != null)
+              
                         <td>{{ $employee->attendance->date }}</td>
-                        <td>{{ $employee->name }}</td>
-                        {{-- <td>{{ $employee->careerHistories->department->name }}</td> --}}
-                        <td>
-                            @if($salaryComponent->name == 'gaji pokok')
-                            {{ "Rp " . number_format($salaryComponent->pivot->amount,2,',','.') }}
-                            @endif
-                        </td>
                         <td>{{ $employee->attendance->clock_in }}</td>
                         <td>{{ $employee->attendance->clock_out }}</td>
                         <td>{{ $employee->attendance->overtime }}</td>
-                        <!-- Tambahkan kolom lain sesuai kebutuhan -->
-                    </tr>
-                    @endif
-                @endforeach
+               
+                @else
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                @endif
+
+            </tr>
+
         @endforeach
         </tbody>
         
         
-    </table>
+    </table>  --}}
 </div>
 
 @section('addon')

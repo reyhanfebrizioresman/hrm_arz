@@ -23,9 +23,6 @@ class AttendanceController extends Controller
     {
         $filterDate = $request->has('date') && !empty($request->date) ? $request->input('date') : null;
         $today = Carbon::today()->toDateString();
-        // $attendance = Attendance::with(['employee' => function ($q)use($filterDate,$today){
-        //                 $q->orderBy('name','DESC');
-        // }])->get();
         $employees = EmployeeModel::with(['attendance' => function($q)use($filterDate,$today){
                 if ($filterDate) {
                     $q->whereDate('date', '=', $filterDate);

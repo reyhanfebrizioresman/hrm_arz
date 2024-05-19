@@ -1,6 +1,19 @@
 @extends('layouts.template')
 @section('title','Dashboard')
 @section('sub-judul','Karyawan')
+
+@section('breadcrumb')
+@foreach ($breadcrumbs as $breadcrumb)
+    @if(isset($breadcrumb['url']))
+    <div class="breadcrumb-item">
+        <a href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['title'] }}</a>
+    </div>
+    @else
+    <div class="breadcrumb-item">{{ $breadcrumb['title'] }}</div>
+    @endif
+@endforeach
+@endsection
+
 @section('content')
 
 <style>
@@ -32,25 +45,25 @@
         <!-- Tab Profile -->
         <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
               <!-- Dropdown -->
-            <div class="dropdown d-flex justify-content-end">
-              <button class="btn btn-primary dropdown-toggle mt-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Actions
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="{{ route('employee.edit', $employees->id) }}">Edit</a>
-                  <div class="dropdown-divider"></div>
-                  <div class="dropdown-item">
-                      <div class="custom-control custom-switch">
-                          <input type="checkbox" class="custom-control-input" id="customSwitch-{{ $employees->id }}" {{ $employees->status === 'active' ? 'checked' : '' }}>
-                          <label class="custom-control-label" for="customSwitch-{{ $employees->id }}">Status</label>
-                      </div>
-                      <form id="toggle-form-{{ $employees->id }}" action="{{ route('employee.toggleStatus', $employees->id) }}" method="POST" style="display: none;">
-                          @csrf
-                          @method('PATCH')
-                      </form>
-                  </div>
-              </div>
-          </div>
+              <div class="dropdown d-flex justify-content-end">
+                <button class="btn btn-primary dropdown-toggle mt-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-pen"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="{{ route('employee.edit', $employees->id) }}"> <i class="fas fa-edit"></i> Edit</a>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-item">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="customSwitch-{{ $employees->id }}" {{ $employees->status === 'active' ? 'checked' : '' }}>
+                            <label class="custom-control-label" for="customSwitch-{{ $employees->id }}">Status</label>
+                        </div>
+                        <form id="toggle-form-{{ $employees->id }}" action="{{ route('employee.toggleStatus', $employees->id) }}" method="POST" style="display: none;">
+                            @csrf
+                            @method('PATCH')
+                        </form>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <!-- Kolom 1: Image dan Career History -->
                 <div class="col-md-3">
@@ -187,9 +200,9 @@
                             <div class="col-sm-9">
                               <p class="text-muted mb-0">
                                 @if($employees->status == 'active')
-                                            <span style="color: black" class="badge badge-success">{{ ucfirst($employees->status == 'active' ? 'Aktif' : '') }}</span>
+                                            <span class="badge badge-success">{{ ucfirst($employees->status == 'active' ? 'Aktif' : '') }}</span>
                                         @else
-                                            <span style="color: black" class="badge badge-danger font-weight-bold">{{ ucfirst($employees->status == 'inactive' ? 'Non Aktif' : '') }}</span>
+                                            <span class="badge badge-danger font-weight-bold">{{ ucfirst($employees->status == 'inactive' ? 'Non Aktif' : '') }}</span>
                                         @endif
                               </p>
                             </div>

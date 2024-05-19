@@ -13,16 +13,16 @@
             <button id="filterButton" class="btn btn-primary">Filter</button>
         </div>
     </div>
-    <a href="{{ route('attendance.exportAttendance') }}" class="btn btn-primary btn-sm">
+    {{-- <a href="{{ route('attendance.exportAttendance') }}" class="btn btn-primary btn-sm">
     export
-</a>
+</a> --}}
         <!-- Export to Excel Form -->
-    <form action="{{ route('attendance.exportAttendance') }}" method="POST" >
+    {{-- <form action="{{ route('attendance.exportAttendance') }}" method="POST" >
         @csrf
         <div class="mt-3">
          <button type="submit" class="btn btn-primary btn-block">Ekspor ke Excel</button>
         </div>
-    </form> 
+    </form>  --}}
     </div>
     <div class="col-md-9">
         <div class="d-flex justify-content-end mb-2">
@@ -66,12 +66,17 @@
                                 <span class="badge badge-danger">{{$employee->attendance->status ?? null}}</span>
                                 @endif
                             </td>
-                            <td>{{ \Carbon\Carbon::parse($employee->attendance->clock_in ?? null)->format('H:i') }}</td>
-                            <td>{{ \Carbon\Carbon::parse($employee->attendance->clock_out ?? null)->format('H:i') }}</td>
-                            <td>{{$employee->attendance->late ?? null}} Menit</td>
-                            <td>{{$employee->attendance->overtime ?? null}} Menit</td>
+                            <td>
+                                {{ optional($employee->attendance)->clock_in ? \Carbon\Carbon::parse($employee->attendance->clock_in)->format('H:i') : '-' }}
+                            </td>
+                            <td>
+                                {{ optional($employee->attendance)->clock_out ? \Carbon\Carbon::parse($employee->attendance->clock_out)->format('H:i') : '-' }}
+                            </td>
+                            
+                            <td>{{ $employee->attendance->late ? $employee->attendance->late . ' Menit' : '-' }}</td>
+                            <td>{{ $employee->attendance->overtime ? $employee->attendance->overtime . ' Menit' : '-' }}</td>
+
                             @else
-                            <td>-</td>
                             <td>-</td>
                             <td>-</td>
                             <td>-</td>
