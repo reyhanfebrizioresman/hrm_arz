@@ -52,6 +52,8 @@ class PaidLeaveController extends Controller
             if ($request->status !== 'reject') {
                 Attendance::create([
                     'employee_id' => $request->employee_id,
+                    'clock_in' => '00:00',
+                    'clock_out' => '00:00',
                     'date' => $date,
                     'status' => 'cuti',
                 ]);
@@ -155,13 +157,13 @@ class PaidLeaveController extends Controller
             // Dapatkan objek permission leave yang ingin diupdate
             $leave = PaidLeave::findOrFail($id);
 
-            if ($leave->status == 'approve') {
-                $leave->status = 'pending';
-            } else {
-                $leave->status = 'approve';
-            }
+            // if ($leave->status == 'approve') {
+            //     $leave->status = 'pending';
+            // } else {
+            //     $leave->status = 'approve';
+            // }
 
-            $leave->save();
+            // $leave->save();
     
             // Update atribut objek permission leave
             $leave->update([
@@ -182,6 +184,8 @@ class PaidLeaveController extends Controller
                         Attendance::create([
                             'employee_id' => $request->employee_id,
                             'date' => $date,
+                            'clock_in' => '00:00',
+                            'clock_out' => '00:00',
                             'status' => 'cuti',
                         ]);
                 }

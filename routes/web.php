@@ -10,11 +10,15 @@ use App\Http\Controllers\ShiftsController;
 use App\Exports\AttendanceExport;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\PaidLeaveController;
+use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\PermissionLeaveController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\SickLeaveController;
 use App\Http\Controllers\SubmissionController;
+use App\Exports\PayrollExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -62,7 +66,16 @@ Route::middleware('auth')->group(function () {
     Route::put('/sick_leaves/{id}/updateStatus', [SickLeaveController::class, 'updateStatus'])->name('sick_leaves.updateStatus');
     Route::put('/permission_leaves/{id}/updateStatus', [PermissionLeaveController::class, 'updateStatus'])->name('permission_leaves.updateStatus');
     // Route::post('/submissions/paidLeave', [SubmissionController::class, 'paidLeave'])->name('submissions.paidLeave');
-
+    Route::resource('/payrolls', PayrollController::class);
+    Route::put('/payrolls/update-all', [PayrollController::class, 'updateAll'])->name('payrolls.updateAll');
+    Route::get('/payrolls/invoice/{id} ', [PayrollController::class ,'generatePdf'])->name('payrolls.generatePdf');
+    Route::post('/payrolls/export', [PayrollController::class, 'payrollExport'])->name('payrolls.payrollExport');
+    // Route::get('/payrolls/export', function (Request $request) {
+    //     $month = $request->input('bulan');
+    //     $year = $request->input('tahun');
+    //     return Excel::download(new PayrollExport($month, $year), 'payrolls.xlsx');
+    // })->name('payrolls.export');
+    // Route::get('/payroll', [PayrollController::class, 'showPayrollForm'])->name('payroll.index');
 
 });
 

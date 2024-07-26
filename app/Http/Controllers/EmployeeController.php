@@ -53,7 +53,10 @@ class EmployeeController extends Controller
                                         ->pluck('count', 'status')
                                         ->toArray();
 
-        return view('employee.index', compact('employees', 'employeeCounts','breadcrumbs'));
+        $totalEmployees = array_sum($employeeCounts);
+        
+
+        return view('employee.index', compact('employees', 'employeeCounts','breadcrumbs','totalEmployees'));
 
     }
 

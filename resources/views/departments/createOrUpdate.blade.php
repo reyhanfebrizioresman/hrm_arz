@@ -11,6 +11,6 @@
         <label for="name">Nama:</label>
         <input type="text" class="form-control" id="name" name="name" value="{{ isset($department) ? $department->name : '' }}">
     </div>
-    <button type="submit" class="btn btn-primary">{{ isset($department) ? 'Ubah' : 'Buat' }}</button>
+    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> {{ isset($department) ? 'Ubah' : 'Simpan' }}</button>
 </form>
 @endsection

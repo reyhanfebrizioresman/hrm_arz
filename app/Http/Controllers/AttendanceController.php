@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use RealRashid\SweetAlert\Facades\Alert;
 use Carbon\Carbon;
-
+use Exception;
 
 class AttendanceController extends Controller
 {
@@ -21,21 +21,55 @@ class AttendanceController extends Controller
      */
     public function index(Request $request)
     {
+        $breadcrumbs = [
+            ['url' => url('/dashboard'), 'title' => 'Dashboard'],
+            ['title' => 'Absensi'],
+         ];
+
+         $months = [
+            'Januari' => '01',
+            'Februari' => '02',
+            'Maret' => '03',
+            'April' => '04',
+            'Mei' => '05',
+            'Juni' => '06',
+            'Juli' => '07',
+            'Agustus' => '08',
+            'September' => '09',
+            'Oktober' => '10',
+            'November' => '11',
+            'Desember' => '12',
+        ];
+
+        $years = range(date('Y'), date('Y') + 5);
+
+        $selectedMonth = $request->input('bulan');
+        $selectedYear = $request->input('tahun');
+
+        // If no month and year selected, default to current month and year
+        if (!$selectedMonth || !$selectedYear) {
+            $selectedMonth = date('m');
+            $selectedYear = date('Y');
+        }
+
         $filterDate = $request->has('date') && !empty($request->date) ? $request->input('date') : null;
         $today = Carbon::today()->toDateString();
-        $employees = EmployeeModel::with(['attendance' => function($q)use($filterDate,$today){
-                if ($filterDate) {
-                    $q->whereDate('date', '=', $filterDate);
-                } else {
-                    // Menampilkan data hari ini
-                    $q->where('date', '=', $today);
-                }
+        $employees = EmployeeModel::with(['attendance' => function($query)use($filterDate,$today){
+            $date = $filterDate ? Carbon::parse($filterDate) : $today;
+
+            // Subquery untuk mendapatkan kehadiran terbaru per employee per date
+            $query->whereIn('id', function($subQuery) use ($date) {
+                $subQuery->selectRaw('MAX(id)')
+                         ->from('attendance')
+                         ->whereDate('date', $date)
+                         ->groupBy('employee_id');
+            });
         }])->get();
         // return $employees;
        
-        $title = 'Hapus Absensi!';
-        $text = "Apa kamu yakin ingin menghapus Absensi?";
-        confirmDelete($title, $text);
+        // $title = 'Hapus Absensi!';
+        // $text = "Apa kamu yakin ingin menghapus Absensi?";
+        // confirmDelete($title, $text);
         // Mendapatkan tanggal hari ini
 
         // $query = Attendance::query();
@@ -55,7 +89,12 @@ class AttendanceController extends Controller
         //     $attendance->overtime = $lateAndOvertime['overtime'];
         // }
         // $attendances->load('employee');
-        return view('attendance.index', compact('employees'));
+        $countStatus = Attendance::selectRaw('status , COUNT(*) as count')
+                                    ->groupBy('status')
+                                    ->pluck('count','status')
+                                    ->toArray();
+
+        return view('attendance.index', compact('employees','countStatus','breadcrumbs','months', 'years', 'selectedMonth', 'selectedYear'));
     }
 
     // public function viewExport()
@@ -73,7 +112,7 @@ class AttendanceController extends Controller
         $file->storeAs('public/excel', $fileName);
         $employee_id = EmployeeModel::all();
         $import = Excel::import(new AttendanceImport, storage_path('app/public/excel/' . $fileName)); // Panggil class import untuk file Excel
-        Alert::success('Selamat', 'Data Telah Berhasil di Import'); 
+        // Alert::success('Selamat', 'Data Telah Berhasil di Import'); 
         if($import) {
             return redirect()->route('attendance.index')->with('success', 'Attendance data imported successfully');
         } else {
@@ -121,45 +160,50 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
-         // Validasi input
-    $request->validate([
-        'employee_id' => 'required',
-        'clock_in' => 'required',
-        'clock_out' => 'required',
-        'date' => 'required',
-    ]);
-
-    $overtime = 0;
-    $late = 0;
-
-    $clockIn = strtotime($request->clock_in);
-    $clockOut = strtotime($request->clock_out);
-    $defaultStartTime = strtotime('07:00:00');
-    $defaultEndTime = strtotime('17:00:00'); 
-
-
-    if($clockIn > $defaultStartTime){
-        $late = $clockIn - $defaultStartTime;
-    }
-
-    if ($clockOut > $defaultEndTime) {
-        $overtime = $clockOut - $defaultEndTime;
-    }
-    $late = round($late / 60);
-    $overtime = round($overtime / 60);
-
-
-    Attendance::create([
-        'employee_id' => $request->employee_id,
-        'status' => $request->status,
-        'overtime' => $overtime,
-        'late' => $late,
-        'clock_in' => $request->clock_in,
-        'clock_out' => $request->clock_out,
-        'date' => $request->date,
-    ]);
-    Alert::success('Selamat', 'Data Telah Berhasil di input'); 
-    return redirect()->route('attendance.index');
+        try {
+            // Validasi input
+            $request->validate([
+                'employee_id' => 'required',
+                'clock_in' => 'required',
+                'clock_out' => 'required',
+                'date' => 'required',
+            ]);
+    
+            $overtime = 0;
+            $late = 0;
+    
+            $clockIn = strtotime($request->clock_in);
+            $clockOut = strtotime($request->clock_out);
+            $defaultStartTime = strtotime('08:00:00');
+            $defaultEndTime = strtotime('17:00:00'); 
+    
+            if ($clockIn > $defaultStartTime) {
+                $late = $clockIn - $defaultStartTime;
+            }
+    
+            if ($clockOut > $defaultEndTime) {
+                $overtime = $clockOut - $defaultEndTime;
+            }
+    
+            $late = round($late / 60);
+            $overtime = round($overtime / 60);
+    
+            Attendance::create([
+                'employee_id' => $request->employee_id,
+                'status' => 'hadir',
+                'overtime' => $overtime,
+                'late' => $late,
+                'clock_in' => $request->clock_in,
+                'clock_out' => $request->clock_out,
+                'date' => $request->date,
+            ]);
+    
+            // Set flash message for success
+            return redirect()->route('attendance.index',['date' => $request->input('date')])->with('success', 'Data kehadiran berhasil disimpan.');
+        } catch (Exception $e) {
+            // Set flash message for error
+            return redirect()->route('attendance.index',['date' => $request->input('date')])->with('error', 'Failed to save data: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -183,22 +227,58 @@ class AttendanceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        $attendance = Attendance::findOrFail($id);
-
-        $attendance->update([
-            'employee_id' => $request->employee_id,
-            'status' => $request->status,
-            'overtime' => $request->overtime,
-            'clock_in' => $request->clock_in,
-            'clock_out' => $request->clock_out,
-            'date' => $request->date,
-        ]);
+        try {
+            // Validasi input
+            $request->validate([
+                'employee_id' => 'required',
+                'clock_in' => 'required',
+                'clock_out' => 'required',
+                'date' => 'required',
+            ]);
     
-        Alert::success('Selamat', 'Data Telah Berhasil di Rubah'); 
-        return redirect()->route('attendance.index', ['date' => $request->input('date')]);
+            $overtime = 0;
+            $late = 0;
+    
+            $clockIn = strtotime($request->clock_in);
+            $clockOut = strtotime($request->clock_out);
+            $defaultStartTime = strtotime('08:00:00');
+            $defaultEndTime = strtotime('17:00:00'); 
+    
+            if ($clockIn > $defaultStartTime) {
+                $late = $clockIn - $defaultStartTime;
+            }
+    
+            if ($clockOut > $defaultEndTime) {
+                $overtime = $clockOut - $defaultEndTime;
+            }
+    
+            $late = round($late / 60);
+            $overtime = round($overtime / 60);
+    
+            // Cari entri yang akan diupdate
+            $attendance = Attendance::findOrFail($id);
+    
+            // Update data
+            $attendance->update([
+                'employee_id' => $request->employee_id,
+                'status' => 'hadir',
+                'overtime' => $overtime,
+                'late' => $late,
+                'clock_in' => $request->clock_in,
+                'clock_out' => $request->clock_out,
+                'date' => $request->date,
+            ]);
+    
+            // Set flash message for success
+            return redirect()->route('attendance.index',['date' => $request->input('date')])->with('success', 'Data kehadiran berhasil diperbarui.');
+        } catch (Exception $e) {
+            // Set flash message for error
+            return redirect()->route('attendance.index',['date' => $request->input('date')])->with('error', 'Failed to update data: ' . $e->getMessage());
+        }
     }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -206,9 +286,13 @@ class AttendanceController extends Controller
     public function destroy(Request $request,string $id)
     {
         // Temukan data employee berdasarkan ID
-        $employee = Attendance::find($id);
-        $employee->delete();
-        Alert::success('Selamat', 'Data Telah Berhasil di Hapus'); 
-        return redirect()->route('attendance.index', ['date' => $request->input('date')]);
+        try{
+            $employee = Attendance::find($id);
+            $employee->delete();
+            return redirect()->route('attendance.index', ['date' => $request->input('date')])->with('success','Absen Berhasil Di Hapus');
+        }catch(Exception $e){
+            return redirect()->route('attendance.index', ['date' => $request->input('date')])->with('error', 'Failed to save data: ' . $e->getMessage());
+
+        }
     }
 }

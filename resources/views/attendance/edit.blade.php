@@ -19,12 +19,18 @@
             </div>
             <div class="form-group">
                 <label for="status">Status:</label>
-                <input type="text" class="form-control" id="status" name="status" value="{{ $attendance->status }}">
+                <select name="status" class="form-control" id="">
+                <option value="hadir" {{$attendance->status == 'hadir' ? 'selected' : ''}}>Hadir</option>
+                <option value="sakit" {{$attendance->status == 'sakit' ? 'selected' : ''}}>Sakit</option>
+                <option value="izin" {{$attendance->status == 'izin' ? 'selected' : ''}}>Izin</option>
+                <option value="cuti" {{$attendance->status == 'cuti' ? 'selected' : ''}}>Cuti</option>
+            </select>
+                {{-- <input type="text" class="form-control" id="status" name="status" value="{{ $attendance->status }}"> --}}
             </div>
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label for="overtime">Lembur:</label>
                 <input type="text" class="form-control" id="overtime" name="overtime" value="{{ $attendance->overtime }}">
-            </div>
+            </div> --}}
             <div class="form-group">
                 <label for="clock_in">Jam Masuk:</label>
                 <input type="time" class="form-control" id="clock_in" name="clock_in" value="{{ $attendance->clock_in }}">
@@ -37,7 +43,9 @@
                 <label for="date">Tanggal:</label>
                 <input type="date" class="form-control" id="date" name="date" value="{{ $attendance->date }}">
             </div>
-            <button type="submit" class="btn btn-primary">Perbarui</button>
+            <div class=" mb-4 d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">Ubah</button>
+            </div>
         </form>
     </div>
 </div>

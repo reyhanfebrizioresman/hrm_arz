@@ -42,23 +42,38 @@ class EmployeeSalaryExport implements WithMultipleSheets
         $startOfWeek = $currentDate->copy()->startOfWeek(Carbon::MONDAY);
         $endOfWeek = $currentDate->copy()->endOfWeek(Carbon::FRIDAY);
 
+        if ($startOfWeek->lt($startDate)) {
+            $startOfWeek = $startDate;
+        }
+
+        // Pastikan endOfWeek tidak melewati endDate
+        if ($endOfWeek->gt($endDate)) {
+            $endOfWeek = $endDate;
+        }
+        // dd($startOfWeek, $endOfWeek);
+
         // Ambil data employee bersama dengan data kehadiran untuk minggu ini
         $employees = EmployeeModel::with(['attendances' => function ($query) use ($startOfWeek, $endOfWeek) {
-            // Filter kehadiran berdasarkan rentang tanggal
-            $query->whereBetween('date', [$startOfWeek, $endOfWeek]);
+            $query->whereIn('id', function($subQuery) use ($startOfWeek, $endOfWeek) {
+                $subQuery->selectRaw('MAX(id)')
+                         ->from('attendance')
+                         ->whereBetween('date', [$startOfWeek, $endOfWeek])
+                         ->groupBy('employee_id', 'date');
+            });
         }, 'salaryComponents', 'careerHistories.department'])
         ->get();
 
         // Buat instance dari kelas Export untuk minggu ini
         $sheet = new EmployeeSalarySheet($employees,$startOfWeek, $endOfWeek,$startDate,$endDate);
 
-        
 
         // Tambahkan sheet ke dalam array
         $sheets['Week' . $weekNumber++] = $sheet;
 
         // Pindahkan ke minggu berikutnya
         $currentDate->addWeek();
+        // dd($currentDate);
+
         // $weekNumber++;
     }
 

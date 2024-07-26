@@ -31,9 +31,9 @@
         <li class="nav-item">
             <a class="nav-link" id="career-tab" data-toggle="tab" href="#career" role="tab" aria-controls="career" aria-selected="false">Riwayat Karir</a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a class="nav-link" id="shift-tab" data-toggle="tab" href="#shift" role="tab" aria-controls="shift" aria-selected="false">Shift Kerja</a>
-      </li>
+      </li> --}}
       <li class="nav-item">
         <a class="nav-link" id="salaries-tab" data-toggle="tab" href="#salaries" role="tab" aria-controls="salaries" aria-selected="false">Gaji Karyawan</a>
     </li>

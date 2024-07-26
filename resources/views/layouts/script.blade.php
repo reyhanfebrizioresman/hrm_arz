@@ -39,4 +39,22 @@
  <!-- Template JS File -->
  <script src="{{url('stila/assets/js/scripts.js')}}"></script>
  <script src="{{url('stila/assets/js/custom.js')}}"></script>
+
+ <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ session('success') }}'
+            });
+        @elseif(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: '{{ session('error') }}'
+            });
+        @endif
+    });
+</script>
  @yield('addon')

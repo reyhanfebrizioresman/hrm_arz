@@ -5,10 +5,11 @@
 
 
 <div class="container">
-
-<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#leaveModal">
-    <i class="fas fa-plus"></i> Pengajuan Cuti
-</button>
+    <div class=" mb-4 d-flex justify-content-end">
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#leaveModal">
+            <i class="fas fa-plus"></i> Pengajuan Cuti
+        </button>
+    </div>
 
 <div class="modal fade" id="leaveModal" tabindex="-1" aria-labelledby="leaveModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -69,7 +70,7 @@
 </div>
 
 </div>
-    <table id="tabel_product" class="table datatable mt-5">
+    <table id="tabel_product" class="table datatable mt-2">
         <thead>
             <tr>    
                 <th>No.</th>
@@ -122,7 +123,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="statusModalLabel{{ $leave->id }}">Form Pengajuan Sakit</h5>
+                        <h5 class="modal-title" id="statusModalLabel{{ $leave->id }}">Form Edit Pengajuan Cuti</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -154,7 +155,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="sickModalLabel">Form Pengajuan Sakit</h5>
+                        <h5 class="modal-title" id="sickModalLabel">Form Edit Pengajuan Cuti</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -195,32 +196,6 @@
                 </div>
             </div>
         </div>
-        @section('addon')
-        <script>
-          function deleteConfirmation(id) {
-              Swal.fire({
-                  title: 'Apakah Anda yakin?',
-                  text: "Anda tidak dapat mengembalikan data yang sudah dihapus!",
-                  icon: 'warning',
-                  showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText: 'Ya, hapus!',
-                  cancelButtonText: 'Batal'
-              }).then((result) => {
-                  if (result.isConfirmed) {
-                      // Buat sebuah form dengan method DELETE dan action yang sesuai
-                      // Temukan formulir berdasarkan ID
-                    let form = document.getElementById('delete-form-' + id);
-                    // Submit formulir
-                    form.submit();
-                  }
-              })
-          }
-      </script>
-      
-      
-        @endsection
           @endforeach
         </tbody>
        
@@ -231,22 +206,34 @@
 
 
 @section('addon')
-{{-- <script>
-  document.getElementById('status_checkbox').addEventListener('change', function() {
-    var statusInput = document.getElementById('status');
-    // var statusSubmissionInput = document.getElementById('status_submission');
-    
-    if (this.checked) {
-      statusInput.value = 'approve';
-    } else {
-      statusInput.value = 'pending';
+<script>
+    $(document).ready( function () {
+    $('#tabel_product').DataTable();
+} );
+</script>
+
+<script>
+    function deleteConfirmation(id) {
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Anda tidak dapat mengembalikan data yang sudah dihapus!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Buat sebuah form dengan method DELETE dan action yang sesuai
+                // Temukan formulir berdasarkan ID
+              let form = document.getElementById('delete-form-' + id);
+              // Submit formulir
+              form.submit();
+            }
+        })
     }
-
-    // statusSubmissionInput.value = 'sakit';
-  });
-</script> --}}
-
-
+</script>
 <script>
     $(document).ready(function(){
         $('#Txt_Date').datepicker({
@@ -299,6 +286,8 @@
         });
     });
   </script>
+
+
   
 @endsection
 

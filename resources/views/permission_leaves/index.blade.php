@@ -1,14 +1,15 @@
 @extends('layouts.template')
 @section('title','Dasboard')
-@section('sub-judul','Pengajuan')
+@section('sub-judul','Pengajuan Izin')
 @section('content')
 
 
 <div class="container">
-
-<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#sickModal">
-    <i class="fas fa-plus"></i> Pengajuan Izin
-</button>
+    <div class=" mb-4 d-flex justify-content-end">
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#sickModal">
+            <i class="fas fa-plus"></i> Pengajuan Izin
+        </button>
+    </div>
 
 <div class="modal fade" id="sickModal" tabindex="-1" aria-labelledby="sickModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -114,7 +115,7 @@
             </form>
               </td>
           </tr>
-          <div class="modal fade" id="statusSickModal{{ $permission->id }}" tabindex="-1" aria-labelledby="statusPermissionModal{{ $permission->id }}" aria-hidden="true">
+          <div class="modal fade" id="statusPermissionModal{{ $permission->id }}" tabindex="-1" aria-labelledby="statusPermissionModal{{ $permission->id }}" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -193,40 +194,11 @@
                 </div>
             </div>
           </div>
-
-          @section('addon')
-          <script>
-            function deleteConfirmation(id) {
-                Swal.fire({
-                    title: 'Apakah Anda yakin?',
-                    text: "Anda tidak dapat mengembalikan data yang sudah dihapus!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Ya, hapus!',
-                    cancelButtonText: 'Batal'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Buat sebuah form dengan method DELETE dan action yang sesuai
-                        // Temukan formulir berdasarkan ID
-                      let form = document.getElementById('delete-form-' + id);
-                      // Submit formulir
-                      form.submit();
-                    }
-                })
-            }
-        </script>
-        
-        
-          @endsection
-
           @endforeach
         </tbody>
        
       </table>
 
-      <input type="text" id="Txt_Date" placeholder="Choose Date" style="cursor: pointer;">
 
 </div>
 
@@ -235,9 +207,33 @@
 
 
 @section('addon')
-
-
-
+<script>
+    $(document).ready( function () {
+    $('#tabel_product').DataTable();
+} );
+</script>
+<script>
+    function deleteConfirmation(id) {
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Anda tidak dapat mengembalikan data yang sudah dihapus!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Buat sebuah form dengan method DELETE dan action yang sesuai
+                // Temukan formulir berdasarkan ID
+              let form = document.getElementById('delete-form-' + id);
+              // Submit formulir
+              form.submit();
+            }
+        })
+    }
+</script>
 <script>
   $(document).ready(function(){
       $('#Txt_Date').datepicker({

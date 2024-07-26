@@ -50,6 +50,8 @@ class PermissionLeaveController extends Controller
             if ($request->status !== 'reject') {
                 Attendance::create([
                     'employee_id' => $request->employee_id,
+                    'clock_in' => '00:00',
+                    'clock_out' => '00:00',
                     'date' => $date,
                     'status' => 'cuti',
                 ]);
@@ -107,6 +109,8 @@ class PermissionLeaveController extends Controller
             if ($request->status !== 'pending') {
                 Attendance::create([
                     'employee_id' => $request->employee_id,
+                    'clock_in' => '00:00',
+                    'clock_out' => '00:00',
                     'date' => $date,
                     'status' => 'izin',
                 ]);
@@ -162,13 +166,7 @@ class PermissionLeaveController extends Controller
             // Dapatkan objek permission leave yang ingin diupdate
             $permission = PermissionLeave::findOrFail($id);
 
-            if ($permission->status == 'approve') {
-                $permission->status = 'pending';
-            } else {
-                $permission->status = 'approve';
-            }
-
-            $permission->save();
+           
     
             // Update atribut objek permission leave
             $permission->update([
@@ -189,9 +187,10 @@ class PermissionLeaveController extends Controller
                 // Periksa apakah status_submission tidak sama dengan 'pending'
                 if ($request->status !== 'pending') {
                         Attendance::create([
-                            'permission_leave_id' => $id, // Tambahan, asumsi Anda memilikinya sebagai foreign key
                             'employee_id' => $request->employee_id,
                             'date' => $date,
+                            'clock_in' => '00:00',
+                            'clock_out' => '00:00',
                             'status' => 'izin',
                         ]);
                 }

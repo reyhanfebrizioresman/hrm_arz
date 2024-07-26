@@ -51,6 +51,8 @@ class SickLeaveController extends Controller
                 Attendance::create([
                     'employee_id' => $request->employee_id,
                     'date' => $date,
+                    'clock_in' => '00:00',
+                    'clock_out' => '00:00',
                     'status' => 'sakit',
                 ]);
             }
@@ -59,7 +61,7 @@ class SickLeaveController extends Controller
         // Commit transaksi database
         DB::commit();
 
-        return redirect()->route('sick_leaves.index')->with('success', 'Pengajuan cuti berhasil disimpan.');
+        return redirect()->route('sick_leaves.index')->with('success', 'Status Pengajuan Berhasil Di Ubah.');
     } catch (Exception $e) {
         // Rollback transaksi database jika terjadi kesalahan
         DB::rollBack();
@@ -106,6 +108,8 @@ class SickLeaveController extends Controller
             if ($request->status !== 'pending') {
                 Attendance::create([
                     'employee_id' => $request->employee_id,
+                    'clock_in' => '00:00',
+                    'clock_out' => '00:00',
                     'date' => $date,
                     'status' => 'sakit',
                 ]);
@@ -188,6 +192,8 @@ class SickLeaveController extends Controller
                         Attendance::create([
                             'employee_id' => $request->employee_id,
                             'date' => $date,
+                            'clock_in' => '00:00',
+                            'clock_out' => '00:00',
                             'status' => 'sakit',
                         ]);
                 }

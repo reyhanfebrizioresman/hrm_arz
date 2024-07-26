@@ -29,30 +29,37 @@ class AttendanceImport implements ToModel, WithHeadingRow
 
         $formattedDate = date('Y-m-d', strtotime($row['date']));
         
-      
+       
         
-        $clockIn = $this->transformDate($row['clock_in']);
-        $clockOut = $this->transformDate($row['clock_out']);
+        $clockIn = !empty($row['clock_in']) ? $this->transformDate($row['clock_in']) : null;
+        $clockOut =  !empty($row['clock_out']) ? $this->transformDate($row['clock_out']) : null;
         $defaultStartTime = date('1970-01-01 H:i:s',strtotime('08:00:00'));
         $defaultEndTime = date('1970-01-01 H:i:s',strtotime('17:00:00')); 
-        $late = Carbon::parse($clockIn)->diffInMinutes($defaultStartTime);
-        $overtime = Carbon::parse($clockOut)->diffInMinutes($defaultEndTime);
-
-        if($clockIn < $defaultStartTime){
-            $late = 0 * -1;
+        $late = 0;
+        $overtime = 0;
+        
+        if ($clockIn) {
+            if ($clockIn->greaterThan($defaultStartTime)) {
+                $late = $clockIn->diffInMinutes($defaultStartTime);
+            }
         }
-
-        if($clockOut < $defaultEndTime){
-            $overtime = 0 * -1;
+        
+        if ($clockOut) {
+            if ($clockOut->greaterThan($defaultEndTime)) {
+                $overtime = $clockOut->diffInMinutes($defaultEndTime);
+            }
         }
-        return new Attendance([
+        $attendance =  Attendance::create([
             'employee_id' => intval($row['employee_id']),
             'status' => $row['status'] ?? 'hadir',
             'date' =>  $formattedDate,
-            'clock_in' => $this->transformDate($row['clock_in']),
-            'clock_out' => $this->transformDate($row['clock_out']),
-            'late' => $late * -1,
-            'overtime' => $overtime * -1,
+            'clock_in' => $clockIn ? $clockIn->format('H:i') : '00:00',
+            'clock_out' => $clockOut ? $clockOut->format('H:i') : '00:00',
+            'late' => abs($late) ,
+            'overtime' => abs($overtime),
+        // dd(abs($overtime),abs($late)),
+
         ]);
+        // dd($attendance);
     }
 }

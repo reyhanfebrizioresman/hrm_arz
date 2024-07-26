@@ -55,11 +55,19 @@
           <li><a class="nav-link" href="{{url('/permission_leaves')}}">Pengajuan Izin</a></li> 
           </ul>
         </li>
+        {{-- <li class="dropdown">
+          <a href="{{url('/salaries')}}" class="nav-link"><i class="fas fa-money-bill-alt"></i> <span>Komponen Gaji</span></a>     
+        </li> --}}
+        {{-- <li class="dropdown">
+          <a href="{{url('/reports/salaries_report')}}" class="nav-link"><i class="fas fa-print"></i> <span>Laporan</span></a>     
+        </li> --}}
         <li class="dropdown">
-          <a href="{{url('/salaries')}}" class="nav-link"><i class="fas fa-money-bill-alt"></i> <span>Gaji</span></a>     
-        </li>
-        <li class="dropdown">
-          <a href="{{url('/reports/salaries_report')}}" class="nav-link"><i class="fas fa-money-bill-alt"></i> <span>Laporan</span></a>     
+          <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-money-bill-alt"></i> <span>Penggajian</span></a>
+          <ul class="dropdown-menu">
+          <li><a class="nav-link" href="{{url('/payrolls')}}">Gaji Bulanan</a></li> 
+          <li><a class="nav-link" href="{{url('/salaries')}}">Komponen Gaji</a></li> 
+          {{-- <li><a class="nav-link" href="{{url('/permission_leaves')}}">Pengajuan Izin</a></li>  --}}
+          </ul>
         </li>
       </aside>
   </div>

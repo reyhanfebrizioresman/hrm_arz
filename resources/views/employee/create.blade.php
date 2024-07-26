@@ -178,7 +178,7 @@
                 </div>
             </div>
             <div class="card-footer text-right">
-                <button class="btn btn-primary">Simpan</button>
+                <button class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
             </div>
         </form>
     </div>

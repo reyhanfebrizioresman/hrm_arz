@@ -28,7 +28,7 @@
         <!-- Use old() to keep the old value after a validation error -->
         <input type="text" class="form-control" id="job_position" name="job_position" value="{{ old('job_position', isset($position) ? $position->job_position : '') }}">
     </div>
-    <button type="submit" class="btn btn-primary">{{ isset($position) ? 'Update' : 'Create' }}</button>
+    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> {{ isset($position) ? 'Edit' : 'Simpan' }}</button>
 </form>
 
 @endsection

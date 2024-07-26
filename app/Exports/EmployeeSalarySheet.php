@@ -172,8 +172,6 @@ class EmployeeSalarySheet implements WithEvents, withTitle
 
 
                 $row = 10;
-                // $angka = $this->employees->count();
-
                 $currentDate = $this->startOfWeek->copy();
                 while($currentDate->lte($this->endOfWeek)){
                 foreach($this->employees as $index=> $employee)

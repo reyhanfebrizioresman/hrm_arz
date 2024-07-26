@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\CareerHistory;
 use App\Models\Shift;
 use App\Models\Salary;
+use App\Models\Attendance;
 
 
 class EmployeeModel extends Model
@@ -89,5 +90,10 @@ class EmployeeModel extends Model
     public function permissionLeaves()
     {
         return $this->hasMany(PermissionLeave::class);
+    }
+
+    public function payrolls()
+    {
+        return $this->hasMany(Payroll::class,'employee_id');
     }
 }
